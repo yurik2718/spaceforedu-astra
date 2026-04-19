@@ -1,0 +1,34 @@
+---
+import PublicLayout from "@/layouts/PublicLayout.astro";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: "es" } },
+    { params: { lang: "en" } },
+    { params: { lang: "ru" } },
+  ];
+}
+
+const { lang } = Astro.params;
+---
+
+<PublicLayout
+  title="SpaceForEdu — Homologación en España"
+  description="Homologación de títulos, admisión universitaria y español para estudiantes extranjeros."
+  locale={lang}
+>
+  <main class="mx-auto max-w-5xl px-6 py-20">
+    <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary">
+      {lang?.toUpperCase()}
+    </p>
+    <h1 class="mt-6 text-5xl sm:text-7xl font-bold tracking-tighter leading-[1.05]">
+      Astro scaffold{" "}
+      <span class="bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+        работает
+      </span>
+    </h1>
+    <p class="mt-8 text-lg text-muted-foreground max-w-2xl">
+      Это временная заглушка. Далее сюда портируем Home.tsx из основного приложения.
+    </p>
+  </main>
+</PublicLayout>

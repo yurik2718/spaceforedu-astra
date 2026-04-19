@@ -1,0 +1,34 @@
+{
+  "name": "spaceforedu-astra",
+  "version": "1.0.0",
+  "description": "SpaceForEdu — landing (Astro + React + Tailwind, deployed on Cloudflare Pages)",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yurik2718/spaceforedu-astra.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@astrojs/react": "^5.0.3",
+    "astro": "^6.1.8",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.8",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^5.9.3"
+  }
+}
