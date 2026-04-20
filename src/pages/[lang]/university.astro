@@ -1,9 +1,10 @@
 ---
 import PublicLayout from "@/layouts/PublicLayout.astro";
-import { HomePage } from "@/components/pages/Home";
+import { UniversidadPage } from "@/components/pages/Universidad";
 import { getMessages } from "@/lib/i18n";
 import { getSeo } from "@/lib/seo";
 import { LOCALES, type Locale } from "@/lib/constants";
+import { publicPages } from "@/lib/routes";
 
 export function getStaticPaths() {
   return LOCALES.map((lang) => ({ params: { lang } }));
@@ -12,9 +13,14 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const locale = lang as Locale;
 const messages = getMessages(locale);
-const seo = getSeo("home", locale);
+const seo = getSeo("universidad", locale);
 ---
 
-<PublicLayout title={seo.title} description={seo.description} locale={locale} page="">
-  <HomePage client:load locale={locale} messages={messages} />
+<PublicLayout
+  title={seo.title}
+  description={seo.description}
+  locale={locale}
+  page={publicPages.universidad}
+>
+  <UniversidadPage client:load locale={locale} messages={messages} />
 </PublicLayout>

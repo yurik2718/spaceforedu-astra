@@ -1,0 +1,112 @@
+---
+import { Rocket, Phone } from "lucide-react";
+import { publicRoute, publicPages, whatsappLink } from "@/lib/routes";
+import { CONTACT_WHATSAPP } from "@/lib/constants";
+import { formatPhone } from "@/lib/utils";
+import { getMessages, makeT } from "@/lib/i18n";
+import MobileNav from "@/components/layout/MobileNav.tsx";
+import LanguageSwitcher from "@/components/layout/LanguageSwitcher.astro";
+
+interface Props {
+  locale: string;
+  currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+const messages = getMessages(locale);
+const t = makeT(messages);
+
+const navLinks = [
+  { key: "homologacion", href: publicRoute(publicPages.homologacion, locale) },
+  { key: "universidad", href: publicRoute(publicPages.universidad, locale) },
+  { key: "espanol", href: publicRoute(publicPages.espanol, locale) },
+  { key: "precios", href: publicRoute(publicPages.precios, locale) },
+];
+
+const waHref = CONTACT_WHATSAPP ? whatsappLink(CONTACT_WHATSAPP) : "";
+const homeHref = publicRoute(publicPages.home, locale);
+---
+
+<header class="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <a href={homeHref} class="flex items-center gap-2">
+      <Rocket className="h-7 w-7 text-brand-primary" />
+      <span class="text-xl font-bold tracking-tight">
+        Space for <span class="text-brand-secondary">Edu</span>
+      </span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-1">
+      {
+        navLinks.map(({ key, href }) => {
+          const isActive = currentPath.startsWith(href);
+          const linkClass = [
+            "px-3 py-2 text-sm font-medium rounded-md transition-colors",
+            isActive
+              ? "bg-muted text-foreground"
+              : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+          ].join(" ");
+          return (
+            <a href={href} class={linkClass}>
+              {t(`nav.${key}`)}
+            </a>
+          );
+        })
+      }
+    </nav>
+
+    <div class="hidden lg:flex items-center gap-3">
+      {
+        CONTACT_WHATSAPP && (
+          <a
+            href={`tel:+${CONTACT_WHATSAPP}`}
+            class="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors min-h-[44px] px-2"
+          >
+            <Phone className="h-4 w-4 shrink-0" />
+            <span class="font-medium hidden xl:inline">
+              {formatPhone(CONTACT_WHATSAPP)}
+            </span>
+          </a>
+        )
+      }
+      <LanguageSwitcher locale={locale} currentPath={currentPath} />
+      {
+        waHref && (
+          <a href={waHref} target="_blank" rel="noopener noreferrer" aria-label={t("nav.start_aria")}>
+            <span class="inline-flex items-center justify-center h-[44px] min-h-[44px] rounded-lg px-4 text-sm font-medium bg-gradient-to-r from-brand-primary to-brand-secondary text-white hover:opacity-90 transition">
+              {t("nav.start")}
+            </span>
+          </a>
+        )
+      }
+    </div>
+
+    <div class="flex lg:hidden items-center gap-2">
+      <MobileNav
+        client:load
+        locale={locale}
+        currentPath={currentPath}
+        navLabels={{
+          homologacion: t("nav.homologacion"),
+          universidad: t("nav.universidad"),
+          espanol: t("nav.espanol"),
+          precios: t("nav.precios"),
+        }}
+        navHrefs={{
+          homologacion: publicRoute(publicPages.homologacion, locale),
+          universidad: publicRoute(publicPages.universidad, locale),
+          espanol: publicRoute(publicPages.espanol, locale),
+          precios: publicRoute(publicPages.precios, locale),
+          home: homeHref,
+        }}
+        menuLabel={t("nav.menu")}
+        closeLabel={t("nav.close")}
+        ctaLabel={t("nav.start")}
+        ctaAriaLabel={t("nav.start_aria")}
+        waHref={waHref}
+        whatsappPhone={CONTACT_WHATSAPP}
+        whatsappFormatted={CONTACT_WHATSAPP ? formatPhone(CONTACT_WHATSAPP) : ""}
+      />
+    </div>
+  </div>
+</header>

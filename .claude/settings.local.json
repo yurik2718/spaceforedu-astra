@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//home/pingvinus/homologation-app/app/frontend/lib/**)",
+      "Read(//home/pingvinus/homologation-app/app/frontend/locales/**)",
+      "Bash(npm run *)"
+    ]
+  }
+}

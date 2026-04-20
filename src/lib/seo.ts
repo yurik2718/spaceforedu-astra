@@ -1,0 +1,131 @@
+import type { Locale } from "./constants";
+
+type PageKey =
+  | "home"
+  | "homologacion"
+  | "universidad"
+  | "espanol"
+  | "precios"
+  | "consultationThanks"
+  | "privacy";
+
+const SEO: Record<PageKey, Record<Locale, { title: string; description: string }>> = {
+  home: {
+    es: {
+      title: "Space for Edu — Educación en España de principio a fin",
+      description:
+        "Homologación de títulos, admisión universitaria, español y sopоrte legal. 15+ años acompañando a estudiantes de todo el mundo.",
+    },
+    en: {
+      title: "Space for Edu — Spanish education end to end",
+      description:
+        "Degree homologation, university admission, Spanish courses and legal support. 15+ years helping students from around the world.",
+    },
+    ru: {
+      title: "Space for Edu — образование в Испании под ключ",
+      description:
+        "Омологация дипломов, поступление в вузы, испанский и юр. сопровождение. 15+ лет помогаем студентам со всего мира.",
+    },
+  },
+  homologacion: {
+    es: {
+      title: "Homologación de títulos en España — Space for Edu",
+      description:
+        "Acompañamiento experto, tutor personal y panel online. Homologamos tu título ante el Ministerio de Educación español.",
+    },
+    en: {
+      title: "Degree homologation in Spain — Space for Edu",
+      description:
+        "Expert guidance, personal advisor and online dashboard. We homologate your degree with the Spanish Ministry of Education.",
+    },
+    ru: {
+      title: "Омологация диплома в Испании — Space for Edu",
+      description:
+        "Экспертное сопровождение, персональный куратор и онлайн-панель. Признаём диплом в Министерстве образования Испании.",
+    },
+  },
+  universidad: {
+    es: {
+      title: "Acceso a universidades españolas — Space for Edu",
+      description:
+        "Te ayudamos a entrar en una universidad española: seleccionamos programa, preparamos documentos y te llevamos hasta la matrícula.",
+    },
+    en: {
+      title: "University admission in Spain — Space for Edu",
+      description:
+        "We help you get into a Spanish university: we select your program, prepare documents and walk you through to enrollment.",
+    },
+    ru: {
+      title: "Поступление в испанские вузы — Space for Edu",
+      description:
+        "Подберём университет и программу, подготовим документы и доведём до зачисления.",
+    },
+  },
+  espanol: {
+    es: {
+      title: "Clases de español — Space for Edu",
+      description:
+        "Clases individuales y en grupo con profesores nativos certificados. Niveles A1–C2 y preparación DELE/SIELE.",
+    },
+    en: {
+      title: "Spanish lessons — Space for Edu",
+      description:
+        "One-on-one and group lessons with certified native teachers. A1–C2 and DELE/SIELE exam prep.",
+    },
+    ru: {
+      title: "Уроки испанского — Space for Edu",
+      description:
+        "Индивидуальные и групповые уроки с сертифицированными носителями. От A1 до C2, подготовка к DELE/SIELE.",
+    },
+  },
+  precios: {
+    es: {
+      title: "Precios — Space for Edu",
+      description:
+        "Sin sorpresas: revisamos tus documentos antes de cobrar. Elige entre Homologación, Integral y VIP.",
+    },
+    en: {
+      title: "Pricing — Space for Edu",
+      description:
+        "No surprises: we review your documents before charging. Choose from Homologation, Integral and VIP.",
+    },
+    ru: {
+      title: "Цены — Space for Edu",
+      description:
+        "Без сюрпризов: сначала проверяем документы, потом берём оплату. Тарифы Омологация, Интеграл и VIP.",
+    },
+  },
+  consultationThanks: {
+    es: {
+      title: "Gracias — Space for Edu",
+      description: "Tu consulta está reservada. Te contactaremos pronto.",
+    },
+    en: {
+      title: "Thank you — Space for Edu",
+      description: "Your consultation is booked. We'll be in touch soon.",
+    },
+    ru: {
+      title: "Спасибо — Space for Edu",
+      description: "Ваша консультация забронирована. Мы скоро свяжемся.",
+    },
+  },
+  privacy: {
+    es: {
+      title: "Política de privacidad — Space for Edu",
+      description: "Cómo Space for Edu trata los datos personales.",
+    },
+    en: {
+      title: "Privacy policy — Space for Edu",
+      description: "How Space for Edu handles personal data.",
+    },
+    ru: {
+      title: "Политика конфиденциальности — Space for Edu",
+      description: "Как Space for Edu обрабатывает персональные данные.",
+    },
+  },
+};
+
+export function getSeo(page: PageKey, locale: Locale | string) {
+  const bundle = SEO[page];
+  return bundle[(locale as Locale) in bundle ? (locale as Locale) : "es"];
+}

@@ -1,0 +1,46 @@
+---
+import { LOCALES } from "@/lib/constants";
+
+interface Props {
+  locale: string;
+  currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+
+/**
+ * Build the equivalent path in another locale.
+ * `/es/homologation/` → switchLocale("en") → `/en/homologation/`
+ * Strips the leading `/<lang>` segment and prepends the new one.
+ */
+function switchTo(target: string): string {
+  const segments = currentPath.split("/").filter(Boolean);
+  if (segments[0] && (LOCALES as readonly string[]).includes(segments[0])) {
+    segments[0] = target;
+  } else {
+    segments.unshift(target);
+  }
+  return "/" + segments.join("/") + (currentPath.endsWith("/") ? "/" : "");
+}
+
+const labels: Record<string, string> = { es: "ES", en: "EN", ru: "RU" };
+---
+
+<div class="inline-flex items-center gap-1 rounded-lg border border-border bg-background p-0.5">
+  {
+    LOCALES.map((l) => {
+      const active = l === locale;
+      const classes = [
+        "px-2.5 py-1 text-xs font-semibold rounded-md transition-colors",
+        active
+          ? "bg-muted text-foreground"
+          : "text-muted-foreground hover:text-foreground",
+      ].join(" ");
+      return (
+        <a href={switchTo(l)} class={classes} aria-current={active ? "true" : undefined}>
+          {labels[l]}
+        </a>
+      );
+    })
+  }
+</div>

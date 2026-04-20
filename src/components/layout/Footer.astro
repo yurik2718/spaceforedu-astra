@@ -1,0 +1,159 @@
+---
+import { Rocket, ShieldCheck, Lock, Globe, Users } from "lucide-react";
+import { publicRoute, publicPages } from "@/lib/routes";
+import { CONTACT_EMAIL, CONTACT_WHATSAPP } from "@/lib/constants";
+import { formatPhone } from "@/lib/utils";
+import { getMessages, makeT } from "@/lib/i18n";
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+const messages = getMessages(locale);
+const t = makeT(messages);
+
+const year = new Date().getFullYear();
+const trust = [
+  { icon: ShieldCheck, label: t("footer.trust_company") },
+  { icon: Users, label: t("footer.trust_payments") },
+  { icon: Lock, label: t("footer.trust_gdpr") },
+  { icon: Globe, label: t("footer.trust_languages") },
+];
+---
+
+<footer class="border-t bg-zinc-900 text-zinc-400">
+  <div class="relative border-b border-zinc-800 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-brand-primary/[0.06] via-transparent to-brand-secondary/[0.06] pointer-events-none"></div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8 max-w-5xl mx-auto">
+        {
+          trust.map(({ icon: Icon, label }) => (
+            <div class="flex flex-col items-center text-center gap-3">
+              <div class="relative shrink-0 h-11 w-11">
+                <div class="absolute -inset-1 rounded-xl bg-gradient-to-br from-brand-primary/40 to-brand-secondary/40 blur-md opacity-80"></div>
+                <div class="relative h-11 w-11 rounded-xl bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center shadow-lg shadow-brand-secondary/25">
+                  <Icon className="h-5 w-5 text-white" strokeWidth={2.2} />
+                </div>
+              </div>
+              <span class="text-xs sm:text-sm text-zinc-300 font-medium leading-snug max-w-[200px]">
+                {label}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="sm:col-span-2 lg:col-span-1">
+        <div class="flex items-center gap-2 mb-4">
+          <Rocket className="h-6 w-6 text-brand-primary" />
+          <span class="text-lg font-bold text-white">
+            Space for <span class="text-brand-secondary">Edu</span>
+          </span>
+        </div>
+        <p class="text-sm leading-relaxed">{t("footer.tagline")}</p>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-semibold text-white mb-4">{t("footer.services")}</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a
+              href={publicRoute(publicPages.homologacion, locale)}
+              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
+            >
+              {t("nav.homologacion")}
+            </a>
+          </li>
+          <li>
+            <a
+              href={publicRoute(publicPages.universidad, locale)}
+              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
+            >
+              {t("nav.universidad")}
+            </a>
+          </li>
+          <li>
+            <a
+              href={publicRoute(publicPages.espanol, locale)}
+              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
+            >
+              {t("nav.espanol")}
+            </a>
+          </li>
+          <li>
+            <a
+              href={publicRoute(publicPages.precios, locale)}
+              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
+            >
+              {t("nav.precios")}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-semibold text-white mb-4">{t("footer.company")}</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a
+              href={publicRoute(publicPages.privacyPolicy, locale)}
+              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
+            >
+              {t("footer.privacy")}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-semibold text-white mb-4">{t("footer.contact")}</h3>
+        <ul class="space-y-2 text-sm">
+          {
+            CONTACT_EMAIL && (
+              <li>
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
+                >
+                  {CONTACT_EMAIL}
+                </a>
+              </li>
+            )
+          }
+          {
+            CONTACT_WHATSAPP && (
+              <li>
+                <a
+                  href={`https://wa.me/${CONTACT_WHATSAPP}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
+                >
+                  {formatPhone(CONTACT_WHATSAPP)}
+                </a>
+              </li>
+            )
+          }
+          <li>{t("footer.address")}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-zinc-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500">
+      <span>© {year} Space for Edu. {t("footer.rights")}</span>
+      <div class="flex items-center gap-5">
+        <a
+          href={publicRoute(publicPages.privacyPolicy, locale)}
+          class="hover:text-white transition-colors"
+        >
+          {t("footer.privacy")}
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
