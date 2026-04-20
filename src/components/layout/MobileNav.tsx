@@ -18,6 +18,7 @@ import {
   SheetTrigger,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { LanguageSwitcher } from "@/components/common/LanguageSwitcher";
 
 const NAV_ICONS: Record<string, React.ElementType> = {
   homologacion: GraduationCap,
@@ -27,6 +28,7 @@ const NAV_ICONS: Record<string, React.ElementType> = {
 };
 
 export default function MobileNav({
+  locale,
   currentPath,
   navLabels,
   navHrefs,
@@ -138,6 +140,9 @@ export default function MobileNav({
               <span>{whatsappFormatted}</span>
             </a>
           )}
+          <div className="flex justify-start">
+            <LanguageSwitcher locale={locale} currentPath={currentPath} />
+          </div>
           {waHref && (
             <a
               href={waHref}

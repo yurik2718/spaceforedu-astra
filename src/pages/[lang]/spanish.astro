@@ -1,10 +1,12 @@
 ---
 import PublicLayout from "@/layouts/PublicLayout.astro";
 import { EspanolPage } from "@/components/pages/Espanol";
+import JsonLd from "@/components/common/JsonLd.astro";
 import { getMessages } from "@/lib/i18n";
 import { getSeo } from "@/lib/seo";
 import { LOCALES, type Locale } from "@/lib/constants";
 import { publicPages } from "@/lib/routes";
+import { service, faqPage } from "@/lib/structured-data";
 
 export function getStaticPaths() {
   return LOCALES.map((lang) => ({ params: { lang } }));
@@ -14,6 +16,15 @@ const { lang } = Astro.params;
 const locale = lang as Locale;
 const messages = getMessages(locale);
 const seo = getSeo("espanol", locale);
+
+const serviceLd = service({
+  locale,
+  name: seo.title,
+  description: seo.description,
+  page: publicPages.espanol,
+  serviceType: "Spanish language course",
+});
+const faqLd = faqPage(messages, "public.espanol", 5);
 ---
 
 <PublicLayout
@@ -22,5 +33,7 @@ const seo = getSeo("espanol", locale);
   locale={locale}
   page={publicPages.espanol}
 >
+  <JsonLd slot="structured-data" data={serviceLd} />
+  {faqLd && <JsonLd slot="structured-data" data={faqLd} />}
   <EspanolPage client:load locale={locale} messages={messages} />
 </PublicLayout>

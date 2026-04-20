@@ -1,0 +1,43 @@
+---
+import PublicLayout from "@/layouts/PublicLayout.astro";
+import { Button } from "@/components/ui/button";
+import { getMessages, makeT } from "@/lib/i18n";
+import { DEFAULT_LOCALE } from "@/lib/constants";
+import { publicRoute, publicPages } from "@/lib/routes";
+
+// Cloudflare Pages serves /404.html for any unknown path. Copy defaults to
+// the primary locale (es) — users landing here from any route see Spanish,
+// which matches our primary market.
+const locale = DEFAULT_LOCALE;
+const messages = getMessages(locale);
+const t = makeT(messages);
+const homeHref = publicRoute(publicPages.home, locale);
+---
+
+<PublicLayout
+  title={`${t("public.not_found.title")} — Space for Edu`}
+  description={t("public.not_found.desc")}
+  locale={locale}
+  page=""
+  hideStickyCta
+>
+  <section class="flex flex-col items-center justify-center text-center px-4 py-24 sm:py-40 min-h-[60vh]">
+    <p class="text-sm font-semibold uppercase tracking-widest text-brand-secondary mb-4">
+      {t("public.not_found.eyebrow")}
+    </p>
+    <h1 class="text-4xl sm:text-6xl font-bold tracking-tighter max-w-2xl">
+      {t("public.not_found.title")}
+    </h1>
+    <p class="mt-6 text-lg text-muted-foreground max-w-md">
+      {t("public.not_found.desc")}
+    </p>
+    <a href={homeHref} class="mt-10">
+      <Button
+        size="lg"
+        className="min-h-[44px] text-base bg-gradient-to-r from-brand-primary to-brand-secondary hover:opacity-90 border-0"
+      >
+        {t("public.not_found.cta")}
+      </Button>
+    </a>
+  </section>
+</PublicLayout>

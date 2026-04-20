@@ -5,7 +5,7 @@ import { CONTACT_WHATSAPP } from "@/lib/constants";
 import { formatPhone } from "@/lib/utils";
 import { getMessages, makeT } from "@/lib/i18n";
 import MobileNav from "@/components/layout/MobileNav.tsx";
-import LanguageSwitcher from "@/components/layout/LanguageSwitcher.astro";
+import { LanguageSwitcher } from "@/components/common/LanguageSwitcher.tsx";
 
 interface Props {
   locale: string;
@@ -60,20 +60,18 @@ const homeHref = publicRoute(publicPages.home, locale);
         CONTACT_WHATSAPP && (
           <a
             href={`tel:+${CONTACT_WHATSAPP}`}
-            class="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors min-h-[44px] px-2"
+            class="inline-flex items-center gap-2 text-sm text-foreground/80 hover:text-foreground transition-colors min-h-[44px] px-2 font-medium"
           >
-            <Phone className="h-4 w-4 shrink-0" />
-            <span class="font-medium hidden xl:inline">
-              {formatPhone(CONTACT_WHATSAPP)}
-            </span>
+            <Phone className="h-4 w-4 shrink-0 text-brand-secondary" />
+            <span class="hidden xl:inline">{formatPhone(CONTACT_WHATSAPP)}</span>
           </a>
         )
       }
-      <LanguageSwitcher locale={locale} currentPath={currentPath} />
+      <LanguageSwitcher client:load locale={locale} currentPath={currentPath} />
       {
         waHref && (
           <a href={waHref} target="_blank" rel="noopener noreferrer" aria-label={t("nav.start_aria")}>
-            <span class="inline-flex items-center justify-center h-[44px] min-h-[44px] rounded-lg px-4 text-sm font-medium bg-gradient-to-r from-brand-primary to-brand-secondary text-white hover:opacity-90 transition">
+            <span class="inline-flex items-center justify-center h-[44px] min-h-[44px] rounded-lg px-4 text-sm font-semibold bg-gradient-to-r from-brand-primary to-brand-secondary text-white shadow-md shadow-brand-secondary/20 hover:opacity-90 hover:shadow-lg transition-all duration-200">
               {t("nav.start")}
             </span>
           </a>

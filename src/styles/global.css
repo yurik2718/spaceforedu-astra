@@ -25,6 +25,13 @@
 }
 
 @theme inline {
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+}
+
+@theme inline {
   --font-sans: "Geist Variable", sans-serif;
   --color-brand-primary: #E8453C;
   --color-brand-secondary: #2D7FF9;

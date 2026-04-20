@@ -1,10 +1,12 @@
 ---
 import PublicLayout from "@/layouts/PublicLayout.astro";
 import { UniversidadPage } from "@/components/pages/Universidad";
+import JsonLd from "@/components/common/JsonLd.astro";
 import { getMessages } from "@/lib/i18n";
 import { getSeo } from "@/lib/seo";
 import { LOCALES, type Locale } from "@/lib/constants";
 import { publicPages } from "@/lib/routes";
+import { service, faqPage } from "@/lib/structured-data";
 
 export function getStaticPaths() {
   return LOCALES.map((lang) => ({ params: { lang } }));
@@ -14,6 +16,15 @@ const { lang } = Astro.params;
 const locale = lang as Locale;
 const messages = getMessages(locale);
 const seo = getSeo("universidad", locale);
+
+const serviceLd = service({
+  locale,
+  name: seo.title,
+  description: seo.description,
+  page: publicPages.universidad,
+  serviceType: "University admission",
+});
+const faqLd = faqPage(messages, "public.universidad", 5);
 ---
 
 <PublicLayout
@@ -22,5 +33,7 @@ const seo = getSeo("universidad", locale);
   locale={locale}
   page={publicPages.universidad}
 >
+  <JsonLd slot="structured-data" data={serviceLd} />
+  {faqLd && <JsonLd slot="structured-data" data={faqLd} />}
   <UniversidadPage client:load locale={locale} messages={messages} />
 </PublicLayout>

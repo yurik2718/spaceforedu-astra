@@ -6,8 +6,9 @@ type PageKey =
   | "universidad"
   | "espanol"
   | "precios"
-  | "consultationThanks"
-  | "privacy";
+  | "privacy"
+  | "legalNotice"
+  | "cookies";
 
 const SEO: Record<PageKey, Record<Locale, { title: string; description: string }>> = {
   home: {
@@ -95,20 +96,6 @@ const SEO: Record<PageKey, Record<Locale, { title: string; description: string }
         "Без сюрпризов: сначала проверяем документы, потом берём оплату. Тарифы Омологация, Интеграл и VIP.",
     },
   },
-  consultationThanks: {
-    es: {
-      title: "Gracias — Space for Edu",
-      description: "Tu consulta está reservada. Te contactaremos pronto.",
-    },
-    en: {
-      title: "Thank you — Space for Edu",
-      description: "Your consultation is booked. We'll be in touch soon.",
-    },
-    ru: {
-      title: "Спасибо — Space for Edu",
-      description: "Ваша консультация забронирована. Мы скоро свяжемся.",
-    },
-  },
   privacy: {
     es: {
       title: "Política de privacidad — Space for Edu",
@@ -121,6 +108,38 @@ const SEO: Record<PageKey, Record<Locale, { title: string; description: string }
     ru: {
       title: "Политика конфиденциальности — Space for Edu",
       description: "Как Space for Edu обрабатывает персональные данные.",
+    },
+  },
+  legalNotice: {
+    es: {
+      title: "Aviso legal — Space for Edu",
+      description:
+        "Información legal de Space for Edu: datos del prestador del servicio conforme a la LSSI-CE.",
+    },
+    en: {
+      title: "Legal notice — Space for Edu",
+      description:
+        "Legal information about Space for Edu: service provider details per Spanish LSSI-CE.",
+    },
+    ru: {
+      title: "Юридическая информация — Space for Edu",
+      description:
+        "Юридические данные Space for Edu в соответствии с испанским законом LSSI-CE.",
+    },
+  },
+  cookies: {
+    es: {
+      title: "Política de cookies — Space for Edu",
+      description:
+        "Qué cookies usamos en Space for Edu y cómo gestionarlas.",
+    },
+    en: {
+      title: "Cookies policy — Space for Edu",
+      description: "What cookies we use at Space for Edu and how to manage them.",
+    },
+    ru: {
+      title: "Политика cookies — Space for Edu",
+      description: "Какие cookies мы используем и как ими управлять.",
     },
   },
 };

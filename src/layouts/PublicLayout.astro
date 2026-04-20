@@ -2,8 +2,12 @@
 import "@/styles/global.css";
 import Navbar from "@/components/layout/Navbar.astro";
 import Footer from "@/components/layout/Footer.astro";
-import { SITE_URL, LOCALES } from "@/lib/constants";
+import JsonLd from "@/components/common/JsonLd.astro";
+import { StickyCtaBar } from "@/components/public/StickyCtaBar.tsx";
+import { SITE_URL, LOCALES, DEFAULT_LOCALE, type Locale } from "@/lib/constants";
 import { publicRoute } from "@/lib/routes";
+import { getMessages, makeT } from "@/lib/i18n";
+import { organization } from "@/lib/structured-data";
 
 interface Props {
   title: string;
@@ -12,18 +16,33 @@ interface Props {
   /** Path portion (without locale) — "homologation", "university", "" for home. */
   page: string;
   ogImage?: string;
+  /** Hide the sticky WhatsApp bubble + mobile CTA bar (for thank-you / privacy pages). */
+  hideStickyCta?: boolean;
 }
 
-const { title, description = "", locale, page, ogImage } = Astro.props;
+const {
+  title,
+  description = "",
+  locale,
+  page,
+  ogImage = "/og.jpg",
+  hideStickyCta = false,
+} = Astro.props;
 const currentPath = Astro.url.pathname;
+const stickyMessages = getMessages(locale);
+const t = makeT(stickyMessages);
+const skipLabel = t("a11y.skip_to_content");
 
 const canonicalUrl = SITE_URL + publicRoute(page, locale);
 const alternates = LOCALES.map((l) => ({
   locale: l,
   url: SITE_URL + publicRoute(page, l),
 }));
-const xDefault =
-  alternates.find((a) => a.locale === "en")?.url ?? alternates[0].url;
+const defaultAlt = alternates.find((a) => a.locale === DEFAULT_LOCALE);
+const xDefault = defaultAlt?.url ?? alternates[0].url;
+const absoluteOgImage = ogImage.startsWith("http")
+  ? ogImage
+  : SITE_URL + ogImage;
 ---
 
 <!doctype html>
@@ -38,25 +57,44 @@ const xDefault =
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:locale" content={locale} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <meta name="twitter:image" content={absoluteOgImage} />
 
     <link rel="canonical" href={canonicalUrl} />
     {alternates.map(({ locale: l, url }) => (
       <link rel="alternate" hreflang={l} href={url} />
     ))}
     <link rel="alternate" hreflang="x-default" href={xDefault} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#E8453C" />
+
+    <JsonLd data={organization()} />
+    <slot name="structured-data" />
   </head>
   <body class="min-h-screen bg-background text-foreground antialiased">
-    <div class="min-h-screen flex flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-md focus:bg-foreground focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-background"
+    >
+      {skipLabel}
+    </a>
+    <div class={`min-h-screen flex flex-col ${hideStickyCta ? "" : "pb-[72px] lg:pb-0"}`}>
       <Navbar locale={locale} currentPath={currentPath} />
-      <main class="flex-1">
+      <main id="main" class="flex-1">
         <slot />
       </main>
       <Footer locale={locale} />
     </div>
+    {!hideStickyCta && (
+      <StickyCtaBar client:load locale={locale as Locale} messages={stickyMessages} />
+    )}
   </body>
 </html>

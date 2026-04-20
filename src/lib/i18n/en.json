@@ -15,6 +15,8 @@
     "company": "Company",
     "contact": "Contact",
     "privacy": "Privacy Policy",
+    "legal_notice": "Legal notice",
+    "cookies": "Cookies policy",
     "rights": "All rights reserved.",
     "address": "Madrid, Spain",
     "trust_company": "Registered in Spain",
@@ -22,8 +24,21 @@
     "trust_gdpr": "GDPR compliant",
     "trust_languages": "ES · EN · RU"
   },
+  "a11y": {
+    "skip_to_content": "Skip to main content"
+  },
   "public": {
     "testimonial_rating_label": "Rating: 5 out of 5 stars",
+    "not_found": {
+      "eyebrow": "404",
+      "title": "Page not found",
+      "desc": "This link doesn't exist or has expired. Head back to the home page.",
+      "cta": "Back to home"
+    },
+    "sticky_cta": {
+      "consultation": "Book a consultation",
+      "whatsapp_aria": "Message us on WhatsApp"
+    },
     "home": {
       "hero_eyebrow": "Spanish education, end to end",
       "hero_title_1": "Your complete path",
@@ -451,17 +466,9 @@
       "cta_subtitle": "Choose a plan or book a consultation — we'll help you pick the right option.",
       "cta_consult": "Book a consultation"
     },
-    "consultation_thanks": {
-      "title": "Thank you! Your consultation is booked",
-      "subtitle": "We received your request. Our expert will contact you within 24 hours to schedule the consultation at a convenient time.",
-      "step_1_title": "Request received",
-      "step_1_desc": "We've got your WhatsApp message.",
-      "step_2_title": "We'll contact you",
-      "step_2_desc": "Within 24 hours our expert will reach out to schedule the session.",
-      "step_3_title": "Consultation",
-      "step_3_desc": "A 60-minute personal session where we'll analyze your case and create an action plan.",
-      "contact_hint": "Have questions? Contact us anytime:",
-      "cta": "Back to home"
+    "consultation_success": {
+      "title": "We'll see you on WhatsApp!",
+      "desc": "We've opened the chat. We reply within 30 minutes during business hours."
     },
     "privacy": {
       "title": "Privacy Policy",
@@ -472,6 +479,32 @@
       "use_body": "We use your data exclusively to respond to your enquiry and deliver the requested service. We do not sell or share it with third parties except where required by law.",
       "rights_title": "Your rights",
       "rights_body": "You can exercise the rights of access, rectification, deletion, restriction, portability and objection by writing to our contact email."
+    },
+    "legal_notice": {
+      "title": "Legal notice",
+      "intro": "In accordance with article 10 of Spanish Law 34/2002 on Information Society Services and Electronic Commerce (LSSI-CE), the following details identify the owner of this website.",
+      "provider_title": "Site owner",
+      "provider_body": "Space for Edu. Service-provider details currently being updated. For any formal enquiry, please contact us via WhatsApp or email through the links in the footer.",
+      "purpose_title": "Purpose",
+      "purpose_body": "This website provides information about our services — degree homologation, university admission and Spanish courses — and enables interested visitors to get in touch.",
+      "ip_title": "Intellectual property",
+      "ip_body": "All content on this site (text, images, logos and design) is owned by Space for Edu or its authors and is protected by applicable law. Reproduction, in whole or in part, requires prior authorisation.",
+      "liability_title": "Liability",
+      "liability_body": "Space for Edu cannot guarantee the absence of errors in its content and reserves the right to modify it without notice. Links to third-party sites are provided for information only and do not imply endorsement.",
+      "law_title": "Governing law",
+      "law_body": "These terms are governed by Spanish law. Any dispute will be submitted to the courts of the user's place of residence, without prejudice to consumer rights."
+    },
+    "cookies": {
+      "title": "Cookies policy",
+      "intro": "This policy describes which cookies the Space for Edu website uses and what they are for.",
+      "what_title": "What are cookies?",
+      "what_body": "Cookies are small files that a website stores on your device to remember your preferences and improve your experience.",
+      "usage_title": "Which cookies we use",
+      "usage_body": "We currently use only strictly necessary technical cookies for the site to work (language preference saved in the URL prefix). We do not use analytics cookies or any third-party cookies, so no additional consent is required.",
+      "thirdparty_title": "Third parties",
+      "thirdparty_body": "We do not embed third-party services that set cookies (no Google Analytics, no advertising pixels, no embedded maps). If we add any in the future we will update this policy and display a consent banner.",
+      "manage_title": "Managing cookies",
+      "manage_body": "You can block or delete cookies through your browser settings. Doing so will not affect your use of the site."
     }
   }
 }

@@ -3,7 +3,15 @@
     "allow": [
       "Read(//home/pingvinus/homologation-app/app/frontend/lib/**)",
       "Read(//home/pingvinus/homologation-app/app/frontend/locales/**)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:4330/es/)",
+      "Bash(curl -s http://localhost:4330/es/consultation-thank-you/)",
+      "Bash(magick -background none -density 384 public/favicon.svg -resize 32x32 public/favicon-32.png)",
+      "Bash(magick -background none -density 384 public/favicon.svg -resize 180x180 public/apple-touch-icon.png)",
+      "Bash(magick -background none -density 384 public/favicon.svg -resize 192x192 public/icon-192.png)",
+      "Bash(magick -background none -density 384 public/favicon.svg -resize 512x512 public/icon-512.png)",
+      "Bash(magick -background \"#E8453C\" -density 256 /tmp/og.svg -resize 1200x630 public/og.png)",
+      "Bash(pkill -f \"astro preview\")"
     ]
   }
 }

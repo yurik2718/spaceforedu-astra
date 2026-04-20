@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Clock, Flame, MessageCircle, CheckCircle2, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,6 +22,7 @@ const CONSULTATION_ITEMS = [
 ] as const;
 
 const SPOTS_THIS_WEEK = 3;
+const SUCCESS_AUTO_CLOSE_MS = 2500;
 
 /**
  * Reads strings under `public.homologacion.consultation_dialog_*` regardless
@@ -28,60 +30,97 @@ const SPOTS_THIS_WEEK = 3;
  */
 export function ConsultationDialog({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const [success, setSuccess] = useState(false);
   const prefix = "public.homologacion";
   const waText = t(`${prefix}.consultation_dialog_wa_message`);
   const href = CONTACT_WHATSAPP ? whatsappLink(CONTACT_WHATSAPP, waText) : "#";
 
+  // Reset success state whenever the dialog fully closes.
+  useEffect(() => {
+    if (!open && success) {
+      const id = window.setTimeout(() => setSuccess(false), 200);
+      return () => window.clearTimeout(id);
+    }
+  }, [open, success]);
+
+  function handleWhatsAppClick() {
+    setSuccess(true);
+    window.setTimeout(() => setOpen(false), SUCCESS_AUTO_CLOSE_MS);
+  }
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="text-lg">
-            {t(`${prefix}.consultation_dialog_title`)}
-          </DialogTitle>
-          <DialogDescription>
-            {t(`${prefix}.consultation_dialog_desc`)}
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="flex items-center gap-3">
-          <Badge variant="secondary" className="gap-1">
-            <Clock className="h-3 w-3" />
-            {t(`${prefix}.consultation_dialog_duration`)}
-          </Badge>
-        </div>
-
-        <div className="space-y-3">
-          {CONSULTATION_ITEMS.map((key) => (
-            <div key={key} className="flex items-start gap-3">
-              <CheckCircle2 className="h-4 w-4 text-brand-secondary mt-0.5 shrink-0" />
-              <span className="text-sm">{t(`${prefix}.${key}`)}</span>
+        {success ? (
+          <div className="py-6 text-center space-y-4">
+            <div className="mx-auto inline-flex rounded-full bg-green-100 p-4">
+              <CheckCircle2 className="h-10 w-10 text-green-600" />
             </div>
-          ))}
-        </div>
+            <DialogTitle className="text-xl">
+              {t("public.consultation_success.title")}
+            </DialogTitle>
+            <DialogDescription className="text-sm">
+              {t("public.consultation_success.desc")}
+            </DialogDescription>
+          </div>
+        ) : (
+          <>
+            <DialogHeader>
+              <DialogTitle className="text-lg">
+                {t(`${prefix}.consultation_dialog_title`)}
+              </DialogTitle>
+              <DialogDescription>
+                {t(`${prefix}.consultation_dialog_desc`)}
+              </DialogDescription>
+            </DialogHeader>
 
-        <div className="flex items-center gap-2 rounded-lg bg-amber-50 border border-amber-200 px-3 py-2">
-          <Flame className="h-4 w-4 text-amber-500 shrink-0" />
-          <span className="text-sm font-medium text-amber-800">
-            {t(`${prefix}.consultation_dialog_spots`, { count: SPOTS_THIS_WEEK })}
-          </span>
-        </div>
+            <div className="flex items-center gap-3">
+              <Badge variant="secondary" className="gap-1">
+                <Clock className="h-3 w-3" />
+                {t(`${prefix}.consultation_dialog_duration`)}
+              </Badge>
+            </div>
 
-        <a href={href} target="_blank" rel="noopener noreferrer" className="block">
-          <Button
-            size="lg"
-            className="w-full min-h-[44px] text-base bg-green-600 hover:bg-green-700 border-0 shadow-lg shadow-green-600/20 transition-all duration-300"
-          >
-            <MessageCircle className="mr-2 h-4 w-4" />
-            {t(`${prefix}.consultation_dialog_wa_button`)}
-          </Button>
-        </a>
+            <div className="space-y-3">
+              {CONSULTATION_ITEMS.map((key) => (
+                <div key={key} className="flex items-start gap-3">
+                  <CheckCircle2 className="h-4 w-4 text-brand-secondary mt-0.5 shrink-0" />
+                  <span className="text-sm">{t(`${prefix}.${key}`)}</span>
+                </div>
+              ))}
+            </div>
 
-        <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
-          <Shield className="h-3 w-3" />
-          {t(`${prefix}.consultation_dialog_wa_hint`)}
-        </div>
+            <div className="flex items-center gap-2 rounded-lg bg-amber-50 border border-amber-200 px-3 py-2">
+              <Flame className="h-4 w-4 text-amber-500 shrink-0" />
+              <span className="text-sm font-medium text-amber-800">
+                {t(`${prefix}.consultation_dialog_spots`, { count: SPOTS_THIS_WEEK })}
+              </span>
+            </div>
+
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleWhatsAppClick}
+              className="block"
+            >
+              <Button
+                size="lg"
+                className="w-full min-h-[44px] text-base bg-green-600 hover:bg-green-700 border-0 shadow-lg shadow-green-600/20 transition-all duration-300"
+              >
+                <MessageCircle className="mr-2 h-4 w-4" />
+                {t(`${prefix}.consultation_dialog_wa_button`)}
+              </Button>
+            </a>
+
+            <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+              <Shield className="h-3 w-3" />
+              {t(`${prefix}.consultation_dialog_wa_hint`)}
+            </div>
+          </>
+        )}
       </DialogContent>
     </Dialog>
   );

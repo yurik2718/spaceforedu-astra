@@ -107,6 +107,22 @@ const trust = [
               {t("footer.privacy")}
             </a>
           </li>
+          <li>
+            <a
+              href={publicRoute(publicPages.legalNotice, locale)}
+              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
+            >
+              {t("footer.legal_notice")}
+            </a>
+          </li>
+          <li>
+            <a
+              href={publicRoute(publicPages.cookies, locale)}
+              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
+            >
+              {t("footer.cookies")}
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -146,12 +162,24 @@ const trust = [
 
     <div class="border-t border-zinc-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500">
       <span>© {year} Space for Edu. {t("footer.rights")}</span>
-      <div class="flex items-center gap-5">
+      <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
         <a
           href={publicRoute(publicPages.privacyPolicy, locale)}
           class="hover:text-white transition-colors"
         >
           {t("footer.privacy")}
+        </a>
+        <a
+          href={publicRoute(publicPages.legalNotice, locale)}
+          class="hover:text-white transition-colors"
+        >
+          {t("footer.legal_notice")}
+        </a>
+        <a
+          href={publicRoute(publicPages.cookies, locale)}
+          class="hover:text-white transition-colors"
+        >
+          {t("footer.cookies")}
         </a>
       </div>
     </div>

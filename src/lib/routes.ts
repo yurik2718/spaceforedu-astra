@@ -6,8 +6,9 @@ export const publicPages = {
   universidad: "university",
   espanol: "spanish",
   precios: "pricing",
-  consultationThankYou: "consultation-thank-you",
   privacyPolicy: "privacy-policy",
+  legalNotice: "aviso-legal",
+  cookies: "cookies",
 } as const;
 
 export function publicRoute(page: string, locale: Locale | string): string {

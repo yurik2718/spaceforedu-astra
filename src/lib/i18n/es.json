@@ -15,6 +15,8 @@
     "company": "Empresa",
     "contact": "Contacto",
     "privacy": "Política de privacidad",
+    "legal_notice": "Aviso legal",
+    "cookies": "Política de cookies",
     "rights": "Todos los derechos reservados.",
     "address": "Madrid, España",
     "trust_company": "Registrada en España",
@@ -22,8 +24,21 @@
     "trust_gdpr": "Cumplimiento GDPR",
     "trust_languages": "ES · EN · RU"
   },
+  "a11y": {
+    "skip_to_content": "Saltar al contenido principal"
+  },
   "public": {
     "testimonial_rating_label": "Valoración: 5 de 5 estrellas",
+    "not_found": {
+      "eyebrow": "404",
+      "title": "Página no encontrada",
+      "desc": "El enlace no existe o ha caducado. Vuelve al inicio para continuar.",
+      "cta": "Volver al inicio"
+    },
+    "sticky_cta": {
+      "consultation": "Reserva tu consulta",
+      "whatsapp_aria": "Escríbenos por WhatsApp"
+    },
     "home": {
       "hero_eyebrow": "Educación en España, de principio a fin",
       "hero_title_1": "Tu camino completo",
@@ -451,17 +466,9 @@
       "cta_subtitle": "Elige un plan o reserva una consulta — te ayudaremos a elegir la mejor opción.",
       "cta_consult": "Solicitar consulta"
     },
-    "consultation_thanks": {
-      "title": "¡Gracias! Tu consulta está reservada",
-      "subtitle": "Hemos recibido tu solicitud. Nuestro experto se pondrá en contacto contigo en las próximas 24 horas para programar la consulta en un horario conveniente.",
-      "step_1_title": "Confirmación de solicitud",
-      "step_1_desc": "Hemos recibido tu mensaje en WhatsApp.",
-      "step_2_title": "Te contactaremos",
-      "step_2_desc": "En las próximas 24 horas nuestro experto se comunicará contigo para agendar la sesión.",
-      "step_3_title": "Consulta",
-      "step_3_desc": "Una sesión personalizada de 60 minutos donde analizaremos tu caso y crearemos un plan de acción.",
-      "contact_hint": "¿Tienes preguntas? Contáctanos en cualquier momento:",
-      "cta": "Volver al inicio"
+    "consultation_success": {
+      "title": "¡Te esperamos en WhatsApp!",
+      "desc": "Hemos abierto el chat. Respondemos en menos de 30 minutos en horario laboral."
     },
     "privacy": {
       "title": "Política de privacidad",
@@ -472,6 +479,32 @@
       "use_body": "Usamos tus datos exclusivamente para responder a tu consulta y prestarte el servicio solicitado. No los vendemos ni compartimos con terceros salvo obligación legal.",
       "rights_title": "Tus derechos",
       "rights_body": "Puedes ejercer los derechos de acceso, rectificación, supresión, limitación, portabilidad y oposición escribiéndonos al correo de contacto."
+    },
+    "legal_notice": {
+      "title": "Aviso legal",
+      "intro": "De acuerdo con el artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), a continuación se detallan los datos identificativos del titular del sitio web.",
+      "provider_title": "Titular del sitio",
+      "provider_body": "Space for Edu. Datos del prestador del servicio en proceso de actualización. Para cualquier consulta formal, contáctanos por WhatsApp o correo electrónico a través de los enlaces del pie de página.",
+      "purpose_title": "Objeto",
+      "purpose_body": "Este sitio web tiene como finalidad ofrecer información sobre nuestros servicios de homologación de títulos, admisión universitaria y cursos de español, y facilitar el contacto con usuarios interesados.",
+      "ip_title": "Propiedad intelectual",
+      "ip_body": "Todos los contenidos del sitio (textos, imágenes, logotipos y diseño) son propiedad de Space for Edu o de sus autores y están protegidos por la legislación vigente. Se prohíbe su reproducción total o parcial sin autorización.",
+      "liability_title": "Responsabilidad",
+      "liability_body": "Space for Edu no garantiza la ausencia de errores en los contenidos y se reserva el derecho a modificarlos sin previo aviso. Los enlaces a sitios de terceros se ofrecen a título informativo y no implican respaldo alguno.",
+      "law_title": "Legislación aplicable",
+      "law_body": "Las presentes condiciones se rigen por la legislación española. Para cualquier controversia las partes se someten a los juzgados y tribunales del domicilio del usuario, sin perjuicio de los derechos de los consumidores."
+    },
+    "cookies": {
+      "title": "Política de cookies",
+      "intro": "Esta política describe qué cookies utiliza el sitio de Space for Edu y para qué sirven.",
+      "what_title": "¿Qué son las cookies?",
+      "what_body": "Las cookies son pequeños archivos que un sitio web guarda en tu dispositivo para recordar tus preferencias y mejorar tu experiencia.",
+      "usage_title": "Qué cookies usamos",
+      "usage_body": "Actualmente utilizamos únicamente cookies técnicas estrictamente necesarias para el funcionamiento del sitio (preferencia de idioma guardada en el prefijo de URL). No utilizamos cookies de analítica ni de terceros, por lo que no es necesario solicitar consentimiento adicional.",
+      "thirdparty_title": "Terceros",
+      "thirdparty_body": "No integramos servicios de terceros que instalen cookies (ni Google Analytics, ni píxeles publicitarios, ni mapas embebidos). Si en el futuro añadimos alguno, actualizaremos esta política y mostraremos un banner de consentimiento.",
+      "manage_title": "Gestión de cookies",
+      "manage_body": "Puedes bloquear o eliminar las cookies desde la configuración de tu navegador. Hacerlo no afectará al uso del sitio."
     }
   }
 }
