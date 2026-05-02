@@ -6,6 +6,7 @@ import {
   Search,
   FileText,
   Link2,
+  Languages,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UniversityIllustration } from "@/components/public/UniversityIllustration";
@@ -18,6 +19,7 @@ import {
   SectionHeading,
 } from "@/components/public/shared";
 import { ConsultationDialog } from "@/components/public/ConsultationDialog";
+import { CrossSellCard } from "@/components/public/CrossSellCard";
 import { FaqSection } from "@/components/public/FaqSection";
 import { TimelineSection } from "@/components/public/TimelineSection";
 import { TestimonialsSection } from "@/components/public/TestimonialsSection";
@@ -127,6 +129,23 @@ function PageBody({ locale }: { locale: Locale | string }) {
         <SectionHeading title={t("public.universidad.testimonials_title")} />
         <TestimonialsSection translationPrefix="public.universidad" />
       </PublicSection>
+
+      <CrossSellCard
+        title={t("public.universidad.crosssell_title")}
+        description={t("public.universidad.crosssell_desc")}
+        links={[
+          {
+            label: t("public.universidad.crosssell_espanol"),
+            href: publicRoute(publicPages.espanol, locale),
+          },
+          {
+            label: t("public.universidad.crosssell_homologacion"),
+            href: publicRoute(publicPages.homologacion, locale),
+          },
+        ]}
+        badgeLabel={t("public.universidad.crosssell_badge")}
+        badgeIcon={Languages}
+      />
 
       <PublicSection className="bg-slate-50" dots>
         <SectionHeading title={t("public.universidad.faq_title")} />

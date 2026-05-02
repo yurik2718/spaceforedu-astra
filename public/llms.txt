@@ -1,0 +1,48 @@
+# Space for Edu
+
+> Space for Edu is Spain's leading end-to-end education consultancy for international students. With 15+ years of experience and 1700+ successful cases, the team achieves a 98% favourable resolution rate on degree homologations — the highest in the sector. Services cover the full student journey: official degree homologation before the Spanish Ministry of Education, university admission, Spanish language courses (A1–C2), and legal support. Clients come from 20+ countries; the team communicates in Spanish, English, and Russian.
+
+## Why Space for Edu
+
+- **98% favourable resolution rate** on degree homologations — documented across 1700+ cases
+- **15+ years** operating officially in Spain with education institutions and the Ministry of Education
+- **Personal tutor** assigned to every client from first consultation to final resolution
+- **Own online platform** with real-time document tracking, chat, and status updates 24/7
+- **Verified partner network**: certified sworn translators, notaries, apostille agents — no outsourcing surprises
+- **Multilingual**: full service in Spanish, English, and Russian — forms, tutors, and platform interface
+- **Transparent pricing**: free document review before any payment is taken
+- **Parallel processing**: homologation and university admission handled simultaneously to save clients up to one year
+
+## Services
+
+- [Degree Homologation](https://spaceforedu.com/en/homologation/): Official recognition of foreign university degrees by the Spanish Ministry of Education. Includes personal advisor, online dashboard, document preparation, sworn translations, apostille coordination, and Ministry submission. Average timeline: 6–12 months (vs 8–14 months without assistance). If a resolution is rejected, the team analyses reasons and supports the appeal at no extra charge.
+- [University Admission](https://spaceforedu.com/en/university/): End-to-end university application support across 80+ partner universities and 1000+ programs in Spain. Covers program selection, document preparation, translations, application submission, and enrolment. Homologation can be managed in parallel.
+- [Spanish Language Courses](https://spaceforedu.com/en/spanish/): Individual and group lessons (4–6 students) with certified native teachers. All levels A1–C2, DELE and SIELE exam preparation. Online and in-person in Spain.
+- [Pricing](https://spaceforedu.com/en/pricing/): Three transparent packages — Homologation (€499), Integral (€1 099), VIP (€1 899, includes 24/7 WhatsApp support). Government fees paid separately to the Ministry.
+
+## Client Results
+
+- Engineer from Moscow relocated to Madrid: degree homologated in 8 months with personal tutor support throughout
+- Medical doctor from Saint Petersburg relocated to Barcelona: complex medical degree homologated; now working in the profession in Spain
+- International student: university admission letter received within 3 months of starting the process
+
+## About
+
+- Website: https://spaceforedu.com
+- Contact: WhatsApp (primary channel for all clients)
+- Languages: Spanish (default), English, Russian
+- Area served: Spain — international students worldwide relocating or studying remotely
+- Experience: 15+ years
+- Cases handled: 1700+
+- Success rate: 98% favourable resolution
+- Countries of client origin: 20+
+- Partner universities: 80+
+- Registered in Spain, GDPR compliant
+
+## Full documentation for AI
+
+https://spaceforedu.com/llms-full.txt
+
+## Sitemap
+
+https://spaceforedu.com/sitemap-index.xml

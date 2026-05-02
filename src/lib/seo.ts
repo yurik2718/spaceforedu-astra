@@ -15,7 +15,7 @@ const SEO: Record<PageKey, Record<Locale, { title: string; description: string }
     es: {
       title: "Space for Edu — Educación en España de principio a fin",
       description:
-        "Homologación de títulos, admisión universitaria, español y sopоrte legal. 15+ años acompañando a estudiantes de todo el mundo.",
+        "Homologación de títulos, admisión universitaria, español y soporte legal. 15+ años acompañando a estudiantes de todo el mundo.",
     },
     en: {
       title: "Space for Edu — Spanish education end to end",

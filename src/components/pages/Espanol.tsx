@@ -11,7 +11,6 @@ import {
   Home,
   Award,
   TrendingUp,
-  Rocket,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -27,6 +26,7 @@ import {
   SectionHeading,
 } from "@/components/public/shared";
 import { ConsultationDialog } from "@/components/public/ConsultationDialog";
+import { CrossSellCard } from "@/components/public/CrossSellCard";
 import { FaqSection } from "@/components/public/FaqSection";
 import { TimelineSection } from "@/components/public/TimelineSection";
 import { FeatureCardGrid } from "@/components/public/FeatureCardGrid";
@@ -242,50 +242,22 @@ function PageBody({ locale }: { locale: Locale | string }) {
         </div>
       </PublicSection>
 
-      <PublicSection className="bg-slate-50" dots>
-        <Reveal direction="up">
-          <Card className="max-w-4xl mx-auto border bg-white overflow-hidden">
-            <CardContent className="p-0">
-              <div className="grid sm:grid-cols-[1fr,auto] items-center">
-                <div className="p-8 sm:p-10">
-                  <FeatureIcon icon={Rocket} size="md" hoverScale={false} className="mb-4" />
-                  <h3 className="text-xl font-bold mb-2">
-                    {t("public.espanol.crosssell_title")}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4 max-w-lg">
-                    {t("public.espanol.crosssell_desc")}
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <a
-                      href={publicRoute(publicPages.homologacion, locale)}
-                      className="text-sm font-medium text-brand-secondary hover:underline"
-                    >
-                      {t("public.espanol.crosssell_homologacion")} &rarr;
-                    </a>
-                    <a
-                      href={publicRoute(publicPages.universidad, locale)}
-                      className="text-sm font-medium text-brand-secondary hover:underline"
-                    >
-                      {t("public.espanol.crosssell_universidad")} &rarr;
-                    </a>
-                  </div>
-                </div>
-                <div className="hidden sm:flex bg-gradient-to-br from-brand-primary/5 to-brand-secondary/5 items-center justify-center p-10 self-stretch">
-                  <div className="text-center space-y-2">
-                    <Home
-                      aria-hidden="true"
-                      className="h-10 w-10 text-brand-secondary/40 mx-auto"
-                    />
-                    <p className="text-xs text-muted-foreground font-medium max-w-[140px]">
-                      {t("public.espanol.crosssell_badge")}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </Reveal>
-      </PublicSection>
+      <CrossSellCard
+        title={t("public.espanol.crosssell_title")}
+        description={t("public.espanol.crosssell_desc")}
+        links={[
+          {
+            label: t("public.espanol.crosssell_homologacion"),
+            href: publicRoute(publicPages.homologacion, locale),
+          },
+          {
+            label: t("public.espanol.crosssell_universidad"),
+            href: publicRoute(publicPages.universidad, locale),
+          },
+        ]}
+        badgeLabel={t("public.espanol.crosssell_badge")}
+        badgeIcon={Home}
+      />
 
       <PublicSection className="bg-white">
         <SectionHeading title={t("public.espanol.faq_title")} />

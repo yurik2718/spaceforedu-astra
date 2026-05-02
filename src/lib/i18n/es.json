@@ -203,7 +203,12 @@
       "consultation_dialog_wa_hint": "Respondemos en pocas horas",
       "cta_title": "¿Listo para empezar la homologación?",
       "cta_subtitle": "Reserva una consulta con un experto — analizamos tu caso, definimos la ruta y los plazos.",
-      "cta_button": "Reservar consulta"
+      "cta_button": "Reservar consulta",
+      "crosssell_title": "¿Vas a vivir, estudiar o trabajar en España?",
+      "crosssell_desc": "Además de la homologación, muchos clientes llegan con el español a medias o piensan seguir estudiando. Lo gestionamos en paralelo — sin perder meses entre trámites.",
+      "crosssell_espanol": "Clases de español",
+      "crosssell_universidad": "Admisión universitaria",
+      "crosssell_badge": "Todos los servicios — un equipo"
     },
     "universidad": {
       "hero_title_1": "Ingresa en una",
@@ -271,7 +276,12 @@
       "faq_5_a": "Orientamos sobre los requisitos de visado de estudiante y te ayudamos a preparar la documentación necesaria para la solicitud.",
       "cta_title": "¿Listo para matricularte?",
       "cta_subtitle": "Reserva una consulta con experto — analizamos tu caso en 30 minutos.",
-      "cta_button": "Reservar consulta"
+      "cta_button": "Reservar consulta",
+      "crosssell_title": "¿Vas a estudiar en español pero tu nivel aún no llega?",
+      "crosssell_desc": "Preparamos el idioma en paralelo con la admisión — cursos de español adaptados y preparación DELE. Si además necesitas homologar el bachillerato o un título previo, lo llevamos a la vez.",
+      "crosssell_espanol": "Clases de español",
+      "crosssell_homologacion": "Homologación de título",
+      "crosssell_badge": "Todos los servicios — un equipo"
     },
     "espanol": {
       "hero_title_1": "Aprende",

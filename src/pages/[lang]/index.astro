@@ -1,9 +1,11 @@
 ---
 import PublicLayout from "@/layouts/PublicLayout.astro";
 import { HomePage } from "@/components/pages/Home";
+import JsonLd from "@/components/common/JsonLd.astro";
 import { getMessages } from "@/lib/i18n";
 import { getSeo } from "@/lib/seo";
 import { LOCALES, type Locale } from "@/lib/constants";
+import { website, serviceList } from "@/lib/structured-data";
 
 export function getStaticPaths() {
   return LOCALES.map((lang) => ({ params: { lang } }));
@@ -16,5 +18,7 @@ const seo = getSeo("home", locale);
 ---
 
 <PublicLayout title={seo.title} description={seo.description} locale={locale} page="">
+  <JsonLd slot="structured-data" data={website()} />
+  <JsonLd slot="structured-data" data={serviceList(locale)} />
   <HomePage client:load locale={locale} messages={messages} />
 </PublicLayout>

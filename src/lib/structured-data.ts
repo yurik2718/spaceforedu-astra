@@ -15,7 +15,19 @@ export function organization(): object {
     url: SITE_URL,
     logo: `${SITE_URL}/icon-512.png`,
     image: `${SITE_URL}/og.jpg`,
+    foundingDate: "2010",
     areaServed: "ES",
+    knowsLanguage: ["es", "en", "ru"],
+    slogan: "Educación en España, de principio a fin",
+    description:
+      "Spain-based education consultancy specialising in degree homologation, university admission and Spanish courses. 15+ years of experience, 1700+ successful cases, 98% favourable resolution rate.",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5",
+      bestRating: "5",
+      worstRating: "1",
+      ratingCount: "1700",
+    },
     ...(CONTACT_WHATSAPP || CONTACT_EMAIL
       ? {
           contactPoint: {
@@ -36,6 +48,7 @@ export function service(params: {
   description: string;
   page: string;
   serviceType: string;
+  audience?: string;
 }): object {
   return {
     "@context": "https://schema.org",
@@ -44,8 +57,54 @@ export function service(params: {
     description: params.description,
     serviceType: params.serviceType,
     areaServed: "ES",
+    availableLanguage: ["es", "en", "ru"],
     provider: { "@id": ORG_ID },
     url: SITE_URL + publicRoute(params.page, params.locale),
+    ...(params.audience
+      ? { audience: { "@type": "Audience", audienceType: params.audience } }
+      : {}),
+  };
+}
+
+export function website(): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    name: "Space for Edu",
+    url: SITE_URL,
+    publisher: { "@id": `${SITE_URL}/#org` },
+    inLanguage: Array.from(LOCALES),
+    potentialAction: {
+      "@type": "SearchAction",
+      target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/es/?q={search_term_string}` },
+      "query-input": "required name=search_term_string",
+    },
+  };
+}
+
+export function serviceList(locale: Locale): object {
+  const services = [
+    { name: "Homologación de títulos", url: publicRoute("homologation", locale), description: "Reconocimiento oficial de títulos extranjeros ante el Ministerio de Educación español." },
+    { name: "Acceso a universidades", url: publicRoute("university", locale), description: "Acompañamiento integral para ingresar a una universidad española." },
+    { name: "Clases de español", url: publicRoute("spanish", locale), description: "Clases individuales y grupales con profesores nativos certificados, niveles A1–C2." },
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Servicios educativos en España",
+    itemListElement: services.map((s, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Service",
+        name: s.name,
+        description: s.description,
+        url: SITE_URL + s.url,
+        provider: { "@id": `${SITE_URL}/#org` },
+        areaServed: "ES",
+      },
+    })),
   };
 }
 

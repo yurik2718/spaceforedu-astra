@@ -203,7 +203,12 @@
       "consultation_dialog_wa_hint": "We'll respond within a few hours",
       "cta_title": "Ready to Start Your Homologation?",
       "cta_subtitle": "Book an expert consultation — we'll analyze your case, define the path and timelines.",
-      "cta_button": "Book a Consultation"
+      "cta_button": "Book a Consultation",
+      "crosssell_title": "Planning to live, study or work in Spain?",
+      "crosssell_desc": "Alongside homologation, many clients arrive with half-fluent Spanish or plan to keep studying. We handle it in parallel — so you don't lose months bouncing between offices.",
+      "crosssell_espanol": "Spanish lessons",
+      "crosssell_universidad": "University admission",
+      "crosssell_badge": "All services — one team"
     },
     "universidad": {
       "hero_title_1": "Get into a",
@@ -271,7 +276,12 @@
       "faq_5_a": "We guide you on student visa requirements and help prepare the necessary documentation for your application.",
       "cta_title": "Ready to enroll?",
       "cta_subtitle": "Book an expert consultation — we'll assess your case in 30 minutes.",
-      "cta_button": "Book a consultation"
+      "cta_button": "Book a consultation",
+      "crosssell_title": "Going to study in Spanish but your level isn't quite there?",
+      "crosssell_desc": "We prepare the language alongside the admission — Spanish courses tailored for university students and DELE prep. If you also need to homologate a secondary diploma or prior degree, we run it in parallel.",
+      "crosssell_espanol": "Spanish lessons",
+      "crosssell_homologacion": "Degree homologation",
+      "crosssell_badge": "All services — one team"
     },
     "espanol": {
       "hero_title_1": "Learn",

@@ -14,6 +14,7 @@ import {
   Bell,
   Shield,
   ArrowRight,
+  Languages,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Reveal, AnimatedCounter } from "@/components/public/animations";
@@ -27,6 +28,7 @@ import {
   SectionHeading,
 } from "@/components/public/shared";
 import { ConsultationDialog } from "@/components/public/ConsultationDialog";
+import { CrossSellCard } from "@/components/public/CrossSellCard";
 import { FaqSection } from "@/components/public/FaqSection";
 import { TimelineSection } from "@/components/public/TimelineSection";
 import { TestimonialsSection } from "@/components/public/TestimonialsSection";
@@ -309,6 +311,23 @@ function PageBody({ locale }: { locale: Locale | string }) {
           })}
         </div>
       </PublicSection>
+
+      <CrossSellCard
+        title={t("public.homologacion.crosssell_title")}
+        description={t("public.homologacion.crosssell_desc")}
+        links={[
+          {
+            label: t("public.homologacion.crosssell_espanol"),
+            href: publicRoute(publicPages.espanol, locale),
+          },
+          {
+            label: t("public.homologacion.crosssell_universidad"),
+            href: publicRoute(publicPages.universidad, locale),
+          },
+        ]}
+        badgeLabel={t("public.homologacion.crosssell_badge")}
+        badgeIcon={Languages}
+      />
 
       <PublicSection className="bg-slate-50" dots>
         <SectionHeading title={t("public.homologacion.faq_title")} />
