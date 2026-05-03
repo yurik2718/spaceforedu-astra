@@ -9,7 +9,6 @@ import {
   Languages,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { UniversityIllustration } from "@/components/public/UniversityIllustration";
 import { UniversityLogoBar } from "@/components/public/UniversityLogoBar";
 import {
   GradientButton,
@@ -102,7 +101,21 @@ function PageBody({ locale }: { locale: Locale | string }) {
             ))}
           </div>
         }
-        illustration={<UniversityIllustration />}
+        illustration={
+          <div className="relative">
+            <div className="absolute -inset-4 bg-gradient-to-br from-brand-primary/10 to-brand-secondary/15 rounded-3xl blur-2xl" />
+            <img
+              src="/images/lifestyle/graduates-celebration-success.webp"
+              alt={t("public.universidad.hero_img_alt")}
+              width={700}
+              height={500}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="relative rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]"
+            />
+          </div>
+        }
       />
 
       <PublicSection className="bg-white">
@@ -155,6 +168,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
       <PublicCta
         title={t("public.universidad.cta_title")}
         subtitle={t("public.universidad.cta_subtitle")}
+        bgImage="/images/lifestyle/salamanca-university-courtyard-sunset.webp"
       >
         <ConsultationDialog>
           <GradientButton className="w-full sm:w-auto">

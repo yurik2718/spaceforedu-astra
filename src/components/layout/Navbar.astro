@@ -60,9 +60,10 @@ const homeHref = publicRoute(publicPages.home, locale);
         CONTACT_WHATSAPP && (
           <a
             href={`tel:+${CONTACT_WHATSAPP}`}
+            aria-label={t("a11y.phone_aria")}
             class="inline-flex items-center gap-2 text-sm text-foreground/80 hover:text-foreground transition-colors min-h-[44px] px-2 font-medium"
           >
-            <Phone className="h-4 w-4 shrink-0 text-brand-secondary" />
+            <Phone className="h-4 w-4 shrink-0 text-brand-secondary" aria-hidden="true" />
             <span class="hidden lg:inline">{formatPhone(CONTACT_WHATSAPP)}</span>
           </a>
         )
@@ -104,6 +105,7 @@ const homeHref = publicRoute(publicPages.home, locale);
         waHref={waHref}
         whatsappPhone={CONTACT_WHATSAPP}
         whatsappFormatted={CONTACT_WHATSAPP ? formatPhone(CONTACT_WHATSAPP) : ""}
+        phoneAriaLabel={t("a11y.phone_aria")}
       />
     </div>
   </div>

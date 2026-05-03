@@ -25,7 +25,9 @@
     "trust_languages": "ES · EN · RU"
   },
   "a11y": {
-    "skip_to_content": "Saltar al contenido principal"
+    "skip_to_content": "Saltar al contenido principal",
+    "phone_aria": "Llámanos",
+    "whatsapp_aria": "Escríbenos por WhatsApp"
   },
   "public": {
     "testimonial_rating_label": "Valoración: 5 de 5 estrellas",
@@ -44,7 +46,9 @@
       "hero_title_1": "Tu camino completo",
       "hero_title_accent": "a la educación y residencia legal en España",
       "hero_subtitle": "Homologación de títulos, admisión universitaria, cursos de español, visados y acompañamiento legal. Más de 15 años trabajando oficialmente con estudiantes de todo el mundo.",
+      "hero_img_alt": "Estudiante internacional sonriendo frente a la Universidad de Salamanca",
       "cta_start": "Reservar consulta con un experto",
+      "cta_pricing": "Ver tarifas",
       "stat_students": "historias de éxito",
       "stat_success": "tasa de éxito",
       "stat_years": "años en España",
@@ -85,7 +89,7 @@
       "hero_title_1": "Homologación de títulos",
       "hero_title_accent": "en España",
       "hero_subtitle": "<strong>Acompañamiento experto</strong>, tutor personal y <strong>cuenta personal</strong> con seguimiento en tiempo real. Trabajamos con clientes en todo el mundo.",
-      "hero_photo_alt": "Fachada plateresca de la Universidad de Salamanca, símbolo de la educación oficial española",
+      "hero_photo_alt": "Calles históricas de Salamanca junto al barrio universitario",
       "hero_fact_time_value": "6–24 meses",
       "hero_fact_time_label": "Plazo de resolución",
       "hero_fact_docs_value": "6 documentos",
@@ -94,7 +98,7 @@
       "hero_fact_success_label": "Resolución favorable",
       "hero_badge_result": "Resolución Favorable",
       "hero_badge_experience": "15 años · 1700+ casos",
-      "hero_caption_place": "Universidad de Salamanca",
+      "hero_caption_place": "Salamanca",
       "cta_start": "Solicitar consulta personal",
       "compare_title": "Tú solo o con nosotros — comparación honesta",
       "compare_subtitle": "Lo que implica realmente homologar tu título en España. Sin exageraciones — solo los pasos que alguien tiene que dar.",
@@ -214,6 +218,7 @@
       "hero_title_1": "Ingresa en una",
       "hero_title_accent": "universidad española",
       "hero_subtitle": "Encontramos la universidad y el programa que se ajustan a tus objetivos, preparamos los documentos y te acompañamos hasta la matriculación. No te enfrentas solo a la burocracia española.",
+      "hero_img_alt": "Estudiantes entrando al campus universitario en España",
       "map_universities_value": "80+",
       "map_universities_label": "universidades",
       "map_programs_value": "1 000+",
@@ -287,6 +292,7 @@
       "hero_title_1": "Aprende",
       "hero_title_accent": "español con profesores nativos",
       "hero_subtitle": "<strong>Clases individuales y grupales</strong> con profesores certificados. Desde A1 hasta C2, <strong>preparación DELE</strong>. Online o presencial en España.",
+      "hero_img_alt": "Estudiantes atentos en clase de español",
       "hero_stat_students": "estudiantes formados",
       "hero_stat_levels": "todos los niveles",
       "hero_stat_formats": "formatos de estudio",

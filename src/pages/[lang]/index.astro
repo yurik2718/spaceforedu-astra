@@ -17,7 +17,13 @@ const messages = getMessages(locale);
 const seo = getSeo("home", locale);
 ---
 
-<PublicLayout title={seo.title} description={seo.description} locale={locale} page="">
+<PublicLayout
+  title={seo.title}
+  description={seo.description}
+  locale={locale}
+  page=""
+  heroImage="/images/hero/hero-student-salamanca-docs.webp"
+>
   <JsonLd slot="structured-data" data={website()} />
   <JsonLd slot="structured-data" data={serviceList(locale)} />
   <HomePage client:idle locale={locale} messages={messages} />

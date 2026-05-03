@@ -163,22 +163,37 @@ export function PublicCta({
   title,
   subtitle,
   children,
+  bgImage,
+  overlayClass = "bg-zinc-900/62",
 }: {
   title: string;
   subtitle: string;
   children: React.ReactNode;
+  bgImage?: string;
+  overlayClass?: string;
 }) {
   return (
     <section className="relative py-20 sm:py-32 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 text-white overflow-hidden">
+      {bgImage && (
+        <>
+          <img
+            src={bgImage}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className={cn("absolute inset-0", overlayClass)} />
+        </>
+      )}
       <GradientOrbs />
       <DotGrid className="opacity-[0.08]" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-secondary/30 to-transparent" />
       <Container className="relative text-center">
         <Reveal direction="up">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">{title}</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight drop-shadow-lg">{title}</h2>
         </Reveal>
         <Reveal direction="up" delay={100}>
-          <p className="mt-4 text-lg text-zinc-400 max-w-2xl mx-auto">{subtitle}</p>
+          <p className="mt-4 text-lg text-white/80 max-w-2xl mx-auto drop-shadow">{subtitle}</p>
         </Reveal>
         <Reveal direction="up" delay={200}>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
@@ -235,7 +250,7 @@ export function OutlineCtaButton({
       <Button
         variant="outline"
         size="lg"
-        className="w-full sm:w-auto min-h-[44px] text-base border-zinc-600 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-300"
+        className="w-full sm:w-auto min-h-[44px] text-base bg-transparent border-white/40 text-white hover:bg-white/10 hover:border-white/70 transition-all duration-300"
       >
         {children}
       </Button>

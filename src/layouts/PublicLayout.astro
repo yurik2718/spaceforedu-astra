@@ -19,6 +19,10 @@ interface Props {
   ogImage?: string;
   /** Hide the sticky WhatsApp bubble + mobile CTA bar (for thank-you / privacy pages). */
   hideStickyCta?: boolean;
+  /** LCP image — preloaded with high priority. Path under /public. */
+  heroImage?: string;
+  /** MIME type of heroImage (default image/webp). */
+  heroImageType?: string;
 }
 
 const {
@@ -28,6 +32,8 @@ const {
   page,
   ogImage = "/og.jpg",
   hideStickyCta = false,
+  heroImage,
+  heroImageType = "image/webp",
 } = Astro.props;
 const currentPath = Astro.url.pathname;
 const stickyMessages = getMessages(locale);
@@ -64,6 +70,16 @@ const absoluteOgImage = ogImage.startsWith("http")
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={absoluteOgImage} />
+
+    {heroImage && (
+      <link
+        rel="preload"
+        as="image"
+        href={heroImage}
+        type={heroImageType}
+        fetchpriority="high"
+      />
+    )}
 
     <link rel="canonical" href={canonicalUrl} />
     {alternates.map(({ locale: l, url }) => (

@@ -10,6 +10,7 @@ import {
   Building2,
   ArrowRight,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Reveal, AnimatedCounter } from "@/components/public/animations";
 import {
@@ -36,7 +37,7 @@ export function HomePage({
 }) {
   return (
     <I18nProvider locale={locale} messages={messages}>
-      <HeroSection />
+      <HeroSection locale={locale} />
       <UniversityLogoBar titleKey="public.home.logo_bar_title" noBorderTop />
       <ServicesSection locale={locale} />
       <ApproachSection />
@@ -46,8 +47,9 @@ export function HomePage({
   );
 }
 
-function HeroSection() {
+function HeroSection({ locale }: { locale: Locale | string }) {
   const { t } = useTranslation();
+  const preciosHref = publicRoute(publicPages.precios, locale);
   const stats = [
     { value: "1700+", label: t("public.home.stat_students") },
     { value: "20+", label: t("public.home.stat_countries") },
@@ -55,45 +57,79 @@ function HeroSection() {
   ];
 
   return (
-    <section className="relative bg-slate-50 py-20 sm:py-32 lg:py-40">
+    <section className="relative bg-white overflow-hidden py-16 sm:py-24 lg:py-32">
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/40 pointer-events-none" />
       <Container className="relative">
-        <div className="max-w-4xl mx-auto text-center">
-          <Reveal direction="up">
-            <p className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-brand-secondary mb-6">
-              {t("public.home.hero_eyebrow")}
-            </p>
-          </Reveal>
-          <Reveal direction="up" delay={50}>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tighter text-foreground leading-[1.05]">
-              {t("public.home.hero_title_1")}{" "}
-              <span className="bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
-                {t("public.home.hero_title_accent")}
-              </span>
-            </h1>
-          </Reveal>
-          <Reveal direction="up" delay={150}>
-            <p className="mt-8 text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              {t("public.home.hero_subtitle")}
-            </p>
-          </Reveal>
-          <Reveal direction="up" delay={250}>
-            <div className="mt-12">
-              <ConsultationDialog>
-                <GradientButton>{t("public.home.cta_start")}</GradientButton>
-              </ConsultationDialog>
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+          {/* Content */}
+          <div>
+            <Reveal direction="up">
+              <p className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-brand-secondary mb-6">
+                {t("public.home.hero_eyebrow")}
+              </p>
+            </Reveal>
+            <Reveal direction="up" delay={50}>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter text-foreground leading-[1.05]">
+                {t("public.home.hero_title_1")}{" "}
+                <span className="bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+                  {t("public.home.hero_title_accent")}
+                </span>
+              </h1>
+            </Reveal>
+            <Reveal direction="up" delay={150}>
+              <p className="mt-6 text-lg sm:text-xl text-muted-foreground leading-relaxed">
+                {t("public.home.hero_subtitle")}
+              </p>
+            </Reveal>
+            <Reveal direction="up" delay={250}>
+              <div className="mt-10 flex flex-col sm:flex-row gap-3">
+                <ConsultationDialog>
+                  <GradientButton className="w-full sm:w-auto">
+                    {t("public.home.cta_start")}
+                  </GradientButton>
+                </ConsultationDialog>
+                <a href={preciosHref} className="w-full sm:w-auto">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-auto min-h-[44px] text-base transition-all duration-300"
+                  >
+                    {t("public.home.cta_pricing")}
+                  </Button>
+                </a>
+              </div>
+            </Reveal>
+            <Reveal direction="up" delay={350}>
+              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
+                {stats.map(({ value, label }, i) => (
+                  <div key={value} className="flex items-baseline gap-2">
+                    {i > 0 && <span className="text-border hidden sm:inline">·</span>}
+                    <span className="font-bold text-foreground text-base">{value}</span>
+                    <span>{label}</span>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+
+          {/* Image */}
+          <Reveal direction="up" delay={100}>
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-br from-brand-primary/10 to-brand-secondary/15 rounded-3xl blur-2xl" />
+              <img
+                src="/images/hero/hero-student-salamanca-docs.webp"
+                alt={t("public.home.hero_img_alt")}
+                width={800}
+                height={900}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className="relative rounded-2xl shadow-2xl w-full object-cover aspect-[4/5] lg:aspect-[3/4]"
+              />
             </div>
           </Reveal>
-          <Reveal direction="up" delay={350}>
-            <div className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
-              {stats.map(({ value, label }, i) => (
-                <div key={value} className="flex items-baseline gap-2">
-                  {i > 0 && <span className="text-border hidden sm:inline">·</span>}
-                  <span className="font-bold text-foreground text-base">{value}</span>
-                  <span>{label}</span>
-                </div>
-              ))}
-            </div>
-          </Reveal>
+
         </div>
       </Container>
     </section>
@@ -243,19 +279,27 @@ function NumbersStrip() {
   ] as const;
 
   return (
-    <section aria-labelledby="home-numbers-heading" className="py-16 sm:py-20 bg-white">
-      <Container>
+    <section aria-labelledby="home-numbers-heading" className="relative py-24 sm:py-36 overflow-hidden">
+      <img
+        src="/images/lifestyle/sevilla-plaza-espana-golden-hour.webp"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-zinc-900/72" />
+      <Container className="relative">
         <h2 id="home-numbers-heading" className="sr-only">
           {t("public.home.numbers_heading")}
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-12 max-w-4xl mx-auto">
           {numbers.map(({ value, suffix, labelKey }, i) => (
             <Reveal key={labelKey} direction="up" delay={i * 100}>
               <div className="text-center">
-                <div className="text-4xl sm:text-5xl font-bold tracking-tighter leading-none bg-gradient-to-br from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+                <div className="text-5xl sm:text-6xl font-bold tracking-tighter leading-none text-white drop-shadow-lg">
                   <AnimatedCounter value={value} suffix={suffix} />
                 </div>
-                <p className="mt-3 text-sm text-muted-foreground">
+                <div className="mt-2 w-8 h-px bg-white/30 mx-auto" />
+                <p className="mt-3 text-sm text-white/75 font-medium">
                   {t(`public.home.${labelKey}`)}
                 </p>
               </div>
@@ -273,6 +317,8 @@ function FinalCtaSection() {
     <PublicCta
       title={t("public.home.cta_title")}
       subtitle={t("public.home.cta_subtitle")}
+      bgImage="/images/lifestyle/salamanca-university-courtyard-sunset.webp"
+      overlayClass="bg-zinc-900/85"
     >
       <ConsultationDialog>
         <GradientButton className="w-full sm:w-auto">

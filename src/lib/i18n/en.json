@@ -25,7 +25,9 @@
     "trust_languages": "ES · EN · RU"
   },
   "a11y": {
-    "skip_to_content": "Skip to main content"
+    "skip_to_content": "Skip to main content",
+    "phone_aria": "Call us",
+    "whatsapp_aria": "Message us on WhatsApp"
   },
   "public": {
     "testimonial_rating_label": "Rating: 5 out of 5 stars",
@@ -44,7 +46,9 @@
       "hero_title_1": "Your complete path",
       "hero_title_accent": "to education and residency in Spain",
       "hero_subtitle": "Degree recognition, university admissions, Spanish courses, student visas, and legal support. Over 15 years working officially with students from around the world.",
+      "hero_img_alt": "International student smiling in front of the University of Salamanca",
       "cta_start": "Book a consultation with an expert",
+      "cta_pricing": "See pricing",
       "stat_students": "success stories",
       "stat_success": "success rate",
       "stat_years": "years in Spain",
@@ -85,7 +89,7 @@
       "hero_title_1": "Degree Homologation",
       "hero_title_accent": "in Spain",
       "hero_subtitle": "<strong>Expert guidance</strong>, a personal advisor and a <strong>personal dashboard</strong> with real-time tracking. Serving clients worldwide.",
-      "hero_photo_alt": "Plateresque facade of the University of Salamanca, symbol of official Spanish education",
+      "hero_photo_alt": "Historic streets of Salamanca next to the university quarter",
       "hero_fact_time_value": "6–24 months",
       "hero_fact_time_label": "Resolution time",
       "hero_fact_docs_value": "6 documents",
@@ -94,7 +98,7 @@
       "hero_fact_success_label": "Positive outcome",
       "hero_badge_result": "Positive Outcome",
       "hero_badge_experience": "15 years · 1700+ cases",
-      "hero_caption_place": "University of Salamanca",
+      "hero_caption_place": "Salamanca",
       "cta_start": "Request a Personal Consultation",
       "compare_title": "On your own or with us — an honest comparison",
       "compare_subtitle": "What homologating a degree in Spain actually involves. No exaggeration — just the steps someone has to take.",
@@ -214,6 +218,7 @@
       "hero_title_1": "Get into a",
       "hero_title_accent": "Spanish university",
       "hero_subtitle": "We'll find the right university and program for your goals, prepare your documents, and guide you through to enrollment. You won't face Spanish bureaucracy alone.",
+      "hero_img_alt": "Students entering a university campus in Spain",
       "map_universities_value": "80+",
       "map_universities_label": "universities",
       "map_programs_value": "1,000+",
@@ -287,6 +292,7 @@
       "hero_title_1": "Learn",
       "hero_title_accent": "Spanish with native speakers",
       "hero_subtitle": "<strong>Individual and group lessons</strong> with certified teachers. From A1 to C2, <strong>DELE preparation</strong>. Online or in-person in Spain.",
+      "hero_img_alt": "Students focused in a Spanish language class",
       "hero_stat_students": "students trained",
       "hero_stat_levels": "all levels",
       "hero_stat_formats": "study formats",

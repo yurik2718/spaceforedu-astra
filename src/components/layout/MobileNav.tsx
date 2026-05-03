@@ -39,6 +39,7 @@ export default function MobileNav({
   waHref,
   whatsappPhone,
   whatsappFormatted,
+  phoneAriaLabel,
 }: {
   locale: string;
   currentPath: string;
@@ -54,6 +55,7 @@ export default function MobileNav({
   waHref: string;
   whatsappPhone: string;
   whatsappFormatted: string;
+  phoneAriaLabel: string;
 }) {
   const [open, setOpen] = useState(false);
   const keys = ["homologacion", "universidad", "espanol", "precios"] as const;
@@ -134,9 +136,10 @@ export default function MobileNav({
             <a
               href={`tel:+${whatsappPhone}`}
               onClick={() => setOpen(false)}
+              aria-label={phoneAriaLabel}
               className="flex items-center gap-2.5 text-base font-medium text-foreground min-h-[44px] px-1"
             >
-              <Phone className="h-5 w-5 text-brand-secondary shrink-0" />
+              <Phone className="h-5 w-5 text-brand-secondary shrink-0" aria-hidden="true" />
               <span>{whatsappFormatted}</span>
             </a>
           )}

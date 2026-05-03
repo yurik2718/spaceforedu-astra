@@ -11,7 +11,9 @@
       "Bash(magick -background none -density 384 public/favicon.svg -resize 192x192 public/icon-192.png)",
       "Bash(magick -background none -density 384 public/favicon.svg -resize 512x512 public/icon-512.png)",
       "Bash(magick -background \"#E8453C\" -density 256 /tmp/og.svg -resize 1200x630 public/og.png)",
-      "Bash(pkill -f \"astro preview\")"
+      "Bash(pkill -f \"astro preview\")",
+      "Bash(curl -s http://localhost:4321/ru/homologation/)",
+      "Bash(curl -s http://localhost:4321/ru/pricing/)"
     ]
   }
 }

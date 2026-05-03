@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { SpainIllustration } from "@/components/public/SpainIllustration";
 import { Reveal, TiltCard, AnimatedCounter } from "@/components/public/animations";
 import {
   FeatureIcon,
@@ -120,7 +119,21 @@ function PageBody({ locale }: { locale: Locale | string }) {
             ))}
           </div>
         }
-        illustration={<SpainIllustration />}
+        illustration={
+          <div className="relative">
+            <div className="absolute -inset-4 bg-gradient-to-br from-brand-primary/10 to-brand-secondary/15 rounded-3xl blur-2xl" />
+            <img
+              src="/images/services/espanol/students-spanish-class-focused.webp"
+              alt={t("public.espanol.hero_img_alt")}
+              width={700}
+              height={500}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="relative rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]"
+            />
+          </div>
+        }
       />
 
       <PublicSection className="bg-white">
@@ -267,6 +280,8 @@ function PageBody({ locale }: { locale: Locale | string }) {
       <PublicCta
         title={t("public.espanol.cta_title")}
         subtitle={t("public.espanol.cta_subtitle")}
+        bgImage="/images/lifestyle/spain-flag-waving-blue-sky.webp"
+        overlayClass="bg-zinc-900/70"
       >
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <ConsultationDialog>

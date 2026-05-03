@@ -127,10 +127,10 @@ function PageBody({ locale }: { locale: Locale | string }) {
           <div className="relative w-full max-w-md mx-auto lg:mx-0 lg:ml-auto">
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-brand-primary/25 to-brand-secondary/25 blur-3xl" />
             <img
-              src="/images/hero_homologacion.webp"
+              src="/images/services/homologacion/salamanca-streets-university-garden.webp"
               alt={t("public.homologacion.hero_photo_alt")}
-              width={914}
-              height={836}
+              width={1200}
+              height={798}
               fetchPriority="high"
               decoding="async"
               className="relative rounded-2xl shadow-2xl shadow-brand-secondary/20 w-full h-auto object-cover"
@@ -337,6 +337,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
       <PublicCta
         title={t("public.homologacion.cta_title")}
         subtitle={t("public.homologacion.cta_subtitle")}
+        bgImage="/images/lifestyle/salamanca-university-courtyard-sunset.webp"
       >
         <ConsultationDialog>
           <GradientButton className="w-full sm:w-auto">

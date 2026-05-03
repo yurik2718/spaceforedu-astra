@@ -112,7 +112,7 @@ function PricingHero() {
   };
 
   return (
-    <section className="relative bg-slate-50 pt-32 pb-16 sm:pt-44 sm:pb-28 lg:pt-52 lg:pb-40">
+    <section className="relative bg-slate-50 pt-20 pb-16 sm:pt-28 sm:pb-24 lg:pt-32 lg:pb-32">
       <Container className="relative">
         <div className="max-w-4xl mx-auto text-center">
           <Reveal direction="up">

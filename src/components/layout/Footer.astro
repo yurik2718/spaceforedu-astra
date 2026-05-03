@@ -148,8 +148,10 @@ const trust = [
                   href={`https://wa.me/${CONTACT_WHATSAPP}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={t("a11y.whatsapp_aria")}
                   class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
                 >
+                  <span class="sr-only">WhatsApp:</span>
                   {formatPhone(CONTACT_WHATSAPP)}
                 </a>
               </li>
