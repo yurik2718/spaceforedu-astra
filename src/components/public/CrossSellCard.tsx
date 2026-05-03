@@ -22,7 +22,7 @@ export function CrossSellCard({
   badgeIcon: LucideIcon;
 }) {
   return (
-    <PublicSection className="bg-slate-50" dots>
+    <PublicSection className="bg-[var(--surface-soft)]">
       <Reveal direction="up">
         <Card className="max-w-4xl mx-auto border bg-white overflow-hidden">
           <CardContent className="p-0">
@@ -50,11 +50,11 @@ export function CrossSellCard({
                   ))}
                 </div>
               </div>
-              <div className="hidden sm:flex bg-gradient-to-br from-brand-primary/5 to-brand-secondary/5 items-center justify-center p-10 self-stretch">
+              <div className="hidden sm:flex bg-[var(--surface-card)] items-center justify-center p-10 self-stretch">
                 <div className="text-center space-y-2">
                   <BadgeIcon
                     aria-hidden="true"
-                    className="h-10 w-10 text-brand-secondary/40 mx-auto"
+                    className="h-10 w-10 text-[var(--ash)] mx-auto"
                   />
                   <p className="text-xs text-muted-foreground font-medium max-w-[140px]">
                     {badgeLabel}

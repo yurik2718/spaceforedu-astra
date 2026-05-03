@@ -32,7 +32,7 @@ export function TestimonialsSection({
                 <div className="mt-4 pt-4 border-t flex items-center gap-3">
                   <div
                     aria-hidden="true"
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 flex items-center justify-center text-sm font-bold text-brand-secondary"
+                    className="w-10 h-10 rounded-full bg-[var(--surface-card)] flex items-center justify-center text-sm font-bold text-[var(--primary)]"
                   >
                     {t(`${translationPrefix}.testimonial_${i}_name`).charAt(0)}
                   </div>

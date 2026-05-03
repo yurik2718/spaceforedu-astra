@@ -66,9 +66,9 @@ const COMPARISON_MATRIX: readonly (readonly [boolean, boolean, boolean])[] = [
 ] as const;
 
 const TESTIMONIAL_AVATAR_COLORS = [
-  "bg-brand-secondary",
-  "bg-brand-primary",
-  "bg-gradient-to-br from-brand-primary to-brand-secondary",
+  "bg-[var(--accent-blue)]",
+  "bg-[var(--primary)]",
+  "bg-[var(--ink)]",
 ] as const;
 
 export function PreciosPage({
@@ -112,7 +112,7 @@ function PricingHero() {
   };
 
   return (
-    <section className="relative bg-slate-50 pt-20 pb-16 sm:pt-28 sm:pb-24 lg:pt-32 lg:pb-32">
+    <section className="relative bg-[var(--surface-soft)] pt-20 pb-16 sm:pt-28 sm:pb-24 lg:pt-32 lg:pb-32">
       <Container className="relative">
         <div className="max-w-4xl mx-auto text-center">
           <Reveal direction="up">
@@ -125,9 +125,9 @@ function PricingHero() {
             </div>
           </Reveal>
           <Reveal direction="up">
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tighter text-foreground leading-[1.05]">
+            <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-[-0.03em] text-[var(--ink)] leading-[1.05]">
               {t("public.precios.hero_title_1")}{" "}
-              <span className="bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+              <span className="text-[var(--primary)]">
                 {t("public.precios.hero_title_accent")}
               </span>
             </h1>
@@ -185,7 +185,7 @@ function HowItWorksSection() {
               </div>
               <div
                 aria-hidden="true"
-                className="mx-auto my-5 h-px w-10 bg-gradient-to-r from-brand-primary to-brand-secondary"
+                className="mx-auto my-5 h-px w-10 bg-[var(--primary)]"
               />
               <h3 className="text-xl sm:text-2xl font-bold mb-3 tracking-tight">
                 {t(`public.precios.hero_step_${n}_title`)}
@@ -224,7 +224,7 @@ function PricingPlansSection() {
 function PricingTestimonialsSection() {
   const { t } = useTranslation();
   return (
-    <PublicSection className="bg-slate-50" dots>
+    <PublicSection className="bg-[var(--surface-soft)]">
       <SectionHeading
         title={t("public.precios.testimonials_title")}
         subtitle={t("public.precios.testimonials_subtitle")}
@@ -307,7 +307,7 @@ function IncludedFeaturesSection() {
 function ComparisonTableSection() {
   const { t } = useTranslation();
   return (
-    <PublicSection className="bg-slate-50" dots>
+    <PublicSection className="bg-[var(--surface-soft)]">
       <SectionHeading title={t("public.precios.compare_title")} />
       <Reveal direction="up" delay={100}>
         <div className="max-w-4xl mx-auto">
@@ -327,7 +327,7 @@ function ComparisonMobile() {
   return (
     <div className="sm:hidden space-y-3">
       {COMPARISON_MATRIX.map((row, i) => (
-        <div key={i} className="rounded-xl border border-slate-200 bg-white p-4">
+        <div key={i} className="rounded-2xl border border-[var(--hairline-soft)] bg-white p-4">
           <div className="text-sm font-medium leading-snug mb-3">
             {t(`public.precios.compare_feature_${i + 1}`)}
           </div>
@@ -335,10 +335,10 @@ function ComparisonMobile() {
             {PLAN_KEYS.map((planKey, j) => (
               <div
                 key={planKey}
-                className={`flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md border ${
+                className={`flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border ${
                   row[j]
-                    ? "bg-emerald-50 text-emerald-700 border-emerald-100"
-                    : "bg-slate-50 text-slate-400 border-slate-100"
+                    ? "bg-[var(--success-pale)] text-[var(--success-deep)] border-[var(--success-pale)]"
+                    : "bg-[var(--surface-card)] text-[var(--ash)] border-[var(--hairline-soft)]"
                 }`}
                 aria-label={`${t(`public.precios.plan_${planKey}_title`)}: ${
                   row[j] ? includedLabel : notIncludedLabel
@@ -422,7 +422,7 @@ function ComparisonDesktop() {
 function RiskReversalSection() {
   const { t } = useTranslation();
   return (
-    <PublicSection className="bg-slate-50" dots>
+    <PublicSection className="bg-[var(--surface-soft)]">
       <Reveal direction="up">
         <div className="max-w-3xl mx-auto text-center">
           <div
@@ -473,7 +473,7 @@ function PricingCard({ plan }: { plan: Plan }) {
     >
       {highlighted && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <Badge className="bg-gradient-to-r from-brand-primary to-brand-secondary text-white border-0 shadow-md">
+          <Badge className="bg-[var(--primary)] text-white border-0">
             {t("public.precios.popular")}
           </Badge>
         </div>
@@ -507,10 +507,10 @@ function PricingCard({ plan }: { plan: Plan }) {
         </div>
         <ConsultationDialog>
           <Button
-            className={`mt-6 w-full min-h-[44px] transition-all duration-300 ${
+            className={`mt-6 w-full min-h-[44px] transition-colors duration-150 ${
               highlighted
-                ? "bg-gradient-to-r from-brand-primary to-brand-secondary hover:opacity-90 border-0 shadow-md hover:shadow-lg"
-                : "group-hover:bg-primary group-hover:text-primary-foreground"
+                ? "bg-[var(--primary)] hover:bg-[var(--primary-pressed)] border-0 text-white"
+                : "group-hover:bg-[var(--ink)] group-hover:text-white"
             }`}
             variant={highlighted ? "default" : "outline"}
           >

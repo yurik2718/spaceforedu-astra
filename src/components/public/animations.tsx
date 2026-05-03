@@ -140,15 +140,8 @@ export function ShimmerBorder({
   className?: string;
 }) {
   return (
-    <div className={`relative group h-full ${className}`}>
-      <div
-        className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-primary opacity-30 group-hover:opacity-60 blur-[1px] transition-opacity duration-500"
-        style={{
-          backgroundSize: "200% 100%",
-          animation: "shimmer 3s linear infinite",
-        }}
-      />
-      <div className="relative bg-white rounded-xl h-full">{children}</div>
+    <div className={`relative h-full rounded-2xl ring-1 ring-[var(--primary)] ${className}`}>
+      <div className="relative bg-white rounded-2xl h-full">{children}</div>
     </div>
   );
 }

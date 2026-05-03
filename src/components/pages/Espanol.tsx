@@ -41,9 +41,9 @@ const FORMATS = [
 ] as const;
 
 const LEVELS = [
-  { level: "A1–A2", icon: BookOpen, key: "beginner", color: "from-emerald-500 to-emerald-600" },
-  { level: "B1–B2", icon: Briefcase, key: "intermediate", color: "from-brand-secondary to-blue-600" },
-  { level: "C1–C2", icon: Award, key: "advanced", color: "from-brand-primary to-red-600" },
+  { level: "A1–A2", icon: BookOpen, key: "beginner", color: "bg-[var(--success-deep)]" },
+  { level: "B1–B2", icon: Briefcase, key: "intermediate", color: "bg-[var(--accent-blue)]" },
+  { level: "C1–C2", icon: Award, key: "advanced", color: "bg-[var(--primary)]" },
 ] as const;
 
 const ADVANTAGES = [
@@ -121,7 +121,6 @@ function PageBody({ locale }: { locale: Locale | string }) {
         }
         illustration={
           <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-br from-brand-primary/10 to-brand-secondary/15 rounded-3xl blur-2xl" />
             <img
               src="/images/services/espanol/students-spanish-class-focused.webp"
               alt={t("public.espanol.hero_img_alt")}
@@ -130,7 +129,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              className="relative rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]"
+              className="relative rounded-[32px] w-full object-cover aspect-[4/3]"
             />
           </div>
         }
@@ -165,7 +164,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
         </div>
       </PublicSection>
 
-      <PublicSection className="bg-slate-50" dots>
+      <PublicSection className="bg-[var(--surface-soft)]">
         <SectionHeading
           title={t("public.espanol.journey_title")}
           subtitle={t("public.espanol.journey_subtitle")}
@@ -176,7 +175,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
               <TiltCard className="h-full">
                 <Card className="h-full border bg-white transition-all duration-300 hover:shadow-xl hover:shadow-brand-secondary/5 group overflow-hidden">
                   <CardContent className="p-0">
-                    <div className={`bg-gradient-to-r ${color} px-6 py-4 text-white`}>
+                    <div className={`${color} px-6 py-4 text-white`}>
                       <div className="flex items-center justify-between">
                         <span className="text-2xl font-bold">{level}</span>
                         <Icon aria-hidden="true" className="h-6 w-6 opacity-80" />
@@ -221,7 +220,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
         />
       </PublicSection>
 
-      <PublicSection className="bg-slate-50" dots>
+      <PublicSection className="bg-[var(--surface-soft)]">
         <SectionHeading
           title={t("public.espanol.adv_title")}
           subtitle={t("public.espanol.adv_subtitle")}
@@ -243,7 +242,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
           ].map(({ value, suffix, key }, i) => (
             <Reveal key={key} direction="up" delay={i * 150}>
               <div className="p-4 sm:p-6">
-                <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+                <div className="font-display text-4xl sm:text-5xl font-bold tracking-[-0.025em] text-[var(--primary)]">
                   <AnimatedCounter value={value} suffix={suffix} />
                 </div>
                 <p className="mt-2 text-sm text-muted-foreground font-medium">

@@ -108,7 +108,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
             {HERO_FACTS.map(({ icon, valueKey, labelKey }) => (
               <div
                 key={valueKey}
-                className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white/70 backdrop-blur-sm px-4 py-3 shadow-sm"
+                className="flex items-center gap-3 rounded-2xl border border-[var(--hairline-soft)] bg-white px-4 py-3"
               >
                 <FeatureIcon icon={icon} size="sm" hoverScale={false} />
                 <div className="min-w-0">
@@ -125,7 +125,6 @@ function PageBody({ locale }: { locale: Locale | string }) {
         }
         illustration={
           <div className="relative w-full max-w-md mx-auto lg:mx-0 lg:ml-auto">
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-brand-primary/25 to-brand-secondary/25 blur-3xl" />
             <img
               src="/images/services/homologacion/salamanca-streets-university-garden.webp"
               alt={t("public.homologacion.hero_photo_alt")}
@@ -133,9 +132,9 @@ function PageBody({ locale }: { locale: Locale | string }) {
               height={798}
               fetchPriority="high"
               decoding="async"
-              className="relative rounded-2xl shadow-2xl shadow-brand-secondary/20 w-full h-auto object-cover"
+              className="relative rounded-[32px] w-full h-auto object-cover"
             />
-            <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 rounded-full bg-black/55 backdrop-blur-sm px-2.5 py-1 text-[11px] font-medium text-white/95 pointer-events-none">
+            <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 rounded-full bg-black/70 px-2.5 py-1 text-[11px] font-medium text-white/95 pointer-events-none">
               <Building2 className="h-3 w-3 shrink-0" />
               <span>{t("public.homologacion.hero_caption_place")}</span>
             </div>
@@ -163,7 +162,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
         }
       />
 
-      <PublicSection className="bg-slate-50" dots>
+      <PublicSection className="bg-[var(--surface-soft)]">
         <SectionHeading
           title={t("public.homologacion.compare_title")}
           subtitle={t("public.homologacion.compare_subtitle")}
@@ -179,7 +178,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
         <FeatureCardGrid items={ADVANTAGES} columns={4} />
       </PublicSection>
 
-      <PublicSection className="bg-slate-50" dots>
+      <PublicSection className="bg-[var(--surface-soft)]">
         <SectionHeading
           title={t("public.homologacion.what_title")}
           subtitle={t("public.homologacion.what_desc")}
@@ -195,7 +194,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
         <div className="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
           {DASHBOARD_FEATURES.map(({ icon, key }, i) => (
             <Reveal key={key} direction="up" delay={i * 100}>
-              <div className="flex items-start gap-4 p-4 rounded-xl border bg-slate-50/50 transition-all duration-300 hover:bg-white hover:shadow-md group">
+              <div className="flex items-start gap-4 p-4 rounded-2xl border border-[var(--hairline-soft)] bg-[var(--surface-card)] transition-colors duration-200 hover:bg-white group">
                 <FeatureIcon icon={icon} size="md" />
                 <div>
                   <h3 className="font-semibold text-sm mb-1">
@@ -211,7 +210,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
         </div>
       </PublicSection>
 
-      <PublicSection className="bg-slate-50" dots>
+      <PublicSection className="bg-[var(--surface-soft)]">
         <SectionHeading title={t("public.homologacion.process_title")} />
         <TimelineSection translationPrefix="public.homologacion" count={4} />
       </PublicSection>
@@ -224,7 +223,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
         <TestimonialsSection translationPrefix="public.homologacion" />
       </PublicSection>
 
-      <PublicSection className="bg-slate-50" dots>
+      <PublicSection className="bg-[var(--surface-soft)]">
         <SectionHeading
           title={t("public.homologacion.proof_title")}
           subtitle={t("public.homologacion.proof_subtitle")}
@@ -237,7 +236,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
           ].map(({ value, suffix, key }, i) => (
             <Reveal key={key} direction="up" delay={i * 150}>
               <div className="p-4 sm:p-6">
-                <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+                <div className="font-display text-4xl sm:text-5xl font-bold tracking-[-0.025em] text-[var(--primary)]">
                   <AnimatedCounter value={value} suffix={suffix} />
                 </div>
                 <p className="mt-2 text-sm text-muted-foreground font-medium">
@@ -329,7 +328,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
         badgeIcon={Languages}
       />
 
-      <PublicSection className="bg-slate-50" dots>
+      <PublicSection className="bg-[var(--surface-soft)]">
         <SectionHeading title={t("public.homologacion.faq_title")} />
         <FaqSection translationPrefix="public.homologacion" count={5} />
       </PublicSection>

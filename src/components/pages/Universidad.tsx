@@ -103,7 +103,6 @@ function PageBody({ locale }: { locale: Locale | string }) {
         }
         illustration={
           <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-br from-brand-primary/10 to-brand-secondary/15 rounded-3xl blur-2xl" />
             <img
               src="/images/lifestyle/graduates-celebration-success.webp"
               alt={t("public.universidad.hero_img_alt")}
@@ -112,7 +111,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              className="relative rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]"
+              className="relative rounded-[32px] w-full object-cover aspect-[4/3]"
             />
           </div>
         }
@@ -126,7 +125,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
         <FeatureCardGrid items={ADVANTAGES} columns={4} />
       </PublicSection>
 
-      <PublicSection className="bg-slate-50" dots>
+      <PublicSection className="bg-[var(--surface-soft)]">
         <SectionHeading title={t("public.universidad.types_title")} />
         <FeatureCardGrid items={ADMISSION_TYPES} columns={3} />
       </PublicSection>
@@ -160,7 +159,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
         badgeIcon={Languages}
       />
 
-      <PublicSection className="bg-slate-50" dots>
+      <PublicSection className="bg-[var(--surface-soft)]">
         <SectionHeading title={t("public.universidad.faq_title")} />
         <FaqSection translationPrefix="public.universidad" count={5} />
       </PublicSection>

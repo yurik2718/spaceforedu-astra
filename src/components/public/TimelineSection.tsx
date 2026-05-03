@@ -24,13 +24,13 @@ export function TimelineSection({
               <div className="flex flex-col items-center shrink-0 w-12 sm:w-14">
                 <div
                   aria-hidden="true"
-                  className="text-4xl sm:text-5xl font-bold tracking-tighter leading-none bg-gradient-to-br from-brand-primary to-brand-secondary bg-clip-text text-transparent select-none"
+                  className="font-display text-4xl sm:text-5xl font-bold tracking-[-0.025em] leading-none text-[var(--primary)] select-none"
                 >
                   {String(i + 1).padStart(2, "0")}
                 </div>
                 {!isLast && (
                   <div
-                    className="mt-3 w-px flex-1 bg-gradient-to-b from-slate-200 via-slate-200/60 to-transparent"
+                    className="mt-3 w-px flex-1 bg-[var(--hairline)]"
                     aria-hidden="true"
                   />
                 )}

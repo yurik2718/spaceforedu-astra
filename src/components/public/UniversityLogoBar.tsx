@@ -23,10 +23,10 @@ export function UniversityLogoBar({
 
   return (
     <section
-      className={`${noBorderTop ? "border-b" : "border-y"} border-slate-100 py-8 sm:py-10 bg-white/80 overflow-hidden`}
+      className={`${noBorderTop ? "border-b" : "border-y"} border-[var(--hairline-soft)] py-10 sm:py-12 bg-white overflow-hidden`}
     >
       <Container>
-        <p className="text-center text-xs uppercase tracking-wider text-muted-foreground mb-8 py-1">
+        <p className="text-center text-[12px] font-semibold uppercase tracking-[0.16em] text-[var(--mute)] mb-6">
           {t(titleKey ?? "public.precios.trust_bar_title")}
         </p>
       </Container>

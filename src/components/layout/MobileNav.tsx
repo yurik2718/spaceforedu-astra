@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Rocket,
   Menu,
   X,
   Phone,
@@ -8,7 +7,6 @@ import {
   Building2,
   BookOpen,
   CreditCard,
-  MessageCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -74,19 +72,25 @@ export default function MobileNav({
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="w-80 flex flex-col p-0"
+        className="w-80 flex flex-col p-0 bg-white"
         showCloseButton={false}
       >
         <SheetTitle className="sr-only">{menuLabel}</SheetTitle>
-        <div className="flex items-center justify-between px-5 py-4 border-b">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--hairline-soft)]">
           <a
             href={navHrefs.home}
             onClick={() => setOpen(false)}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2.5"
           >
-            <Rocket className="h-6 w-6 text-brand-primary" />
-            <span className="text-lg font-bold tracking-tight">
-              Space for <span className="text-brand-secondary">Edu</span>
+            <img
+              src="/favicon.svg"
+              alt=""
+              width="32"
+              height="32"
+              className="h-8 w-8 rounded-lg"
+            />
+            <span className="font-display text-[18px] font-bold tracking-[-0.02em] text-[var(--ink)]">
+              Space for Edu
             </span>
           </a>
           <SheetClose asChild>
@@ -101,16 +105,16 @@ export default function MobileNav({
           </SheetClose>
         </div>
 
-        <nav className="flex-1 flex flex-col gap-0.5 px-3 pt-3 overflow-y-auto">
+        <nav className="flex-1 flex flex-col gap-1 px-3 pt-3 overflow-y-auto">
           {keys.map((key) => {
             const href = navHrefs[key];
             const Icon = NAV_ICONS[key];
             const isActive = currentPath.startsWith(href);
             const className = [
-              "flex items-center gap-3 px-3 py-3 text-base font-medium rounded-lg transition-colors min-h-[44px]",
+              "flex items-center gap-3 px-4 py-3 text-[15px] font-semibold rounded-full transition-colors min-h-[44px]",
               isActive
-                ? "bg-muted text-foreground"
-                : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+                ? "bg-[var(--ink)] text-white"
+                : "text-[var(--body-color)] hover:bg-[var(--surface-card)] hover:text-[var(--ink)]",
             ].join(" ");
             return (
               <a
@@ -122,7 +126,7 @@ export default function MobileNav({
                 <Icon
                   className={[
                     "h-5 w-5 shrink-0",
-                    isActive ? "text-brand-primary" : "",
+                    isActive ? "text-white" : "text-[var(--mute)]",
                   ].join(" ")}
                 />
                 {navLabels[key]}
@@ -131,15 +135,18 @@ export default function MobileNav({
           })}
         </nav>
 
-        <div className="mt-auto px-4 pb-6 pt-4 border-t space-y-3">
+        <div className="mt-auto px-4 pb-6 pt-4 border-t border-[var(--hairline-soft)] space-y-3">
           {whatsappPhone && (
             <a
               href={`tel:+${whatsappPhone}`}
               onClick={() => setOpen(false)}
               aria-label={phoneAriaLabel}
-              className="flex items-center gap-2.5 text-base font-medium text-foreground min-h-[44px] px-1"
+              className="flex items-center gap-2.5 text-[15px] font-medium text-[var(--ink)] min-h-[44px] px-1"
             >
-              <Phone className="h-5 w-5 text-brand-secondary shrink-0" aria-hidden="true" />
+              <Phone
+                className="h-5 w-5 text-[var(--primary)] shrink-0"
+                aria-hidden="true"
+              />
               <span>{whatsappFormatted}</span>
             </a>
           )}
@@ -155,8 +162,7 @@ export default function MobileNav({
               aria-label={ctaAriaLabel}
               className="block"
             >
-              <Button className="w-full min-h-[44px] gap-2 bg-green-600 hover:bg-green-700 border-0 text-white">
-                <MessageCircle className="h-4 w-4" />
+              <Button className="w-full min-h-[44px] h-12 bg-[var(--primary)] hover:bg-[var(--primary-pressed)] border-0 text-white text-[15px] font-bold rounded-2xl">
                 {ctaLabel}
               </Button>
             </a>

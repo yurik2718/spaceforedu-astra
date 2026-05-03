@@ -39,14 +39,14 @@ export function UniversityIllustration() {
       {BUBBLES.map(({ key, x, y, delay, size }) => (
         <div
           key={key}
-          className={`absolute rounded-xl bg-white/75 backdrop-blur-md shadow-lg shadow-black/5 border border-white/80 text-slate-700 whitespace-nowrap ${BUBBLE_STYLES[size]}`}
+          className={`absolute rounded-full bg-white border border-[var(--hairline-soft)] text-[var(--ink)] whitespace-nowrap ${BUBBLE_STYLES[size]}`}
           style={{
             left: x,
             top: y,
             animation: `bubbleFloat 7s ease-in-out ${delay}s infinite, bubbleFadeIn 1s ease-out ${delay}s both`,
           }}
         >
-          <span className="bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+          <span className="text-[var(--primary)] font-bold">
             {t(`public.universidad.map_${key}_value`)}
           </span>{" "}
           <span className="text-slate-500 font-normal">

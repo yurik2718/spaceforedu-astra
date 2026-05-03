@@ -30,7 +30,7 @@ export function FeatureCardGrid({
       {items.map(({ icon, titleKey, descKey }, i) => (
         <Reveal key={titleKey} direction="up" delay={i * 120} className="h-full">
           <TiltCard className="h-full">
-            <Card className="h-full border bg-white transition-all duration-300 hover:shadow-xl hover:shadow-brand-secondary/5 group">
+            <Card className="h-full border border-[var(--hairline-soft)] rounded-2xl bg-white transition-colors duration-200 hover:border-[var(--ash)] group">
               <CardContent className="h-full p-6 text-center flex flex-col items-center">
                 <FeatureIcon icon={icon} className="mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">{t(titleKey)}</h3>

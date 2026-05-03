@@ -1,12 +1,6 @@
 import { ArrowRight, ChevronDown, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Reveal,
-  GradientOrbs,
-  FloatingElements,
-  Spotlight,
-  DotGrid,
-} from "@/components/public/animations";
+import { Reveal } from "@/components/public/animations";
 import { cn } from "@/lib/utils";
 
 export function Container({
@@ -39,16 +33,12 @@ export function GradientButton({
     <Button
       size="lg"
       className={cn(
-        "group relative overflow-hidden min-h-[44px] text-base bg-gradient-to-r from-brand-primary to-brand-secondary hover:opacity-90 border-0 shadow-lg shadow-brand-secondary/20 hover:shadow-xl hover:shadow-brand-secondary/30 transition-all duration-300",
+        "group min-h-[44px] h-12 px-6 text-[15px] font-bold bg-brand-primary text-white border-0 rounded-2xl hover:bg-[var(--color-brand-primary-pressed)] active:bg-[var(--color-brand-primary-pressed)] transition-colors duration-150",
         className,
       )}
       {...rest}
     >
-      <span
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
-        style={{ backgroundSize: "200% 100%", animation: "shimmer 3s ease-in-out infinite" }}
-      />
-      <span className="relative flex items-center">
+      <span className="flex items-center">
         {children}
         <ArrowRight
           aria-hidden="true"
@@ -92,15 +82,12 @@ export function PublicHero({
   return (
     <section
       className={cn(
-        "relative bg-gradient-to-br from-slate-50 via-white to-blue-50 py-16 sm:py-24 lg:py-32 overflow-hidden flex items-center",
+        "relative bg-[var(--surface-soft)] py-16 sm:py-24 lg:py-32 overflow-hidden flex items-center",
         fullBleed
           ? "min-h-[calc(100dvh-4rem)]"
           : "min-h-[60vh] sm:min-h-[80vh]",
       )}
     >
-      <Spotlight />
-      <FloatingElements />
-      <DotGrid className="opacity-[0.25]" />
       <Container className="relative">
         <div
           className={
@@ -111,9 +98,9 @@ export function PublicHero({
         >
           <div className={hasIllustration ? undefined : "max-w-3xl"}>
             <Reveal direction="up">
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] text-[var(--ink)] leading-[1.05]">
                 {title1}{" "}
-                <span className="bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+                <span className="text-[var(--primary)]">
                   {titleAccent}
                 </span>
               </h1>
@@ -152,8 +139,8 @@ function ScrollHint() {
       className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 pointer-events-none animate-[bounce_2s_ease-in-out_infinite]"
       aria-hidden="true"
     >
-      <div className="rounded-full bg-white/60 backdrop-blur-sm border border-slate-200/70 p-1.5 shadow-sm">
-        <ChevronDown className="h-4 w-4 text-brand-secondary" strokeWidth={2.5} />
+      <div className="rounded-full bg-white border border-[var(--hairline-soft)] p-1.5">
+        <ChevronDown className="h-4 w-4 text-[var(--primary)]" strokeWidth={2.5} />
       </div>
     </div>
   );
@@ -173,7 +160,7 @@ export function PublicCta({
   overlayClass?: string;
 }) {
   return (
-    <section className="relative py-20 sm:py-32 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 text-white overflow-hidden">
+    <section className="relative py-20 sm:py-32 bg-[var(--surface-dark)] text-white overflow-hidden">
       {bgImage && (
         <>
           <img
@@ -185,9 +172,6 @@ export function PublicCta({
           <div className={cn("absolute inset-0", overlayClass)} />
         </>
       )}
-      <GradientOrbs />
-      <DotGrid className="opacity-[0.08]" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-secondary/30 to-transparent" />
       <Container className="relative text-center">
         <Reveal direction="up">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight drop-shadow-lg">{title}</h2>
@@ -219,7 +203,7 @@ export function FloatingBadge({
   return (
     <div
       className={cn(
-        "absolute z-20 bg-white border border-slate-100 rounded-xl flex items-center gap-2 text-xs",
+        "absolute z-20 bg-white border border-[var(--hairline-soft)] rounded-full px-4 py-2.5 flex items-center gap-2 text-xs font-bold text-[var(--ink)] shadow-sm",
         className,
       )}
       style={{
@@ -261,17 +245,16 @@ export function OutlineCtaButton({
 export function PublicSection({
   children,
   className,
-  dots = false,
   id,
 }: {
   children: React.ReactNode;
   className?: string;
+  /** No-op now; kept for back-compat with existing call sites. */
   dots?: boolean;
   id?: string;
 }) {
   return (
     <section id={id} className={cn("py-20 sm:py-32 relative", className)}>
-      {dots && <DotGrid className="opacity-[0.2]" />}
       <Container className="relative">{children}</Container>
     </section>
   );
@@ -320,13 +303,13 @@ export function FeatureIcon({
     <div
       aria-hidden="true"
       className={cn(
-        "inline-flex shrink-0 rounded-lg bg-gradient-to-br from-brand-primary/10 to-brand-secondary/10",
+        "inline-flex shrink-0 rounded-2xl bg-[var(--surface-card)]",
         wrap,
         hoverScale && "transition-transform duration-300 group-hover:scale-110",
         className,
       )}
     >
-      <Icon className={cn(glyph, "text-brand-secondary")} />
+      <Icon className={cn(glyph, "text-[var(--primary)]")} />
     </div>
   );
 }

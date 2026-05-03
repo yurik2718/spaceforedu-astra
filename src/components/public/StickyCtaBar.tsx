@@ -58,7 +58,7 @@ function StickyCtaBarInner() {
   return (
     <>
       {/* Mobile: full-width bar */}
-      <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden border-t bg-white/95 backdrop-blur-md shadow-[0_-4px_12px_-2px_rgba(0,0,0,0.08)]">
+      <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden border-t border-[var(--hairline-soft)] bg-white">
         <div className="flex items-center gap-2 px-4 py-3">
           {waHref && (
             <a
@@ -72,7 +72,7 @@ function StickyCtaBarInner() {
             </a>
           )}
           <ConsultationDialog>
-            <Button className="flex-1 min-h-[44px] bg-gradient-to-r from-brand-primary to-brand-secondary hover:opacity-90 border-0 text-base">
+            <Button className="flex-1 min-h-[44px] bg-[var(--primary)] hover:bg-[var(--primary-pressed)] border-0 text-white text-base font-bold">
               {t("public.sticky_cta.consultation")}
             </Button>
           </ConsultationDialog>

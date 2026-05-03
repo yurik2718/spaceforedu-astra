@@ -21,20 +21,20 @@ const homeHref = publicRoute(publicPages.home, locale);
   page=""
   hideStickyCta
 >
-  <section class="flex flex-col items-center justify-center text-center px-4 py-24 sm:py-40 min-h-[60vh]">
-    <p class="text-sm font-semibold uppercase tracking-widest text-brand-secondary mb-4">
+  <section class="flex flex-col items-center justify-center text-center px-4 py-24 sm:py-40 min-h-[60vh] bg-[var(--surface-soft)]">
+    <p class="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--accent-blue)] mb-4">
       {t("public.not_found.eyebrow")}
     </p>
-    <h1 class="text-4xl sm:text-6xl font-bold tracking-tighter max-w-2xl">
+    <h1 class="font-display text-4xl sm:text-6xl font-semibold tracking-[-0.03em] text-[var(--ink)] max-w-2xl">
       {t("public.not_found.title")}
     </h1>
-    <p class="mt-6 text-lg text-muted-foreground max-w-md">
+    <p class="mt-6 text-lg text-[var(--mute)] max-w-md">
       {t("public.not_found.desc")}
     </p>
     <a href={homeHref} class="mt-10">
       <Button
         size="lg"
-        className="min-h-[44px] text-base bg-gradient-to-r from-brand-primary to-brand-secondary hover:opacity-90 border-0"
+        className="min-h-[44px] h-12 px-6 text-[15px] font-bold bg-[var(--primary)] hover:bg-[var(--primary-pressed)] text-white border-0"
       >
         {t("public.not_found.cta")}
       </Button>

@@ -44,25 +44,12 @@ function ComparisonColumn({
   return (
     <Card
       className={cn(
-        "relative h-full border transition-all duration-300",
+        "relative h-full border rounded-2xl transition-colors duration-200",
         isWith
-          ? "border-transparent bg-white shadow-xl shadow-brand-secondary/10 lg:-translate-y-2"
-          : "border-slate-200 bg-slate-50/60",
+          ? "border-[var(--primary)] bg-white"
+          : "border-[var(--hairline-soft)] bg-[var(--surface-card)]",
       )}
     >
-      {isWith && (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -inset-px rounded-xl bg-gradient-to-br from-brand-primary to-brand-secondary opacity-90"
-          style={{
-            WebkitMask:
-              "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-            WebkitMaskComposite: "xor",
-            maskComposite: "exclude",
-            padding: "1.5px",
-          }}
-        />
-      )}
       <CardContent className="relative p-6 sm:p-8">
         <div className="mb-6 flex items-center gap-3">
           <div
@@ -70,8 +57,8 @@ function ComparisonColumn({
             className={cn(
               "flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
               isWith
-                ? "bg-gradient-to-br from-brand-primary to-brand-secondary text-white"
-                : "bg-slate-200 text-slate-500",
+                ? "bg-[var(--primary)] text-white"
+                : "bg-[var(--secondary-bg)] text-[var(--ash)]",
             )}
           >
             {isWith ? (
@@ -108,8 +95,8 @@ function ComparisonColumn({
                 className={cn(
                   "shrink-0 mt-0.5 flex h-8 w-8 items-center justify-center rounded-lg",
                   isWith
-                    ? "bg-gradient-to-br from-brand-primary/10 to-brand-secondary/10 text-brand-secondary"
-                    : "bg-slate-200/70 text-slate-500",
+                    ? "bg-[var(--success-pale)] text-[var(--success-deep)]"
+                    : "bg-[var(--surface-card)] text-[var(--ash)]",
                 )}
               >
                 <Icon className="h-4 w-4" />
