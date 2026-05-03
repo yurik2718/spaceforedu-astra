@@ -1,130 +1,361 @@
-# Deploying SpaceForEdu — Owner Setup Guide
-
-A step-by-step walkthrough to get the site live on your own infrastructure. After this you own hosting, DNS, domain and all contact data. I keep the GitHub repo on my account (public) and you're an Admin collaborator — full push/merge/settings rights, same as me.
-
-**Your attention time: ~40 minutes, spread across the phases below.**
-Plus up to 24 hours of passive waiting for DNS propagation (runs in the background — you don't need to watch).
-
-## What you'll end up with
-
-- Admin access to the GitHub repo `github.com/yurik2718/spaceforedu-astra` (public). You can clone, push, merge, change settings.
-- A Cloudflare account you own — hosting, DNS, CDN, SSL. Free tier, $0/mo.
-- Your existing domain pointed at Cloudflare.
-- Cloudflare Pages auto-deploying every push to `main`.
+# Deploy Guide — Hostinger VPS
+**Project:** Space for Edu (spaceforedu.com)
+**Stack:** Astro static site → Nginx → Let's Encrypt SSL → GitHub Actions CI/CD
+**VPS:** Hostinger (Ubuntu 22.04 LTS assumed)
 
 ---
 
-## Phase A — GitHub access (5 min)
+## What you will end up with
 
-The repo stays on my account as a public open-source project. You get **Admin** rights on it — the same permissions I have — so you can push code, merge pull requests, change repo settings, and (critically for Phase D) authorize Cloudflare to install deploy webhooks.
+- Nginx serving the static `dist/` folder on the VPS
+- Free SSL certificate via Let's Encrypt (auto-renewing)
+- GitHub Actions: every push to `main` → builds the site → deploys to VPS automatically
+- Root redirect `/` → `/es/` handled by Nginx
+- Security headers, caching, and 404 page — all configured in Nginx
 
-1. Open GitHub on your Mac. Sign in or create an account. Enable 2FA under **Settings → Password and authentication**.
-2. Send me your GitHub username via WhatsApp.
-3. I add you at `github.com/yurik2718/spaceforedu-astra/settings/access` with the **Admin** role.
-4. You'll get an email from GitHub titled *"@yurik2718 invited you to collaborate"*. Click **View invitation → Accept invitation**.
+**Your active time: ~60 minutes**
 
-After accepting, the repo shows up in your GitHub left sidebar and you can clone it normally:
+---
+
+## Prerequisites
+
+Before starting, confirm:
+- [ ] Hostinger VPS is running Ubuntu 22.04
+- [ ] You have root or sudo SSH access to the VPS
+- [ ] You know the VPS IP address (find it in Hostinger hPanel → VPS)
+- [ ] Domain DNS A record points to your VPS IP (set in your domain registrar or Hostinger hPanel)
+- [ ] GitHub repo `yurik2718/spaceforedu-astra` is accessible
+
+---
+
+## Phase A — Connect to VPS
+
+From your terminal:
 
 ```bash
-git clone https://github.com/yurik2718/spaceforedu-astra.git
+ssh root@YOUR_VPS_IP
 ```
 
-You now have the same permissions as me on this repo.
+If Hostinger gave you a password, use it. Then immediately change it:
+
+```bash
+passwd
+```
+
+Create a deploy user (safer than deploying as root):
+
+```bash
+adduser deploy
+usermod -aG sudo deploy
+```
+
+Switch to the deploy user for the rest of setup:
+
+```bash
+su - deploy
+```
 
 ---
 
-## Phase B — Cloudflare account (3 min)
+## Phase B — Install Nginx and Node.js
 
-1. Go to https://dash.cloudflare.com/sign-up
-2. Register with a long-term email you control — ideally `admin@<your-domain>` or your main work address, not a personal Gmail you might lose.
-3. **Enable 2FA immediately**: **My Profile → Authentication → Two-Factor Authentication**. Use 1Password or Apple Passwords on your Mac to save the backup codes.
+```bash
+sudo apt update && sudo apt upgrade -y
 
----
+# Nginx
+sudo apt install -y nginx
 
-## Phase C — Point your domain at Cloudflare (15 min active, up to 24 h passive)
+# Node.js 20 (for building on VPS if needed, also used by GitHub Actions)
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
 
-1. Cloudflare dashboard → **+ Add a site** → enter your domain (e.g. `spaceforedu.com`) → pick the **Free** plan.
-2. Cloudflare scans your existing DNS records. **Review them carefully** — if you use this domain for email (Google Workspace, etc.), you should see your MX records here. Confirm nothing is missing, then continue.
-3. Cloudflare shows you **two nameservers** — something like:
-   ```
-   aliza.ns.cloudflare.com
-   sam.ns.cloudflare.com
-   ```
-   Keep this tab open.
-4. In a new tab, log into the registrar where you bought the domain (GoDaddy, Namecheap, Gandi, whoever). Find **DNS / Nameservers** for your domain and **replace the existing nameservers with the two Cloudflare gave you**. Save.
-5. Back in Cloudflare, click **Check nameservers**. Propagation usually finishes in under an hour but can take up to 24. Cloudflare emails you when it's ready.
+# Certbot for SSL
+sudo apt install -y certbot python3-certbot-nginx
 
-While waiting, continue with Phase D — it doesn't depend on DNS.
-
-> **Safety note:** changing nameservers transfers *DNS management* to Cloudflare. Your email (if any) keeps working because the MX records get migrated over. Domain registration itself stays at your current registrar.
+# Verify
+nginx -v
+node -v
+npm -v
+```
 
 ---
 
-## Phase D — Deploy the site (5 min)
+## Phase C — Create site directory
 
-1. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git**.
-2. Click **Connect GitHub**. In the GitHub authorization screen, pick **"Only select repositories"** → choose `yurik2718/spaceforedu-astra`. (You need the Admin invite from Phase A to be accepted, otherwise GitHub won't offer this repo.)
-3. Select the repo → **Begin setup**.
-4. Fill in the build config:
+```bash
+sudo mkdir -p /var/www/spaceforedu/dist
+sudo chown -R deploy:deploy /var/www/spaceforedu
+```
 
-   | Field | Value |
-   | --- | --- |
-   | Project name | `spaceforedu` |
-   | Production branch | `main` |
-   | Framework preset | **Astro** |
-   | Build command | `npm run build` |
-   | Build output directory | `dist` |
-   | Root directory | *(leave empty)* |
-
-5. Expand **Environment variables (advanced)** and add all three. Apply each to **Production** *and* **Preview**:
-
-   | Variable | Value | Example |
-   | --- | --- | --- |
-   | `PUBLIC_CONTACT_WHATSAPP` | WhatsApp number, digits only, with country code, no `+` or spaces | `34663689393` |
-   | `PUBLIC_CONTACT_EMAIL` | Contact email on your domain | `hola@spaceforedu.com` |
-   | `PUBLIC_SITE_URL` | Full site URL, no trailing slash | `https://spaceforedu.com` |
-
-6. **Save and Deploy**. First build runs in ~1–2 minutes. When green, your site is live at `https://spaceforedu.pages.dev`. Open it — you should see the Spanish home page.
+This is where GitHub Actions will upload the built `dist/` folder.
 
 ---
 
-## Phase E — Attach your real domain (2 min, after Phase C finishes)
+## Phase D — Configure Nginx
 
-Only do this once Cloudflare has confirmed your nameservers are active (you'll get an email).
+Create the Nginx config file:
 
-1. Open your Pages project → **Custom domains → Set up a custom domain**.
-2. Enter `spaceforedu.com` → **Continue → Activate domain**. Cloudflare creates the CNAME automatically.
-3. Repeat for `www.spaceforedu.com` (it will redirect to the apex).
-4. SSL certificate is issued automatically — wait 5–15 minutes, then visit `https://spaceforedu.com`.
+```bash
+sudo nano /etc/nginx/sites-available/spaceforedu
+```
+
+Paste the following (replace `spaceforedu.com` with your actual domain):
+
+```nginx
+server {
+    listen 80;
+    listen [::]:80;
+    server_name spaceforedu.com www.spaceforedu.com;
+
+    # Certbot will modify this block for SSL — leave as-is for now
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name spaceforedu.com www.spaceforedu.com;
+
+    root /var/www/spaceforedu/dist;
+    index index.html;
+
+    # Root redirect → default locale
+    location = / {
+        return 301 /es/;
+    }
+
+    # Serve static files; fall back to .html extension then 404
+    location / {
+        try_files $uri $uri/ $uri.html =404;
+    }
+
+    # Error page
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
+
+    # Security headers (replaces Cloudflare _headers file)
+    add_header X-Frame-Options "DENY" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'" always;
+
+    # Cache hashed Astro assets forever (filenames include content hash)
+    location /_astro/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable" always;
+    }
+
+    # Cache images for 30 days
+    location /images/ {
+        expires 30d;
+        add_header Cache-Control "public" always;
+    }
+
+    # Cache manifest
+    location ~* \.webmanifest$ {
+        expires 7d;
+        add_header Cache-Control "public" always;
+    }
+
+    # Gzip
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml image/svg+xml;
+    gzip_min_length 1024;
+
+    # SSL — Certbot will add certificate lines here in Phase E
+}
+```
+
+Enable the site:
+
+```bash
+sudo ln -s /etc/nginx/sites-available/spaceforedu /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+```
 
 ---
 
-## Phase F — Invite me to Cloudflare (2 min)
+## Phase E — SSL Certificate (Let's Encrypt)
 
-So I can push env-var changes, roll back bad deploys, and debug production without pinging you:
+> DNS A record must be pointing to your VPS IP before this step works.
 
-1. Cloudflare dashboard → **Manage Account → Members → Invite**.
-2. Enter the email I'll give you.
-3. Role: **Administrator** (simplest) or **Pages Admin** (narrower — just deployments).
-4. I accept the invitation. From then on I handle code *and* infrastructure.
+```bash
+sudo certbot --nginx -d spaceforedu.com -d www.spaceforedu.com
+```
 
-You can revoke my access from this page any time.
+Certbot will:
+1. Ask for your email (for expiry notices)
+2. Ask to agree to terms
+3. Automatically modify your Nginx config to add SSL
+4. Set up auto-renewal
 
-> GitHub is already set up: you're Admin on my repo, which is enough for Cloudflare to keep auto-deploying regardless of who pushes.
+Test auto-renewal:
+
+```bash
+sudo certbot renew --dry-run
+```
+
+Visit `https://spaceforedu.com` — you should see a blank page (no `dist/` yet, that comes in Phase G).
 
 ---
 
-## Phase G — Fill in the remaining content (15 min, can be done later)
+## Phase F — GitHub Actions: Auto-Deploy on Push
 
-Two things must have real values before showing the site to clients or running Meta/Google ads:
+Every push to `main` will: build the site with env vars → rsync `dist/` to VPS → site updates in ~2 minutes.
 
-### 1. Contact variables — done in Phase D
+### Step 1: Generate SSH key for GitHub Actions
 
-If you put real values there already, you're set. If you used placeholders, update them now in **Pages project → Settings → Environment variables**, then **Deployments → Retry build** to push the change live.
+On your **local machine** (not VPS):
 
-### 2. Legal notice (`Aviso Legal`)
+```bash
+ssh-keygen -t ed25519 -C "github-actions-deploy" -f ~/.ssh/spaceforedu_deploy
+```
 
-Spanish law (LSSI-CE Art. 10) requires your company details on the site. They live in three translation files:
+This creates two files:
+- `~/.ssh/spaceforedu_deploy` — private key (goes into GitHub)
+- `~/.ssh/spaceforedu_deploy.pub` — public key (goes onto VPS)
+
+### Step 2: Add public key to VPS
+
+Copy the public key content:
+
+```bash
+cat ~/.ssh/spaceforedu_deploy.pub
+```
+
+On the VPS, logged in as `deploy`:
+
+```bash
+mkdir -p ~/.ssh
+nano ~/.ssh/authorized_keys
+# Paste the public key on a new line, save
+chmod 600 ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+```
+
+Test from local machine:
+
+```bash
+ssh -i ~/.ssh/spaceforedu_deploy deploy@YOUR_VPS_IP
+```
+
+It should log in without a password.
+
+### Step 3: Add secrets to GitHub
+
+Go to `github.com/yurik2718/spaceforedu-astra/settings/secrets/actions` → **New repository secret** — add all five:
+
+| Secret name | Value |
+|---|---|
+| `VPS_HOST` | Your VPS IP address |
+| `VPS_USER` | `deploy` |
+| `VPS_SSH_KEY` | Contents of `~/.ssh/spaceforedu_deploy` (the private key, starts with `-----BEGIN`) |
+| `PUBLIC_CONTACT_WHATSAPP` | WhatsApp number, digits only, no `+` (e.g. `34663689393`) |
+| `PUBLIC_CONTACT_EMAIL` | Contact email (e.g. `hola@spaceforedu.com`) |
+
+`PUBLIC_SITE_URL` is hardcoded as `https://spaceforedu.com` in the workflow below.
+
+### Step 4: Create GitHub Actions workflow
+
+On your **local machine**, inside the project:
+
+```bash
+mkdir -p .github/workflows
+```
+
+Create `.github/workflows/deploy.yml`:
+
+```yaml
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        env:
+          PUBLIC_CONTACT_WHATSAPP: ${{ secrets.PUBLIC_CONTACT_WHATSAPP }}
+          PUBLIC_CONTACT_EMAIL: ${{ secrets.PUBLIC_CONTACT_EMAIL }}
+          PUBLIC_SITE_URL: https://spaceforedu.com
+        run: npm run build
+
+      - name: Deploy to VPS
+        uses: burnett01/rsync-deployments@7.0.1
+        with:
+          switches: -avz --delete --checksum
+          path: dist/
+          remote_path: /var/www/spaceforedu/dist/
+          remote_host: ${{ secrets.VPS_HOST }}
+          remote_user: ${{ secrets.VPS_USER }}
+          remote_key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Reload Nginx
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: sudo nginx -s reload
+```
+
+Allow `deploy` user to reload Nginx without password prompt:
+
+```bash
+# On VPS
+echo "deploy ALL=(ALL) NOPASSWD: /usr/sbin/nginx" | sudo tee /etc/sudoers.d/deploy-nginx
+```
+
+---
+
+## Phase G — First Deploy
+
+Commit and push the workflow file:
+
+```bash
+git add .github/workflows/deploy.yml
+git commit -m "add VPS deploy workflow"
+git push origin main
+```
+
+Watch the action run:
+- Go to `github.com/yurik2718/spaceforedu-astra/actions`
+- Click the running workflow
+- All steps should be green in ~2 minutes
+
+Then visit `https://spaceforedu.com` — the site should be live.
+
+---
+
+## Phase H — Fill in real content
+
+### Contact variables
+Already set as GitHub secrets. They are baked into the build automatically.
+
+### Legal notice (required by Spanish law LSSI-CE)
+
+Edit these three files and fill in the `provider_body` placeholder with real company details:
 
 ```
 src/lib/i18n/es.json
@@ -132,51 +363,71 @@ src/lib/i18n/en.json
 src/lib/i18n/ru.json
 ```
 
-In each, find the `legal_notice` block and replace the `provider_body` placeholder with your real data — company name, CIF/NIF, registered address, Registro Mercantil entry (if applicable).
+Then push to `main` — GitHub Actions redeploys automatically.
 
-**If you'd rather I do it:** send me the legal details (company name, CIF/NIF, registered address, registry entry) by WhatsApp. I'll commit the change, Cloudflare auto-deploys.
+---
+
+## Nginx: remove Cloudflare-specific files
+
+The `_redirects` and `_headers` files in `public/` were for Cloudflare Pages. On Nginx they are served as static files (harmless but unused). You can leave them or delete from `public/`. The actual redirects and headers are now handled by the Nginx config above.
 
 ---
 
 ## Troubleshooting
 
 | Symptom | Fix |
-| --- | --- |
-| Build fails in Cloudflare | Open the deployment → view log. Usually a missing env variable or wrong branch name. |
-| `spaceforedu.com` doesn't load after DNS change | DNS can take up to 24 h. Flush Mac DNS cache: `sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`. Or test from your phone on mobile data. |
-| WhatsApp button does nothing | `PUBLIC_CONTACT_WHATSAPP` is empty or has non-digits. Fix in **Pages project → Settings → Environment variables**, then **Deployments → Retry build**. |
-| SSL warning on `www.` | Give it 15 min after attaching the custom domain — certificate issuance is async. |
-| Email stopped working after nameserver change | Check **Cloudflare → DNS → Records** — your MX records should be there. If missing, add them from your old registrar's records. |
+|---|---|
+| GitHub Action fails at rsync | Check `VPS_SSH_KEY` secret — must include full key including `-----BEGIN` and `-----END` lines |
+| Site loads but shows blank page | Check `dist/` was uploaded: `ls /var/www/spaceforedu/dist/` on VPS |
+| SSL certificate error | DNS A record must point to VPS IP. Run `dig spaceforedu.com` to verify |
+| 404 on all pages | Nginx `root` path wrong. Verify: `ls /var/www/spaceforedu/dist/es/` should list `index.html` |
+| WhatsApp button does nothing | `PUBLIC_CONTACT_WHATSAPP` secret is wrong. Update in GitHub Secrets → push any change to trigger redeploy |
+| Nginx config error on reload | Run `sudo nginx -t` on VPS — it will show the exact line with the error |
+| Certbot fails | Port 80 must be open. Check Hostinger firewall in hPanel → VPS → Firewall |
 
 ---
 
 ## Pre-launch checklist
 
-Before you tell the world about the site or turn on paid ads:
+- [ ] SSH access works as `deploy` user (not root)
+- [ ] Nginx is running: `sudo systemctl status nginx`
+- [ ] SSL certificate issued: `https://spaceforedu.com` shows padlock
+- [ ] All 5 GitHub secrets set correctly
+- [ ] GitHub Action ran successfully (all steps green)
+- [ ] `https://spaceforedu.com` redirects to `https://spaceforedu.com/es/`
+- [ ] WhatsApp button opens chat with real number
+- [ ] Footer shows real email address
+- [ ] `/es/aviso-legal/` shows real company details (not placeholder)
+- [ ] `https://spaceforedu.com/sitemap-index.xml` loads
+- [ ] `https://spaceforedu.com/robots.txt` loads
+- [ ] `https://spaceforedu.com/llms.txt` loads
 
-- [ ] GitHub invite accepted; you can see `yurik2718/spaceforedu-astra` in your repo list.
-- [ ] Cloudflare account is yours; 2FA on; I'm invited as team member.
-- [ ] Domain nameservers point to Cloudflare (confirmed email received).
-- [ ] `spaceforedu.pages.dev` loads the site.
-- [ ] `https://spaceforedu.com` loads the site over HTTPS with a valid certificate.
-- [ ] WhatsApp button on the live site opens a chat with **your real number**.
-- [ ] Footer email is **your real address**.
-- [ ] `/es/aviso-legal/` shows your real company details (not the placeholder about "datos en proceso de actualización").
-- [ ] `https://spaceforedu.com/sitemap-index.xml` and `/robots.txt` both load.
+---
+
+## Ongoing maintenance
+
+| Task | How |
+|---|---|
+| Deploy new code | Push to `main` — auto-deploys in ~2 min |
+| Update env variables | Edit GitHub Secrets → push any commit to trigger rebuild |
+| Renew SSL | Automatic (Certbot cron). Check with `sudo certbot renew --dry-run` |
+| View Nginx logs | `sudo tail -f /var/log/nginx/access.log` |
+| View Nginx errors | `sudo tail -f /var/log/nginx/error.log` |
+| Restart Nginx | `sudo systemctl restart nginx` |
+| Check disk space | `df -h` |
 
 ---
 
 ## Summary timeline
 
-| Phase | Active time | Waiting |
-| --- | --- | --- |
-| A. GitHub access | 5 min | — |
-| B. Cloudflare account | 3 min | — |
-| C. Nameservers | 15 min | up to 24 h (background) |
-| D. Pages deploy | 5 min | — |
-| E. Custom domain | 2 min | 5–15 min for SSL |
-| F. Invite me to Cloudflare | 2 min | — |
-| G. Legal + contacts | 15 min *(or hand it to me)* | — |
-| **Total** | **~45 min of your attention** | |
-
-You can stop after Phase F — Phase G can wait until you have your legal paperwork. Ping me on any step where you'd rather I take over.
+| Phase | Active time |
+|---|---|
+| A. SSH + create deploy user | 5 min |
+| B. Install Nginx + Node.js + Certbot | 5 min |
+| C. Create site directory | 2 min |
+| D. Configure Nginx | 10 min |
+| E. SSL certificate | 5 min |
+| F. GitHub Actions setup | 20 min |
+| G. First deploy | 5 min |
+| H. Fill real content | 15 min |
+| **Total** | **~60 min** |
