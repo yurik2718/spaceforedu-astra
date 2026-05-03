@@ -20,5 +20,5 @@ const seo = getSeo("home", locale);
 <PublicLayout title={seo.title} description={seo.description} locale={locale} page="">
   <JsonLd slot="structured-data" data={website()} />
   <JsonLd slot="structured-data" data={serviceList(locale)} />
-  <HomePage client:load locale={locale} messages={messages} />
+  <HomePage client:idle locale={locale} messages={messages} />
 </PublicLayout>

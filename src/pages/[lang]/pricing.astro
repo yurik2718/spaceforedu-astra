@@ -27,5 +27,5 @@ const faqLd = faqPage(messages, "public.precios", 7);
   page={publicPages.precios}
 >
   {faqLd && <JsonLd slot="structured-data" data={faqLd} />}
-  <PreciosPage client:load locale={locale} messages={messages} />
+  <PreciosPage client:idle locale={locale} messages={messages} />
 </PublicLayout>

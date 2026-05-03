@@ -36,5 +36,5 @@ const faqLd = faqPage(messages, "public.homologacion", 5);
 >
   <JsonLd slot="structured-data" data={serviceLd} />
   {faqLd && <JsonLd slot="structured-data" data={faqLd} />}
-  <HomologacionPage client:load locale={locale} messages={messages} />
+  <HomologacionPage client:idle locale={locale} messages={messages} />
 </PublicLayout>

@@ -36,5 +36,5 @@ const faqLd = faqPage(messages, "public.universidad", 5);
 >
   <JsonLd slot="structured-data" data={serviceLd} />
   {faqLd && <JsonLd slot="structured-data" data={faqLd} />}
-  <UniversidadPage client:load locale={locale} messages={messages} />
+  <UniversidadPage client:idle locale={locale} messages={messages} />
 </PublicLayout>
