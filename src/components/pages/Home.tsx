@@ -3,6 +3,7 @@ import {
   GraduationCap,
   Languages,
   Check,
+  Clock,
   Shield,
   ShieldCheck,
   CreditCard,
@@ -20,7 +21,7 @@ import { Container } from "@/components/public/shared";
 import { ConsultationDialog } from "@/components/public/ConsultationDialog";
 import { UniversityLogoBar } from "@/components/public/UniversityLogoBar";
 import { publicRoute, publicPages, whatsappLink } from "@/lib/routes";
-import { CONTACT_WHATSAPP } from "@/lib/constants";
+import { CONTACT_WHATSAPP, FEATURE_DASHBOARD } from "@/lib/constants";
 import { I18nProvider, useTranslation } from "@/lib/i18n/react";
 import type { Messages } from "@/lib/i18n";
 import type { Locale } from "@/lib/constants";
@@ -40,7 +41,7 @@ export function HomePage({
       <ComparisonSection />
       <PricingTeaserSection />
       <RiskReversalSection />
-      <DashboardPreviewSection />
+      {FEATURE_DASHBOARD && <DashboardPreviewSection />}
       <ReachSection />
       <TestimonialsSection />
       <FinalCtaSection />
@@ -123,16 +124,24 @@ function HeroSection({ locale }: { locale: Locale | string }) {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div
-                className="absolute bottom-0 right-[14%] w-[46%] h-[38%] rounded-[32px] overflow-hidden"
-                style={{ background: "linear-gradient(135deg,#e2c9a3,#a37b4a)" }}
-                aria-hidden="true"
-              />
-              <div
-                className="absolute bottom-[8%] left-0 w-[38%] h-[42%] rounded-[32px] overflow-hidden"
-                style={{ background: "linear-gradient(135deg,#d8c9a0,#8d6c3a)" }}
-                aria-hidden="true"
-              />
+              <div className="absolute bottom-0 right-[14%] w-[46%] h-[38%] rounded-[32px] overflow-hidden bg-[var(--surface-card)]">
+                <img
+                  src="/images/lifestyle/spain-flag-sky.webp"
+                  alt="Spanish flag waving against a clear blue sky"
+                  loading="eager"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute bottom-[8%] left-0 w-[38%] h-[42%] rounded-[32px] overflow-hidden bg-[var(--surface-card)]">
+                <img
+                  src="/images/lifestyle/madrid-almudena-sunset.webp"
+                  alt="Almudena Cathedral and the Royal Palace of Madrid at sunset"
+                  loading="eager"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div
                 className="absolute top-[18%] left-0 w-[30%] h-[30%] rounded-[32px] flex flex-col items-center justify-center text-center p-4 box-border"
                 style={{ background: "#f4e9d7", color: "var(--primary)" }}
@@ -148,8 +157,8 @@ function HeroSection({ locale }: { locale: Locale | string }) {
                 <span className="w-2 h-2 rounded-full bg-[#22a655] inline-block" />
                 {t("public.home.pin_hero_pill_1")}
               </div>
-              <div className="absolute bottom-[14%] left-[32%] bg-white border border-[var(--hairline-soft)] rounded-full px-4 py-2.5 flex items-center gap-2 text-[13px] font-bold text-[var(--ink)] shadow-sm">
-                <GraduationCap className="h-4 w-4 text-[var(--primary)]" />
+              <div className="absolute bottom-[2%] left-[40%] bg-white border border-[var(--hairline-soft)] rounded-full px-4 py-2.5 flex items-center gap-2 text-[13px] font-bold text-[var(--ink)] shadow-sm">
+                <Clock className="h-4 w-4 text-[var(--primary)]" />
                 {t("public.home.pin_hero_pill_2")}
               </div>
             </div>

@@ -26,6 +26,7 @@ import { FaqSection } from "@/components/public/FaqSection";
 import { I18nProvider, useTranslation } from "@/lib/i18n/react";
 import type { Messages } from "@/lib/i18n";
 import type { Locale } from "@/lib/constants";
+import { FEATURE_DASHBOARD } from "@/lib/constants";
 
 type PlanKey = "basico" | "completo" | "premium";
 const PLAN_KEYS: readonly PlanKey[] = ["basico", "completo", "premium"] as const;
@@ -85,7 +86,7 @@ export function PreciosPage({
       <HowItWorksSection />
       <PricingPlansSection />
       <PricingTestimonialsSection />
-      <IncludedFeaturesSection />
+      {FEATURE_DASHBOARD && <IncludedFeaturesSection />}
       <ComparisonTableSection />
       <RiskReversalSection />
       <FaqBlock />

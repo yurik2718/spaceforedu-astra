@@ -38,6 +38,7 @@ import { publicRoute, publicPages } from "@/lib/routes";
 import { I18nProvider, useTranslation } from "@/lib/i18n/react";
 import type { Messages } from "@/lib/i18n";
 import type { Locale } from "@/lib/constants";
+import { FEATURE_DASHBOARD } from "@/lib/constants";
 
 const ADVANTAGES = [
   { icon: UserCheck, titleKey: "public.homologacion.adv_advisor_title", descKey: "public.homologacion.adv_advisor_desc" },
@@ -186,29 +187,31 @@ function PageBody({ locale }: { locale: Locale | string }) {
         <FeatureCardGrid items={WHAT_ITEMS} columns={3} />
       </PublicSection>
 
-      <PublicSection className="bg-white">
-        <SectionHeading
-          title={t("public.homologacion.dashboard_title")}
-          subtitle={t("public.homologacion.dashboard_subtitle")}
-        />
-        <div className="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
-          {DASHBOARD_FEATURES.map(({ icon, key }, i) => (
-            <Reveal key={key} direction="up" delay={i * 100}>
-              <div className="flex items-start gap-4 p-4 rounded-2xl border border-[var(--hairline-soft)] bg-[var(--surface-card)] transition-colors duration-200 hover:bg-white group">
-                <FeatureIcon icon={icon} size="md" />
-                <div>
-                  <h3 className="font-semibold text-sm mb-1">
-                    {t(`public.homologacion.dash_${key}_title`)}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t(`public.homologacion.dash_${key}_desc`)}
-                  </p>
+      {FEATURE_DASHBOARD && (
+        <PublicSection className="bg-white">
+          <SectionHeading
+            title={t("public.homologacion.dashboard_title")}
+            subtitle={t("public.homologacion.dashboard_subtitle")}
+          />
+          <div className="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
+            {DASHBOARD_FEATURES.map(({ icon, key }, i) => (
+              <Reveal key={key} direction="up" delay={i * 100}>
+                <div className="flex items-start gap-4 p-4 rounded-2xl border border-[var(--hairline-soft)] bg-[var(--surface-card)] transition-colors duration-200 hover:bg-white group">
+                  <FeatureIcon icon={icon} size="md" />
+                  <div>
+                    <h3 className="font-semibold text-sm mb-1">
+                      {t(`public.homologacion.dash_${key}_title`)}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {t(`public.homologacion.dash_${key}_desc`)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </PublicSection>
+              </Reveal>
+            ))}
+          </div>
+        </PublicSection>
+      )}
 
       <PublicSection className="bg-[var(--surface-soft)]">
         <SectionHeading title={t("public.homologacion.process_title")} />
