@@ -78,6 +78,7 @@ const absoluteOgImage = ogImage.startsWith("http")
         href={heroImage}
         type={heroImageType}
         fetchpriority="high"
+        media="(min-width: 768px)"
       />
     )}
 
@@ -104,9 +105,9 @@ const absoluteOgImage = ogImage.startsWith("http")
     >
       {skipLabel}
     </a>
-    <div class={`min-h-screen flex flex-col ${hideStickyCta ? "" : "pb-[72px] lg:pb-0"}`}>
+    <div class={`min-h-screen flex flex-col ${hideStickyCta ? "" : "pb-[calc(72px+env(safe-area-inset-bottom))] lg:pb-0"}`}>
       <Navbar locale={locale} currentPath={currentPath} />
-      <main id="main" class="flex-1">
+      <main id="main" class="flex-1 overflow-x-clip">
         <slot />
       </main>
       <Footer locale={locale} />

@@ -29,33 +29,33 @@ export function PinComparison({
         />
         <Reveal direction="up">
           <div className="bg-white rounded-[32px] overflow-hidden border border-[var(--hairline-soft)]">
-            <div className="grid grid-cols-[1.4fr_1fr_1fr] bg-[var(--surface-card)] border-b border-[var(--hairline)]">
-              <div className="px-4 sm:px-6 py-5 text-[13px] font-semibold text-[var(--mute)]">
+            <div className="grid grid-cols-[1.2fr_1fr_1fr] sm:grid-cols-[1.4fr_1fr_1fr] bg-[var(--surface-card)] border-b border-[var(--hairline)]">
+              <div className="min-w-0 px-3 sm:px-6 py-5 text-[13px] font-semibold text-[var(--mute)]">
                 &nbsp;
               </div>
-              <div className="px-4 sm:px-6 py-5 text-[14px] sm:text-[16px] font-semibold text-[var(--ink)]">
+              <div className="min-w-0 px-3 sm:px-6 py-5 text-[14px] sm:text-[16px] font-semibold text-[var(--ink)]">
                 {t(`${prefix}.pin_compare_them`)}
               </div>
-              <div className="px-4 sm:px-6 py-5 text-[14px] sm:text-[16px] font-bold text-[var(--primary)]">
+              <div className="min-w-0 px-3 sm:px-6 py-5 text-[14px] sm:text-[16px] font-bold text-[var(--primary)]">
                 {t(`${prefix}.pin_compare_us`)}
               </div>
             </div>
             {rows.map((n) => (
               <div
                 key={n}
-                className="grid grid-cols-[1.4fr_1fr_1fr] border-b border-[var(--hairline-soft)] last:border-b-0"
+                className="grid grid-cols-[1.2fr_1fr_1fr] sm:grid-cols-[1.4fr_1fr_1fr] border-b border-[var(--hairline-soft)] last:border-b-0"
               >
-                <div className="px-4 sm:px-6 py-4 text-[14px] font-semibold text-[var(--ink)]">
+                <div className="min-w-0 px-3 sm:px-6 py-4 text-[14px] font-semibold text-[var(--ink)] [overflow-wrap:anywhere] [hyphens:auto]">
                   {t(`${prefix}.pin_compare_row_${n}_label`)}
                 </div>
-                <div className="px-4 sm:px-6 py-4 text-[14px] text-[var(--mute)]">
+                <div className="min-w-0 px-3 sm:px-6 py-4 text-[14px] text-[var(--mute)] [overflow-wrap:anywhere] [hyphens:auto]">
                   <span className="inline-flex items-center justify-center w-[18px] h-[18px] rounded-full bg-[var(--surface-card)] text-[var(--ash)] mr-2 align-middle shrink-0">
                     <X className="h-3 w-3" />
                   </span>
                   {t(`${prefix}.pin_compare_row_${n}_them`)}
                 </div>
                 <div
-                  className="px-4 sm:px-6 py-4 text-[14px] font-semibold text-[var(--ink)]"
+                  className="min-w-0 px-3 sm:px-6 py-4 text-[14px] font-semibold text-[var(--ink)] [overflow-wrap:anywhere] [hyphens:auto]"
                   style={{ background: "rgba(232,69,60,0.04)" }}
                 >
                   <span className="inline-flex items-center justify-center w-[18px] h-[18px] rounded-full bg-[var(--success-pale)] text-[var(--success-deep)] mr-2 align-middle shrink-0">

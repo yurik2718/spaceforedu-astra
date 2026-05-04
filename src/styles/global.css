@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700&display=swap");
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/inter-tight";
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -44,6 +45,8 @@
   --error: #9e0a0a;
   --error-deep: #C9342C;
   --warn-amber: #b76b00;
+  --warn-pale: #fff8e6;
+  --warn-hairline: #f0d99a;
 
   /* Focus */
   --focus-outer: #435ee5;
@@ -82,8 +85,8 @@
 }
 
 @theme inline {
-  --font-sans: "Inter", -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-display: "Inter Tight", "Inter", -apple-system, system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Inter Tight Variable", "Inter Tight", "Inter Variable", "Inter", -apple-system, system-ui, sans-serif;
 
   /* Brand */
   --color-brand-primary: #E8453C;
@@ -192,7 +195,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--accent-blue);
+  color: var(--accent-blue-deep);
 }
 
 /* ==========================================================================
@@ -203,13 +206,13 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  height: 40px;
-  padding: 6px 14px;
+  min-height: 44px;
+  padding: 10px 16px;
   border-radius: var(--r-md);
   border: 0;
   font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1;
   cursor: pointer;
   transition: background-color 0.12s ease, color 0.12s ease, transform 0.12s ease;

@@ -25,7 +25,7 @@ export function CrossSellCard({
       <Container>
         <Reveal direction="up">
           <div className="bg-white rounded-[32px] p-8 sm:p-12 border border-[var(--hairline-soft)]">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--accent-blue)] mb-4">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--accent-blue-deep)] mb-4">
               <BadgeIcon aria-hidden="true" className="h-3.5 w-3.5" />
               {badgeLabel}
             </span>
@@ -40,7 +40,7 @@ export function CrossSellCard({
                 <a
                   key={href}
                   href={href}
-                  className="inline-flex items-center gap-1.5 bg-[var(--surface-card)] hover:bg-[var(--secondary-bg)] rounded-full px-4 py-2 text-[14px] font-bold text-[var(--ink)] transition-colors duration-150"
+                  className="inline-flex items-center gap-1.5 bg-[var(--surface-card)] hover:bg-[var(--secondary-bg)] rounded-full px-4 min-h-[44px] text-[14px] font-bold text-[var(--ink)] transition-colors duration-150"
                 >
                   {label}
                   <span aria-hidden="true">→</span>

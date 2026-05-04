@@ -58,7 +58,7 @@ function StickyCtaBarInner() {
   return (
     <>
       {/* Mobile: full-width bar */}
-      <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden border-t border-[var(--hairline-soft)] bg-white">
+      <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden border-t border-[var(--hairline-soft)] bg-white pb-[env(safe-area-inset-bottom)]">
         <div className="flex items-center gap-2 px-4 py-3">
           {waHref && (
             <a
@@ -86,7 +86,7 @@ function StickyCtaBarInner() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={t("public.sticky_cta.whatsapp_aria")}
-          className="hidden lg:flex fixed bottom-6 right-6 z-40 items-center justify-center h-12 w-12 rounded-full bg-[#25D366] text-white ring-2 ring-white/90 shadow-lg shadow-[#25D366]/30 hover:scale-105 hover:shadow-xl transition-all duration-300"
+          className="hidden lg:flex fixed bottom-6 right-6 z-40 items-center justify-center h-14 w-14 rounded-full bg-[#25D366] text-white ring-2 ring-white/90 shadow-lg shadow-[#25D366]/30 hover:scale-105 hover:shadow-xl transition-all duration-300"
         >
           <WhatsAppIcon className="h-5 w-5" />
           {isOnline && (

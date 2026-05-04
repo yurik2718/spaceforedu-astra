@@ -61,9 +61,9 @@ export function PinFinalCta({
               </div>
             </div>
             <div className="bg-black/25 border border-white/20 rounded-2xl p-6">
-              <h4 className="text-[15px] font-bold text-white m-0 mb-2.5">
+              <h3 className="text-[15px] font-bold text-white m-0 mb-2.5">
                 {t(`${prefix}.pin_final_side_title`)}
-              </h4>
+              </h3>
               <ul className="list-none p-0 m-0 flex flex-col gap-2.5">
                 {Array.from({ length: sideItemCount }, (_, i) => i + 1).map((n) => (
                   <li

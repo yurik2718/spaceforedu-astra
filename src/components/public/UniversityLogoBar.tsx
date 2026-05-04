@@ -2,14 +2,14 @@ import { Container } from "@/components/public/shared";
 import { useTranslation } from "@/lib/i18n/react";
 
 const UNIVERSITY_LOGOS = [
-  { key: "ucm",  src: "/images/universities/ucm.png",  name: "Universidad Complutense de Madrid",     maxW: 110, heightClass: "h-14 sm:h-16" },
-  { key: "usal", src: "/images/universities/usal.png", name: "Universidad de Salamanca",              maxW: 110, heightClass: "h-14 sm:h-16" },
-  { key: "uam",  src: "/images/universities/uam.svg",  name: "Universidad Autónoma de Madrid",        maxW: 160, heightClass: "h-7 sm:h-9"   },
-  { key: "ugr",  src: "/images/universities/ugr.svg",  name: "Universidad de Granada",                maxW: 110, heightClass: "h-14 sm:h-16" },
-  { key: "ub",   src: "/images/universities/ub.svg",   name: "Universitat de Barcelona",              maxW: 130, heightClass: "h-7 sm:h-9"   },
-  { key: "upm",  src: "/images/universities/upm.svg",  name: "Universidad Politécnica de Madrid",     maxW: 150, heightClass: "h-10 sm:h-12" },
-  { key: "uc3m", src: "/images/universities/uc3m.svg", name: "Universidad Carlos III de Madrid",      maxW: 130, heightClass: "h-8 sm:h-10"  },
-  { key: "upv",  src: "/images/universities/upv.svg",  name: "Universitat Politècnica de València",   maxW: 130, heightClass: "h-8 sm:h-10"  },
+  { key: "ucm",  src: "/images/universities/ucm.webp", name: "Universidad Complutense de Madrid",     w: 2000, h: 536,  maxW: 110, heightClass: "h-14 sm:h-16" },
+  { key: "usal", src: "/images/universities/usal.webp",name: "Universidad de Salamanca",              w: 512,  h: 512,  maxW: 110, heightClass: "h-14 sm:h-16" },
+  { key: "uam",  src: "/images/universities/uam.svg",  name: "Universidad Autónoma de Madrid",        w: 1120, h: 218,  maxW: 160, heightClass: "h-7 sm:h-9"   },
+  { key: "ugr",  src: "/images/universities/ugr.svg",  name: "Universidad de Granada",                w: 1052, h: 744,  maxW: 110, heightClass: "h-14 sm:h-16" },
+  { key: "ub",   src: "/images/universities/ub.svg",   name: "Universitat de Barcelona",              w: 4274, h: 1025, maxW: 130, heightClass: "h-7 sm:h-9"   },
+  { key: "upm",  src: "/images/universities/upm.svg",  name: "Universidad Politécnica de Madrid",     w: 343,  h: 184,  maxW: 150, heightClass: "h-10 sm:h-12" },
+  { key: "uc3m", src: "/images/universities/uc3m.svg", name: "Universidad Carlos III de Madrid",      w: 842,  h: 303,  maxW: 130, heightClass: "h-8 sm:h-10"  },
+  { key: "upv",  src: "/images/universities/upv.svg",  name: "Universitat Politècnica de València",   w: 90,   h: 28,   maxW: 130, heightClass: "h-8 sm:h-10"  },
 ];
 
 export function UniversityLogoBar({
@@ -38,7 +38,7 @@ export function UniversityLogoBar({
           aria-hidden="true"
         >
           {[...UNIVERSITY_LOGOS, ...UNIVERSITY_LOGOS].map(
-            ({ key, src, name, maxW, heightClass }, i) => (
+            ({ key, src, name, w, h, maxW, heightClass }, i) => (
               <div
                 key={`${key}-${i}`}
                 className="flex items-center justify-center px-6 sm:px-10 shrink-0"
@@ -46,7 +46,10 @@ export function UniversityLogoBar({
                 <img
                   src={src}
                   alt={name}
+                  width={w}
+                  height={h}
                   loading="lazy"
+                  decoding="async"
                   className={`${heightClass} w-auto object-contain grayscale opacity-70 transition-all duration-300 hover:opacity-100 hover:grayscale-0 hover:scale-110`}
                   style={{ maxWidth: maxW }}
                 />

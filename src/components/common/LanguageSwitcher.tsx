@@ -42,7 +42,7 @@ export function LanguageSwitcher({
 
   const buttonClass =
     variant === "ghost-dark"
-      ? "text-zinc-300 hover:text-white hover:bg-white/10 border-transparent"
+      ? "text-white/70 hover:text-white hover:bg-white/10 border-transparent"
       : "";
 
   return (
@@ -51,7 +51,7 @@ export function LanguageSwitcher({
         <Button
           variant="outline"
           size="sm"
-          className={`h-9 gap-2 px-3 font-normal ${buttonClass}`}
+          className={`h-11 gap-2 px-4 font-normal ${buttonClass}`}
         >
           <FlagIcon code={current.countryCode} />
           <span className="text-sm">{current.code.toUpperCase()}</span>

@@ -64,7 +64,7 @@ export default function MobileNav({
         <Button
           variant="ghost"
           size="icon"
-          className="size-10"
+          className="size-11"
           aria-label={menuLabel}
         >
           <Menu className="h-5 w-5" />
@@ -90,10 +90,10 @@ export default function MobileNav({
             <Button
               variant="ghost"
               size="icon"
-              className="size-9 shrink-0"
+              className="size-11 shrink-0"
               aria-label={closeLabel}
             >
-              <X className="h-4 w-4" />
+              <X className="h-5 w-5" />
             </Button>
           </SheetClose>
         </div>

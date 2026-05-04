@@ -25,7 +25,7 @@ export function PinReachSection({
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <Reveal direction="up">
             <div>
-              <span className="inline-block text-xs font-semibold uppercase tracking-[0.12em] text-[var(--accent-blue)] mb-3">
+              <span className="inline-block text-xs font-semibold uppercase tracking-[0.12em] text-[var(--accent-blue-deep)] mb-3">
                 {t(`${prefix}.pin_reach_eyebrow`)}
               </span>
               <h2 className="font-display text-[32px] sm:text-[42px] font-bold tracking-[-0.03em] leading-[1.1] text-[var(--ink)] m-0 mb-4">

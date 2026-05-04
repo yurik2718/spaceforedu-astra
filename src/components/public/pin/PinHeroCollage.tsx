@@ -45,7 +45,7 @@ export function PinHeroCollage({
         <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-16 items-center">
           <div>
             <Reveal direction="up">
-              <span className="inline-block text-xs font-semibold uppercase tracking-[0.12em] text-[var(--accent-blue)] mb-5">
+              <span className="inline-block text-xs font-semibold uppercase tracking-[0.12em] text-[var(--accent-blue-deep)] mb-5">
                 {k("pin_hero_eyebrow")}
               </span>
             </Reveal>
@@ -112,7 +112,7 @@ export function PinHeroCollage({
                 <img
                   src={sideRight.src}
                   alt={sideRight.alt}
-                  loading={sideRight.loading ?? "eager"}
+                  loading={sideRight.loading ?? "lazy"}
                   decoding="async"
                   className="w-full h-full object-cover"
                 />
@@ -121,7 +121,7 @@ export function PinHeroCollage({
                 <img
                   src={sideLeft.src}
                   alt={sideLeft.alt}
-                  loading={sideLeft.loading ?? "eager"}
+                  loading={sideLeft.loading ?? "lazy"}
                   decoding="async"
                   className="w-full h-full object-cover"
                 />

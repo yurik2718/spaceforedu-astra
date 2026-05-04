@@ -19,7 +19,7 @@ export function TimelineSection({
       {Array.from({ length: count }, (_, i) => {
         const isLast = i === count - 1;
         return (
-          <Reveal key={i} direction="left" delay={i * 120}>
+          <Reveal key={i} direction="up" delay={i * 120}>
             <div className="flex gap-5 sm:gap-8 items-stretch">
               <div className="flex flex-col items-center shrink-0 w-12 sm:w-14">
                 <div
