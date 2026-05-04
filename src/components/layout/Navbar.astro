@@ -27,6 +27,16 @@ const homeHref = publicRoute(publicPages.home, locale);
 
 <header class="sticky top-0 z-50 w-full border-b border-[var(--hairline-soft)] bg-white/96 backdrop-blur">
   <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
+    {locale === "es" && (
+      <div
+        aria-hidden="true"
+        class="absolute inset-x-0 bottom-[-4px] h-1 flex pointer-events-none"
+      >
+        <span class="flex-[1] bg-[var(--primary)]"></span>
+        <span class="flex-[2] bg-[#F1BF00]"></span>
+        <span class="flex-[1] bg-[var(--primary)]"></span>
+      </div>
+    )}
     <a href={homeHref} class="flex items-center shrink-0">
       <span class="font-display text-[20px] font-bold tracking-[-0.02em] text-[var(--ink)]">
         Space for Edu
