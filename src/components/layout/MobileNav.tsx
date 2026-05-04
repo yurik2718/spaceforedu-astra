@@ -80,15 +80,8 @@ export default function MobileNav({
           <a
             href={navHrefs.home}
             onClick={() => setOpen(false)}
-            className="flex items-center gap-2.5"
+            className="flex items-center"
           >
-            <img
-              src="/favicon.svg"
-              alt=""
-              width="32"
-              height="32"
-              className="h-8 w-8 rounded-lg"
-            />
             <span className="font-display text-[18px] font-bold tracking-[-0.02em] text-[var(--ink)]">
               Space for Edu
             </span>

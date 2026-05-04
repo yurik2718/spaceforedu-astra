@@ -1,7 +1,6 @@
-import { Rocket, type LucideIcon } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/public/animations";
-import { FeatureIcon, PublicSection } from "@/components/public/shared";
+import { Container } from "@/components/public/shared";
 
 export interface CrossSellLink {
   label: string;
@@ -22,49 +21,35 @@ export function CrossSellCard({
   badgeIcon: LucideIcon;
 }) {
   return (
-    <PublicSection className="bg-[var(--surface-soft)]">
-      <Reveal direction="up">
-        <Card className="max-w-4xl mx-auto border bg-white overflow-hidden">
-          <CardContent className="p-0">
-            <div className="grid sm:grid-cols-[1fr,auto] items-center">
-              <div className="p-8 sm:p-10">
-                <FeatureIcon
-                  icon={Rocket}
-                  size="md"
-                  hoverScale={false}
-                  className="mb-4"
-                />
-                <h3 className="text-xl font-bold mb-2">{title}</h3>
-                <p className="text-sm text-muted-foreground mb-4 max-w-lg">
-                  {description}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  {links.map(({ label, href }) => (
-                    <a
-                      key={href}
-                      href={href}
-                      className="text-sm font-medium text-brand-secondary hover:underline"
-                    >
-                      {label} &rarr;
-                    </a>
-                  ))}
-                </div>
-              </div>
-              <div className="hidden sm:flex bg-[var(--surface-card)] items-center justify-center p-10 self-stretch">
-                <div className="text-center space-y-2">
-                  <BadgeIcon
-                    aria-hidden="true"
-                    className="h-10 w-10 text-[var(--ash)] mx-auto"
-                  />
-                  <p className="text-xs text-muted-foreground font-medium max-w-[140px]">
-                    {badgeLabel}
-                  </p>
-                </div>
-              </div>
+    <section className="py-12 sm:py-16 bg-[var(--surface-soft)]">
+      <Container>
+        <Reveal direction="up">
+          <div className="bg-white rounded-[32px] p-8 sm:p-12 border border-[var(--hairline-soft)]">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--accent-blue)] mb-4">
+              <BadgeIcon aria-hidden="true" className="h-3.5 w-3.5" />
+              {badgeLabel}
+            </span>
+            <h3 className="font-display text-[24px] sm:text-[32px] font-bold tracking-[-0.025em] leading-[1.15] text-[var(--ink)] m-0 mb-3 max-w-2xl">
+              {title}
+            </h3>
+            <p className="text-[15px] leading-[1.55] text-[var(--mute)] m-0 mb-5 max-w-2xl">
+              {description}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {links.map(({ label, href }) => (
+                <a
+                  key={href}
+                  href={href}
+                  className="inline-flex items-center gap-1.5 bg-[var(--surface-card)] hover:bg-[var(--secondary-bg)] rounded-full px-4 py-2 text-[14px] font-bold text-[var(--ink)] transition-colors duration-150"
+                >
+                  {label}
+                  <span aria-hidden="true">→</span>
+                </a>
+              ))}
             </div>
-          </CardContent>
-        </Card>
-      </Reveal>
-    </PublicSection>
+          </div>
+        </Reveal>
+      </Container>
+    </section>
   );
 }

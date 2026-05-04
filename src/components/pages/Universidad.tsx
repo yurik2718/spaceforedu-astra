@@ -2,43 +2,57 @@ import {
   BookOpen,
   Award,
   GraduationCap,
-  Building2,
-  Search,
-  FileText,
-  Link2,
   Languages,
+  Clock,
+  Shield,
+  ShieldCheck,
+  CreditCard,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Container } from "@/components/public/shared";
 import { UniversityLogoBar } from "@/components/public/UniversityLogoBar";
-import {
-  GradientButton,
-  PublicHero,
-  PublicCta,
-  PublicSection,
-  SectionHeading,
-} from "@/components/public/shared";
-import { ConsultationDialog } from "@/components/public/ConsultationDialog";
 import { CrossSellCard } from "@/components/public/CrossSellCard";
 import { FaqSection } from "@/components/public/FaqSection";
 import { TimelineSection } from "@/components/public/TimelineSection";
-import { TestimonialsSection } from "@/components/public/TestimonialsSection";
-import { FeatureCardGrid } from "@/components/public/FeatureCardGrid";
+import { PinHeroCollage } from "@/components/public/pin/PinHeroCollage";
+import { PinSectionHead } from "@/components/public/pin/PinSectionHead";
+import { PinServicesCard } from "@/components/public/pin/PinServicesCard";
+import { PinComparison } from "@/components/public/pin/PinComparison";
+import { PinPricingTeaser } from "@/components/public/pin/PinPricingTeaser";
+import { PinRiskReversal } from "@/components/public/pin/PinRiskReversal";
+import { PinTestimonials } from "@/components/public/pin/PinTestimonials";
+import { PinFinalCta } from "@/components/public/pin/PinFinalCta";
 import { publicRoute, publicPages } from "@/lib/routes";
 import { I18nProvider, useTranslation } from "@/lib/i18n/react";
 import type { Messages } from "@/lib/i18n";
 import type { Locale } from "@/lib/constants";
 
-const ADVANTAGES = [
-  { icon: Search, titleKey: "public.universidad.adv_matching_title", descKey: "public.universidad.adv_matching_desc" },
-  { icon: FileText, titleKey: "public.universidad.adv_support_title", descKey: "public.universidad.adv_support_desc" },
-  { icon: Building2, titleKey: "public.universidad.adv_local_title", descKey: "public.universidad.adv_local_desc" },
-  { icon: Link2, titleKey: "public.universidad.adv_combo_title", descKey: "public.universidad.adv_combo_desc" },
-] as const;
+const PREFIX = "public.universidad";
 
 const ADMISSION_TYPES = [
-  { icon: BookOpen, titleKey: "public.universidad.type_grado_title", descKey: "public.universidad.type_grado_desc" },
-  { icon: Award, titleKey: "public.universidad.type_master_title", descKey: "public.universidad.type_master_desc" },
-  { icon: GraduationCap, titleKey: "public.universidad.type_fp_title", descKey: "public.universidad.type_fp_desc" },
+  {
+    icon: BookOpen,
+    titleKey: `${PREFIX}.type_grado_title`,
+    descKey: `${PREFIX}.type_grado_desc`,
+    metaKey: `${PREFIX}.type_grado_meta`,
+  },
+  {
+    icon: Award,
+    titleKey: `${PREFIX}.type_master_title`,
+    descKey: `${PREFIX}.type_master_desc`,
+    metaKey: `${PREFIX}.type_master_meta`,
+  },
+  {
+    icon: GraduationCap,
+    titleKey: `${PREFIX}.type_fp_title`,
+    descKey: `${PREFIX}.type_fp_desc`,
+    metaKey: `${PREFIX}.type_fp_meta`,
+  },
+] as const;
+
+const RISK_ITEMS = [
+  { icon: Shield, n: 1 },
+  { icon: ShieldCheck, n: 2 },
+  { icon: CreditCard, n: 3 },
 ] as const;
 
 export function UniversidadPage({
@@ -61,120 +75,100 @@ function PageBody({ locale }: { locale: Locale | string }) {
 
   return (
     <>
-      <PublicHero
-        fullBleed
-        title1={t("public.universidad.hero_title_1")}
-        titleAccent={t("public.universidad.hero_title_accent")}
-        subtitle={t("public.universidad.hero_subtitle")}
-        actions={
-          <div className="flex flex-col sm:flex-row gap-3">
-            <ConsultationDialog>
-              <GradientButton className="w-full sm:w-auto">
-                {t("public.universidad.cta_consult")}
-              </GradientButton>
-            </ConsultationDialog>
-            <a href={preciosHref}>
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto min-h-[44px] text-base transition-all duration-300"
-              >
-                {t("public.universidad.cta_pricing")}
-              </Button>
-            </a>
-          </div>
-        }
-        footer={
-          <div className="flex flex-wrap items-center gap-x-2 sm:gap-x-6 gap-y-1 text-sm text-muted-foreground">
-            {[
-              { value: "80+", key: "universities" },
-              { value: "1 000+", key: "programs" },
-              { value: "1700+", key: "success" },
-            ].map(({ value, key }, i) => (
-              <div key={key} className="flex items-center gap-x-2 sm:gap-x-6">
-                {i > 0 && <span className="text-border">·</span>}
-                <span>
-                  <span className="font-semibold text-foreground">{value}</span>{" "}
-                  {t(`public.universidad.hero_stat_${key}`)}
-                </span>
-              </div>
-            ))}
-          </div>
-        }
-        illustration={
-          <div className="relative">
-            <img
-              src="/images/lifestyle/graduates-celebration-success.webp"
-              alt={t("public.universidad.hero_img_alt")}
-              width={700}
-              height={500}
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-              className="relative rounded-[32px] w-full object-cover aspect-[4/3]"
-            />
-          </div>
-        }
+      <PinHeroCollage
+        prefix={PREFIX}
+        secondaryHref={preciosHref}
+        main={{
+          src: "/images/lifestyle/graduates-celebration-success.webp",
+          alt: t(`${PREFIX}.hero_img_alt`),
+        }}
+        sideRight={{
+          src: "/images/lifestyle/salamanca-university-courtyard-sunset.webp",
+          alt: "University of Salamanca courtyard at sunset",
+        }}
+        sideLeft={{
+          src: "/images/lifestyle/madrid-almudena-sunset.webp",
+          alt: "Madrid skyline with the Royal Palace at sunset",
+        }}
+        pills={[
+          { kind: "dot", labelKey: "pin_hero_pill_1" },
+          { kind: "icon", icon: Clock, labelKey: "pin_hero_pill_2" },
+        ]}
       />
 
-      <PublicSection className="bg-white">
-        <SectionHeading
-          title={t("public.universidad.adv_title")}
-          subtitle={t("public.universidad.adv_subtitle")}
-        />
-        <FeatureCardGrid items={ADVANTAGES} columns={4} />
-      </PublicSection>
+      <UniversityLogoBar
+        titleKey="public.precios.trust_bar_title"
+        noBorderTop
+      />
 
-      <PublicSection className="bg-[var(--surface-soft)]">
-        <SectionHeading title={t("public.universidad.types_title")} />
-        <FeatureCardGrid items={ADMISSION_TYPES} columns={3} />
-      </PublicSection>
+      <section className="py-16 sm:py-20 bg-[var(--surface-soft)]">
+        <Container>
+          <PinSectionHead
+            title1={t(`${PREFIX}.pin_types_title_1`)}
+            accent={t(`${PREFIX}.pin_types_title_accent`)}
+            sub={t(`${PREFIX}.pin_types_sub`)}
+          />
+          <div className="grid gap-4 sm:grid-cols-3">
+            {ADMISSION_TYPES.map((item, i) => (
+              <PinServicesCard key={item.titleKey} item={item} delay={i * 80} />
+            ))}
+          </div>
+        </Container>
+      </section>
 
-      <PublicSection className="bg-white">
-        <SectionHeading title={t("public.universidad.process_title")} />
-        <TimelineSection translationPrefix="public.universidad" count={5} />
-      </PublicSection>
+      <PinComparison prefix={PREFIX} rowCount={5} background="white" />
 
-      <UniversityLogoBar />
+      <section className="py-16 sm:py-20 bg-[var(--surface-soft)]">
+        <Container>
+          <PinSectionHead
+            title1={t(`${PREFIX}.pin_process_title_1`)}
+            accent={t(`${PREFIX}.pin_process_title_accent`)}
+            sub={t(`${PREFIX}.pin_process_sub`)}
+          />
+          <TimelineSection translationPrefix={PREFIX} count={5} />
+        </Container>
+      </section>
 
-      <PublicSection className="bg-white">
-        <SectionHeading title={t("public.universidad.testimonials_title")} />
-        <TestimonialsSection translationPrefix="public.universidad" />
-      </PublicSection>
+      <PinPricingTeaser prefix={PREFIX} background="white" />
+
+      <PinTestimonials prefix={PREFIX} count={3} />
+
+      <PinRiskReversal prefix={PREFIX} items={RISK_ITEMS} background="white" />
 
       <CrossSellCard
-        title={t("public.universidad.crosssell_title")}
-        description={t("public.universidad.crosssell_desc")}
+        title={t(`${PREFIX}.crosssell_title`)}
+        description={t(`${PREFIX}.crosssell_desc`)}
         links={[
           {
-            label: t("public.universidad.crosssell_espanol"),
+            label: t(`${PREFIX}.crosssell_espanol`),
             href: publicRoute(publicPages.espanol, locale),
           },
           {
-            label: t("public.universidad.crosssell_homologacion"),
+            label: t(`${PREFIX}.crosssell_homologacion`),
             href: publicRoute(publicPages.homologacion, locale),
           },
         ]}
-        badgeLabel={t("public.universidad.crosssell_badge")}
+        badgeLabel={t(`${PREFIX}.crosssell_badge`)}
         badgeIcon={Languages}
       />
 
-      <PublicSection className="bg-[var(--surface-soft)]">
-        <SectionHeading title={t("public.universidad.faq_title")} />
-        <FaqSection translationPrefix="public.universidad" count={5} />
-      </PublicSection>
+      <section className="py-16 sm:py-20 bg-white">
+        <Container>
+          <PinSectionHead
+            title1={t(`${PREFIX}.pin_faq_title_1`)}
+            accent={t(`${PREFIX}.pin_faq_title_accent`)}
+            sub={t(`${PREFIX}.pin_faq_sub`)}
+            align="center"
+          />
+          <FaqSection translationPrefix={PREFIX} count={5} />
+        </Container>
+      </section>
 
-      <PublicCta
-        title={t("public.universidad.cta_title")}
-        subtitle={t("public.universidad.cta_subtitle")}
+      <PinFinalCta
+        prefix={PREFIX}
         bgImage="/images/lifestyle/salamanca-university-courtyard-sunset.webp"
-      >
-        <ConsultationDialog>
-          <GradientButton className="w-full sm:w-auto">
-            {t("public.universidad.cta_button")}
-          </GradientButton>
-        </ConsultationDialog>
-      </PublicCta>
+        sideItemCount={5}
+      />
     </>
   );
 }

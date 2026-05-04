@@ -91,7 +91,7 @@ function StickyCtaBarInner() {
           <WhatsAppIcon className="h-5 w-5" />
           {isOnline && (
             <span
-              className="absolute top-0.5 right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-white"
+              className="absolute top-0.5 right-0.5 h-2.5 w-2.5 rounded-full bg-[#22a655] ring-2 ring-white"
               aria-hidden="true"
             />
           )}
