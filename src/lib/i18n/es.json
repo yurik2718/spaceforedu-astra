@@ -905,7 +905,7 @@
       "plan_completo_feature_5": "Acompañamiento en la matriculación",
       "plan_completo_feature_6": "Seguimiento del expediente en cada etapa",
       "plan_completo_feature_7": "Soporte prioritario",
-      "plan_premium_title": "VIP — Plenas Garantías",
+      "plan_premium_title": "VIP — Máxima Garantía",
       "plan_premium_price": "2 250",
       "plan_premium_desc": "Acceso a universidades públicas y privadas. Aceleración de todos los trámites burocráticos y garantía completa del resultado.",
       "plan_premium_feature_1": "Todo lo del plan Integral",
@@ -1015,7 +1015,8 @@
       "pin_final_side_5": "Siguientes pasos en 24 h",
       "plan_basico_footnote": "* Las traducciones juradas no están incluidas en el precio.",
       "spanish_courses_title": "Clases de español",
-      "spanish_courses_desc": "Cursos de español y preparación para cualquier programa académico, desde 25 horas. El precio exacto se determina según el nivel del profesor."
+      "spanish_courses_desc": "Cursos de español y preparación para cualquier programa académico, desde 25 horas. El precio exacto se determina según el nivel del profesor.",
+      "plan_premium_badge": "Garantía de resultado"
     },
     "consultation_success": {
       "title": "¡Te esperamos en WhatsApp!",

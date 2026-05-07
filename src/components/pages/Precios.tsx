@@ -32,12 +32,13 @@ interface Plan {
   key: PlanKey;
   features: number;
   highlighted: boolean;
+  badgeKey?: string;
 }
 
 const PLANS: readonly Plan[] = [
-  { key: "basico", features: 4, highlighted: false },
-  { key: "completo", features: 8, highlighted: true },
-  { key: "premium", features: 8, highlighted: false },
+  { key: "basico",   features: 4, highlighted: false },
+  { key: "completo", features: 7, highlighted: true,  badgeKey: "popular" },
+  { key: "premium",  features: 7, highlighted: false, badgeKey: "plan_premium_badge" },
 ];
 
 const INCLUDED_ICONS: readonly LucideIcon[] = [
@@ -48,19 +49,17 @@ const INCLUDED_ICONS: readonly LucideIcon[] = [
 ];
 
 const COMPARISON_MATRIX: readonly (readonly [boolean, boolean, boolean])[] = [
-  [true, true, true],
-  [true, true, true],
-  [true, true, true],
-  [true, true, true],
-  [false, true, true],
-  [false, true, true],
-  [false, true, true],
-  [false, true, true],
-  [false, false, true],
-  [false, false, true],
-  [false, false, true],
-  [false, false, true],
-  [false, false, true],
+  [true,  true,  true ],  // 1. document prep
+  [true,  true,  true ],  // 2. ministry filing
+  [true,  true,  true ],  // 3. chat support
+  [true,  true,  true ],  // 4. online tracking
+  [false, true,  true ],  // 5. personal coordinator
+  [false, true,  true ],  // 6. university selection
+  [false, true,  true ],  // 7. priority support
+  [false, false, true ],  // 8. public & private admission (VIP)
+  [false, false, true ],  // 9. bureaucratic acceleration (VIP)
+  [false, false, true ],  // 10. 24/7 WhatsApp
+  [false, false, true ],  // 11. visa guidance
 ] as const;
 
 const HERO_STRIP_IMAGES = [
@@ -248,11 +247,13 @@ function PricingPlansSection() {
           {PLANS.map((plan) => {
             const features = Array.from(
               { length: plan.features },
-              (_, i) =>
-                t(`${PREFIX}.plan_${plan.key}_feature_${i + 1}`),
+              (_, i) => t(`${PREFIX}.plan_${plan.key}_feature_${i + 1}`),
             );
             const rawPrice = t(`${PREFIX}.plan_${plan.key}_price`);
             const cleanPrice = rawPrice.replace(/^€\s*/, "");
+            const footnoteKey = `${PREFIX}.plan_${plan.key}_footnote`;
+            const footnoteRaw = t(footnoteKey);
+            const footnote = footnoteRaw !== footnoteKey ? footnoteRaw : undefined;
             return (
               <PinPricingPlan
                 key={plan.key}
@@ -261,16 +262,32 @@ function PricingPlansSection() {
                 price={cleanPrice}
                 unit={t(`${PREFIX}.plan_${plan.key}_unit`)}
                 features={features}
+                footnote={footnote}
                 cta={t(`${PREFIX}.choose_plan`)}
                 ctaVariant={plan.highlighted ? "primary" : "secondary"}
                 featured={plan.highlighted}
-                popLabel={
-                  plan.highlighted ? t(`${PREFIX}.popular`) : undefined
-                }
+                popLabel={plan.badgeKey ? t(`${PREFIX}.${plan.badgeKey}`) : undefined}
               />
             );
           })}
         </div>
+        <Reveal direction="up" delay={100}>
+          <div className="mt-8 max-w-6xl mx-auto rounded-2xl border border-[var(--hairline-soft)] bg-white px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="flex-1">
+              <p className="text-[14px] font-semibold text-[var(--ink)] m-0">
+                {t(`${PREFIX}.spanish_courses_title`)}
+              </p>
+              <p className="text-[13px] text-[var(--mute)] mt-1 m-0">
+                {t(`${PREFIX}.spanish_courses_desc`)}
+              </p>
+            </div>
+            <ConsultationDialog>
+              <button className="pin-btn pin-btn-secondary h-10 px-5 text-[13px] shrink-0">
+                {t(`${PREFIX}.choose_plan`)}
+              </button>
+            </ConsultationDialog>
+          </div>
+        </Reveal>
       </Container>
     </section>
   );

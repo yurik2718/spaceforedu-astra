@@ -905,7 +905,7 @@
       "plan_completo_feature_5": "University enrollment support",
       "plan_completo_feature_6": "File tracking at every stage",
       "plan_completo_feature_7": "Priority support",
-      "plan_premium_title": "VIP — Full Guarantee",
+      "plan_premium_title": "VIP — Maximum Guarantee",
       "plan_premium_price": "2,250",
       "plan_premium_desc": "Admission to both public and private institutions. Accelerated bureaucratic processing and full results guarantee.",
       "plan_premium_feature_1": "Everything in Integral plan",
@@ -1015,7 +1015,8 @@
       "pin_final_side_5": "Next-step plan within 24h",
       "plan_basico_footnote": "* Sworn translations are not included in the price.",
       "spanish_courses_title": "Spanish classes",
-      "spanish_courses_desc": "Spanish language courses and preparation for any academic programme, from 25 hours. Exact pricing depends on the teacher's level."
+      "spanish_courses_desc": "Spanish language courses and preparation for any academic programme, from 25 hours. Exact pricing depends on the teacher's level.",
+      "plan_premium_badge": "Results guaranteed"
     },
     "consultation_success": {
       "title": "We'll see you on WhatsApp!",

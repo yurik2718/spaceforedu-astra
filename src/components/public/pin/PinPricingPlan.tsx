@@ -82,6 +82,11 @@ export function PinPricingPlan({
             </span>
           ))}
         </div>
+        {footnote && (
+          <p className={`text-[11px] leading-[1.4] -mt-2 mb-1 ${featured ? "text-[var(--on-dark-mute)]" : "text-[var(--ash)]"}`}>
+            {footnote}
+          </p>
+        )}
         {ctaBtn}
       </div>
     </Reveal>
