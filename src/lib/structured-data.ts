@@ -71,16 +71,47 @@ export function website(): object {
   };
 }
 
+const SERVICE_LIST_LABELS: Record<
+  Locale,
+  {
+    listName: string;
+    services: Array<{ name: string; description: string }>;
+  }
+> = {
+  es: {
+    listName: "Servicios educativos en España",
+    services: [
+      { name: "Homologación de títulos", description: "Reconocimiento oficial de títulos extranjeros ante el Ministerio de Educación español." },
+      { name: "Acceso a universidades", description: "Acompañamiento integral para ingresar a una universidad española." },
+      { name: "Clases de español", description: "Clases individuales y grupales con profesores nativos certificados, niveles A1–C2." },
+    ],
+  },
+  en: {
+    listName: "Educational services in Spain",
+    services: [
+      { name: "Degree homologation", description: "Official recognition of foreign degrees by the Spanish Ministry of Education." },
+      { name: "University admission", description: "End-to-end support for enrolment in Spanish universities." },
+      { name: "Spanish language courses", description: "Individual and group lessons with certified native teachers, levels A1–C2." },
+    ],
+  },
+  ru: {
+    listName: "Образовательные услуги в Испании",
+    services: [
+      { name: "Омологация диплома", description: "Официальное признание иностранных дипломов Министерством образования Испании." },
+      { name: "Поступление в вузы", description: "Комплексная помощь с поступлением в испанские университеты." },
+      { name: "Уроки испанского", description: "Индивидуальные и групповые занятия с сертифицированными носителями языка, уровни A1–C2." },
+    ],
+  },
+};
+
 export function serviceList(locale: Locale): object {
-  const services = [
-    { name: "Homologación de títulos", url: publicRoute("homologation", locale), description: "Reconocimiento oficial de títulos extranjeros ante el Ministerio de Educación español." },
-    { name: "Acceso a universidades", url: publicRoute("university", locale), description: "Acompañamiento integral para ingresar a una universidad española." },
-    { name: "Clases de español", url: publicRoute("spanish", locale), description: "Clases individuales y grupales con profesores nativos certificados, niveles A1–C2." },
-  ];
+  const labels = SERVICE_LIST_LABELS[locale] ?? SERVICE_LIST_LABELS.es;
+  const pages = ["homologation", "university", "spanish"];
+  const services = labels.services.map((s, i) => ({ ...s, url: publicRoute(pages[i], locale) }));
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Servicios educativos en España",
+    name: labels.listName,
     itemListElement: services.map((s, i) => ({
       "@type": "ListItem",
       position: i + 1,

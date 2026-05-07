@@ -942,9 +942,9 @@
       "what_title": "¿Qué son las cookies?",
       "what_body": "Las cookies son pequeños archivos que un sitio web guarda en tu dispositivo para recordar tus preferencias y mejorar tu experiencia.",
       "usage_title": "Qué cookies usamos",
-      "usage_body": "Actualmente utilizamos únicamente cookies técnicas estrictamente necesarias para el funcionamiento del sitio (preferencia de idioma guardada en el prefijo de URL). No utilizamos cookies de analítica ni de terceros, por lo que no es necesario solicitar consentimiento adicional.",
-      "thirdparty_title": "Terceros",
-      "thirdparty_body": "No integramos servicios de terceros que instalen cookies (ni Google Analytics, ni píxeles publicitarios, ni mapas embebidos). Si en el futuro añadimos alguno, actualizaremos esta política y mostraremos un banner de consentimiento.",
+      "usage_body": "Utilizamos cookies técnicas estrictamente necesarias para el funcionamiento del sitio. Con tu consentimiento, podemos utilizar cookies de analítica a través de Google Tag Manager para entender cómo se usa el sitio y mejorarlo. No utilizamos cookies publicitarias.",
+      "thirdparty_title": "Terceros — Google Tag Manager",
+      "thirdparty_body": "Empleamos Google Tag Manager (Google LLC) para gestionar etiquetas de analítica. Si aceptas las cookies de análisis, GTM puede instalar cookies de Google Analytics. Si rechazas o eliges solo las necesarias, GTM no instala ninguna cookie de seguimiento. Puedes cambiar tu preferencia en cualquier momento desde el botón «Configurar» de abajo.",
       "manage_title": "Gestión de cookies",
       "manage_body": "Puedes bloquear o eliminar las cookies desde la configuración de tu navegador. Hacerlo no afectará al uso del sitio."
     },

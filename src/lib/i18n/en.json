@@ -942,9 +942,9 @@
       "what_title": "What are cookies?",
       "what_body": "Cookies are small files that a website stores on your device to remember your preferences and improve your experience.",
       "usage_title": "Which cookies we use",
-      "usage_body": "We currently use only strictly necessary technical cookies for the site to work (language preference saved in the URL prefix). We do not use analytics cookies or any third-party cookies, so no additional consent is required.",
-      "thirdparty_title": "Third parties",
-      "thirdparty_body": "We do not embed third-party services that set cookies (no Google Analytics, no advertising pixels, no embedded maps). If we add any in the future we will update this policy and display a consent banner.",
+      "usage_body": "We use strictly necessary technical cookies for the site to function. With your consent, we may use analytics cookies via Google Tag Manager to understand how the site is used and to improve it. We do not use advertising cookies.",
+      "thirdparty_title": "Third parties — Google Tag Manager",
+      "thirdparty_body": "We use Google Tag Manager (Google LLC) to manage analytics tags. If you accept analytics cookies, GTM may install Google Analytics cookies. If you decline or choose only necessary cookies, GTM installs no tracking cookies. You can change your preference at any time using the \"Manage preferences\" button below.",
       "manage_title": "Managing cookies",
       "manage_body": "You can block or delete cookies through your browser settings. Doing so will not affect your use of the site."
     },
