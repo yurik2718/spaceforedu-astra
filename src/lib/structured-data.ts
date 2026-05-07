@@ -9,7 +9,7 @@ const ORG_ID = `${SITE_URL}/#org`;
 export function organization(): object {
   return {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "EducationalOrganization"],
     "@id": ORG_ID,
     name: "Space for Edu",
     url: SITE_URL,
@@ -21,13 +21,6 @@ export function organization(): object {
     slogan: "Educación en España, de principio a fin",
     description:
       "Spain-based education consultancy specialising in degree homologation, university admission and Spanish courses. 15+ years of experience, 1700+ successful cases, 98% favourable resolution rate.",
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5",
-      bestRating: "5",
-      worstRating: "1",
-      ratingCount: "1700",
-    },
     ...(CONTACT_WHATSAPP || CONTACT_EMAIL
       ? {
           contactPoint: {
@@ -75,11 +68,6 @@ export function website(): object {
     url: SITE_URL,
     publisher: { "@id": `${SITE_URL}/#org` },
     inLanguage: Array.from(LOCALES),
-    potentialAction: {
-      "@type": "SearchAction",
-      target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/es/?q={search_term_string}` },
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
@@ -105,6 +93,47 @@ export function serviceList(locale: Locale): object {
         areaServed: "ES",
       },
     })),
+  };
+}
+
+type BreadcrumbLabels = {
+  home: string;
+};
+
+const BREADCRUMB_LABELS: Record<Locale, BreadcrumbLabels> = {
+  es: { home: "Inicio" },
+  en: { home: "Home" },
+  ru: { home: "Главная" },
+};
+
+/**
+ * Build a BreadcrumbList JSON-LD: Home → current page.
+ * `pageName` is the human-readable label of the current page (e.g. "Homologación").
+ * `pagePath` is the route key used by publicRoute (e.g. "homologation").
+ */
+export function breadcrumbList(
+  locale: Locale,
+  pageName: string,
+  pagePath: string,
+): object {
+  const labels = BREADCRUMB_LABELS[locale] ?? BREADCRUMB_LABELS.es;
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: labels.home,
+        item: SITE_URL + publicRoute("", locale),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: pageName,
+        item: SITE_URL + publicRoute(pagePath, locale),
+      },
+    ],
   };
 }
 

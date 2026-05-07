@@ -1,0 +1,110 @@
+---
+import { LOCALES } from "@/lib/constants";
+
+interface Props {
+  locale: string;
+  currentPath: string;
+  variant?: "default" | "ghost-dark";
+}
+
+const { locale, currentPath, variant = "default" } = Astro.props;
+
+const LANGUAGES = [
+  { code: "es", label: "Español", countryCode: "es" },
+  { code: "en", label: "English", countryCode: "gb" },
+  { code: "ru", label: "Русский", countryCode: "ru" },
+] as const;
+
+const current = LANGUAGES.find((l) => l.code === locale) ?? LANGUAGES[0];
+
+// Strip current locale prefix; if currentPath is "/es/homologation/" → "/homologation/".
+const localePattern = new RegExp(`^/(${LOCALES.join("|")})(/|$)`);
+const pathWithoutLocale = currentPath.replace(localePattern, "/") || "/";
+
+const triggerClass =
+  variant === "ghost-dark"
+    ? "text-white/70 hover:text-white hover:bg-white/10 border-transparent"
+    : "border-border bg-background text-foreground hover:bg-muted";
+---
+
+<details class="lang-switcher relative">
+  <summary
+    class={`flex items-center gap-2 h-11 px-4 rounded-lg border text-sm font-normal cursor-pointer select-none transition-colors list-none [&::-webkit-details-marker]:hidden ${triggerClass}`}
+    aria-haspopup="listbox"
+  >
+    <img
+      src={`/images/flags/${current.countryCode}.svg`}
+      alt=""
+      width="20"
+      height="16"
+      class="rounded-sm shrink-0 object-cover w-[1.25em] h-[1em]"
+      loading="lazy"
+    />
+    <span>{current.code.toUpperCase()}</span>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      class="h-3.5 w-3.5 opacity-50"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  </summary>
+
+  <div
+    role="listbox"
+    class="absolute right-0 top-full mt-1 min-w-[10rem] rounded-lg border border-border bg-background shadow-md z-50 p-1"
+  >
+    {
+      LANGUAGES.map((lang) => {
+        const href = `/${lang.code}${pathWithoutLocale}`;
+        const isActive = locale === lang.code;
+        return (
+          <a
+            href={href}
+            role="option"
+            aria-selected={isActive}
+            class="flex items-center gap-3 px-3 py-2 rounded-md text-sm hover:bg-muted text-foreground"
+          >
+            <img
+              src={`/images/flags/${lang.countryCode}.svg`}
+              alt=""
+              width="20"
+              height="16"
+              class="rounded-sm shrink-0 object-cover w-[1.25em] h-[1em] shadow-sm"
+              loading="lazy"
+            />
+            <span class="flex-1">{lang.label}</span>
+            {isActive && (
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                class="h-3.5 w-3.5 text-primary"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            )}
+          </a>
+        );
+      })
+    }
+  </div>
+</details>
+
+<script>
+  // Close the dropdown when clicking outside.
+  document.addEventListener("click", (e) => {
+    document.querySelectorAll<HTMLDetailsElement>("details.lang-switcher[open]").forEach((d) => {
+      if (!d.contains(e.target as Node)) d.open = false;
+    });
+  });
+</script>

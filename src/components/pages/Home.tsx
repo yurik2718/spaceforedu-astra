@@ -2,283 +2,302 @@ import {
   FileCheck,
   GraduationCap,
   Languages,
-  Stamp,
-  Scale,
-  Users,
-  BookOpen,
-  Briefcase,
-  Building2,
-  ArrowRight,
+  Clock,
+  Shield,
+  ShieldCheck,
+  CreditCard,
+  Bell,
+  FolderOpen,
+  Activity,
+  MessageSquare,
+  ListChecks,
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Reveal, AnimatedCounter } from "@/components/public/animations";
-import {
-  Container,
-  FeatureIcon,
-  GradientButton,
-  PublicCta,
-  PublicSection,
-  SectionHeading,
-} from "@/components/public/shared";
-import { ConsultationDialog } from "@/components/public/ConsultationDialog";
+import { Reveal } from "@/components/public/animations";
+import { Container } from "@/components/public/shared";
 import { UniversityLogoBar } from "@/components/public/UniversityLogoBar";
+import { PinHeroCollage } from "@/components/public/pin/PinHeroCollage";
+import { PinServicesGrid } from "@/components/public/pin/PinServicesCard";
+import { PinComparison } from "@/components/public/pin/PinComparison";
+import { PinPricingTeaser } from "@/components/public/pin/PinPricingTeaser";
+import { PinRiskReversal } from "@/components/public/pin/PinRiskReversal";
+import { PinReachSection } from "@/components/public/pin/PinReachSection";
+import { PinFinalCta } from "@/components/public/pin/PinFinalCta";
 import { publicRoute, publicPages } from "@/lib/routes";
+import { FEATURE_DASHBOARD } from "@/lib/constants";
 import { I18nProvider, useTranslation } from "@/lib/i18n/react";
 import type { Messages } from "@/lib/i18n";
 import type { Locale } from "@/lib/constants";
 
+const HOME_PREFIX = "public.home";
+
+const RISK_ITEMS = [
+  { icon: Shield, n: 1 },
+  { icon: ShieldCheck, n: 2 },
+] as const;
+
+const REACH_COUNTRIES = [
+  "Argentina",
+  "Colombia",
+  "Mexico",
+  "Venezuela",
+  "Peru",
+  "Cuba",
+  "Russia",
+  "Ukraine",
+  "Belarus",
+  "Kazakhstan",
+  "Uzbekistan",
+  "Georgia",
+  "Armenia",
+  "Brazil",
+  "Chile",
+  "+5 more",
+] as const;
+
+interface HeroImageProps {
+  src: string;
+  srcSet?: string;
+  avifSrcSet?: string;
+  width: number;
+  height: number;
+}
+
 export function HomePage({
   locale,
   messages,
+  heroMain,
 }: {
   locale: Locale | string;
   messages: Messages;
+  heroMain?: HeroImageProps;
 }) {
   return (
     <I18nProvider locale={locale} messages={messages}>
-      <HeroSection />
-      <UniversityLogoBar titleKey="public.home.logo_bar_title" noBorderTop />
-      <ServicesSection locale={locale} />
-      <ApproachSection />
-      <NumbersStrip />
-      <FinalCtaSection />
+      <PageBody locale={locale} heroMain={heroMain} />
     </I18nProvider>
   );
 }
 
-function HeroSection() {
+function PageBody({
+  locale,
+  heroMain,
+}: {
+  locale: Locale | string;
+  heroMain?: HeroImageProps;
+}) {
   const { t } = useTranslation();
-  const stats = [
-    { value: "1700+", label: t("public.home.stat_students") },
-    { value: "20+", label: t("public.home.stat_countries") },
-    { value: "15+", label: t("public.home.stat_years") },
-  ];
+  const preciosHref = publicRoute(publicPages.precios, locale) + "#plans";
 
-  return (
-    <section className="relative bg-slate-50 py-20 sm:py-32 lg:py-40">
-      <Container className="relative">
-        <div className="max-w-4xl mx-auto text-center">
-          <Reveal direction="up">
-            <p className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-brand-secondary mb-6">
-              {t("public.home.hero_eyebrow")}
-            </p>
-          </Reveal>
-          <Reveal direction="up" delay={50}>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tighter text-foreground leading-[1.05]">
-              {t("public.home.hero_title_1")}{" "}
-              <span className="bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
-                {t("public.home.hero_title_accent")}
-              </span>
-            </h1>
-          </Reveal>
-          <Reveal direction="up" delay={150}>
-            <p className="mt-8 text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              {t("public.home.hero_subtitle")}
-            </p>
-          </Reveal>
-          <Reveal direction="up" delay={250}>
-            <div className="mt-12">
-              <ConsultationDialog>
-                <GradientButton>{t("public.home.cta_start")}</GradientButton>
-              </ConsultationDialog>
-            </div>
-          </Reveal>
-          <Reveal direction="up" delay={350}>
-            <div className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
-              {stats.map(({ value, label }, i) => (
-                <div key={value} className="flex items-baseline gap-2">
-                  {i > 0 && <span className="text-border hidden sm:inline">·</span>}
-                  <span className="font-bold text-foreground text-base">{value}</span>
-                  <span>{label}</span>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-function ServicesSection({ locale }: { locale: Locale | string }) {
-  const { t } = useTranslation();
-
-  const leadServices = [
+  const services = [
     {
       icon: FileCheck,
-      title: t("public.home.service_homologacion_title"),
-      desc: t("public.home.service_homologacion_desc"),
+      titleKey: `${HOME_PREFIX}.service_homologacion_title`,
+      descKey: `${HOME_PREFIX}.pin_service_homologation_desc`,
+      metaKey: `${HOME_PREFIX}.pin_service_homologation_meta`,
       href: publicRoute(publicPages.homologacion, locale),
     },
     {
       icon: GraduationCap,
-      title: t("public.home.service_universidad_title"),
-      desc: t("public.home.service_universidad_desc"),
+      titleKey: `${HOME_PREFIX}.service_universidad_title`,
+      descKey: `${HOME_PREFIX}.pin_service_university_desc`,
+      metaKey: `${HOME_PREFIX}.pin_service_university_meta`,
       href: publicRoute(publicPages.universidad, locale),
     },
     {
       icon: Languages,
-      title: t("public.home.service_espanol_title"),
-      desc: t("public.home.service_espanol_desc"),
+      titleKey: `${HOME_PREFIX}.service_espanol_title`,
+      descKey: `${HOME_PREFIX}.pin_service_spanish_desc`,
+      metaKey: `${HOME_PREFIX}.pin_service_spanish_meta`,
       href: publicRoute(publicPages.espanol, locale),
     },
   ];
 
-  const additionalServices = [
-    { icon: Stamp, labelKey: "service_visas_title" },
-    { icon: Scale, labelKey: "service_legal_title" },
-    { icon: Users, labelKey: "service_relocation_title" },
-    { icon: BookOpen, labelKey: "service_postgrad_title" },
-    { icon: Briefcase, labelKey: "service_internship_title" },
-    { icon: Building2, labelKey: "service_b2b_title" },
+  return (
+    <>
+      <PinHeroCollage
+        prefix={HOME_PREFIX}
+        secondaryHref={preciosHref}
+        main={{
+          src: heroMain?.src ?? "/images/hero/hero-student-salamanca-docs.webp",
+          srcSet: heroMain?.srcSet,
+          avifSrcSet: heroMain?.avifSrcSet,
+          width: heroMain?.width,
+          height: heroMain?.height,
+          alt: t(`${HOME_PREFIX}.hero_img_alt`),
+        }}
+        sideRight={{
+          src: "/images/lifestyle/spain-flag-sky.webp",
+          alt: "Spanish flag waving against a clear blue sky",
+        }}
+        sideLeft={{
+          src: "/images/lifestyle/madrid-almudena-sunset.webp",
+          alt: "Almudena Cathedral and the Royal Palace of Madrid at sunset",
+        }}
+        pills={[
+          { kind: "dot", labelKey: "pin_hero_pill_1" },
+          { kind: "icon", icon: Clock, labelKey: "pin_hero_pill_2" },
+        ]}
+      />
+      <PinServicesGrid prefix={HOME_PREFIX} items={services} columns={3} />
+      <UniversityLogoBar titleKey="public.home.logo_bar_title" noBorderTop />
+      <PinComparison prefix={HOME_PREFIX} rowCount={5} />
+      <PinPricingTeaser prefix={HOME_PREFIX} />
+      <PinRiskReversal prefix={HOME_PREFIX} items={RISK_ITEMS} />
+      {FEATURE_DASHBOARD && <DashboardPreviewSection />}
+      <PinReachSection prefix={HOME_PREFIX} countries={REACH_COUNTRIES} />
+      <PinFinalCta prefix={HOME_PREFIX} sideItemCount={5} />
+    </>
+  );
+}
+
+function DashboardPreviewSection() {
+  const { t } = useTranslation();
+  const navItems = [
+    { key: "overview", icon: Activity, active: true },
+    { key: "documents", icon: FolderOpen },
+    { key: "timeline", icon: ListChecks },
+    { key: "chat", icon: MessageSquare },
+    { key: "notif", icon: Bell },
+    { key: "billing", icon: CreditCard },
+  ];
+
+  const tlSteps = [
+    { n: 1, state: "done" as const },
+    { n: 2, state: "done" as const },
+    { n: 3, state: "done" as const },
+    { n: 4, state: "now" as const },
+    { n: 5, state: "" as const },
+    { n: 6, state: "" as const },
   ];
 
   return (
-    <PublicSection className="bg-white">
-      <SectionHeading
-        title={t("public.home.services_title")}
-        subtitle={t("public.home.services_subtitle")}
-      />
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
-        {leadServices.map(({ icon, title, desc, href }, i) => (
-          <Reveal key={title} direction="up" delay={i * 120}>
-            <a href={href} className="block h-full group">
-              <Card className="h-full border bg-white transition-all duration-300 hover:shadow-xl hover:shadow-brand-secondary/5 hover:-translate-y-1">
-                <CardContent className="p-8 flex flex-col h-full">
-                  <FeatureIcon icon={icon} className="mb-4 self-start" />
-                  <h3 className="text-lg font-semibold mb-2">{title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
-                    {desc}
-                  </p>
-                  <span className="mt-5 inline-flex items-center text-sm font-medium text-brand-secondary">
-                    {t("public.home.learn_more")}
-                    <ArrowRight
-                      aria-hidden="true"
-                      className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1"
-                    />
-                  </span>
-                </CardContent>
-              </Card>
-            </a>
-          </Reveal>
-        ))}
-      </div>
-
-      <div className="mt-20 max-w-5xl mx-auto">
-        <Reveal direction="up">
-          <p className="text-center text-xs sm:text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-8">
-            {t("public.home.additional_label")}
-          </p>
-        </Reveal>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {additionalServices.map(({ icon, labelKey }, i) => (
-            <Reveal key={labelKey} direction="up" delay={i * 60}>
-              <ConsultationDialog>
-                <button
-                  type="button"
-                  className="group flex items-center gap-3 w-full text-left p-4 rounded-xl border border-slate-200 bg-white hover:border-brand-secondary/40 hover:shadow-md transition-all duration-300 min-h-[44px]"
-                >
-                  <FeatureIcon icon={icon} size="sm" hoverScale={false} />
-                  <span className="flex-1 text-sm font-medium">
-                    {t(`public.home.${labelKey}`)}
-                  </span>
-                  <ArrowRight
-                    aria-hidden="true"
-                    className="h-4 w-4 text-muted-foreground group-hover:text-brand-secondary group-hover:translate-x-0.5 transition-all"
-                  />
-                </button>
-              </ConsultationDialog>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </PublicSection>
-  );
-}
-
-function ApproachSection() {
-  const { t } = useTranslation();
-  return (
-    <PublicSection className="bg-slate-50" dots>
-      <SectionHeading
-        title={t("public.home.approach_title")}
-        subtitle={t("public.home.approach_subtitle")}
-      />
-      <div className="grid gap-6 sm:grid-cols-2 max-w-4xl mx-auto">
-        {[1, 2, 3, 4].map((n, i) => (
-          <Reveal key={n} direction="up" delay={i * 100}>
-            <Card className="border bg-white h-full transition-all duration-300 hover:shadow-lg">
-              <CardContent className="p-6 flex gap-5">
-                <div
-                  className="shrink-0 text-4xl sm:text-5xl font-bold tracking-tighter leading-none text-slate-300 select-none w-12 sm:w-14"
-                  aria-hidden="true"
-                >
-                  {String(n).padStart(2, "0")}
-                </div>
-                <div>
-                  <h3 className="font-semibold text-base mb-1.5">
-                    {t(`public.home.approach_${n}_title`)}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {t(`public.home.approach_${n}_desc`)}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </Reveal>
-        ))}
-      </div>
-    </PublicSection>
-  );
-}
-
-function NumbersStrip() {
-  const { t } = useTranslation();
-  const numbers = [
-    { value: 1700, suffix: "+", labelKey: "stat_students" },
-    { value: 20, suffix: "+", labelKey: "stat_countries" },
-    { value: 15, suffix: "+", labelKey: "stat_years" },
-    { value: 98, suffix: "%", labelKey: "stat_success" },
-  ] as const;
-
-  return (
-    <section aria-labelledby="home-numbers-heading" className="py-16 sm:py-20 bg-white">
+    <section className="py-20 sm:py-24 bg-[var(--surface-dark)] text-white">
       <Container>
-        <h2 id="home-numbers-heading" className="sr-only">
-          {t("public.home.numbers_heading")}
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-4xl mx-auto">
-          {numbers.map(({ value, suffix, labelKey }, i) => (
-            <Reveal key={labelKey} direction="up" delay={i * 100}>
-              <div className="text-center">
-                <div className="text-4xl sm:text-5xl font-bold tracking-tighter leading-none bg-gradient-to-br from-brand-primary to-brand-secondary bg-clip-text text-transparent">
-                  <AnimatedCounter value={value} suffix={suffix} />
+        <Reveal direction="up">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 sm:gap-6 mb-9">
+            <h2 className="font-display text-[32px] sm:text-[42px] font-bold tracking-[-0.03em] text-white leading-[1.1] m-0 max-w-[640px]">
+              {t("public.home.pin_dash_title_1")}{" "}
+              <span className="text-[var(--primary)]">
+                {t("public.home.pin_dash_title_accent")}
+              </span>
+            </h2>
+            <p className="text-[15px] text-[var(--on-dark-mute)] leading-[1.5] max-w-[360px] sm:text-right">
+              {t("public.home.pin_dash_sub")}
+            </p>
+          </div>
+        </Reveal>
+        <Reveal direction="up" delay={100}>
+          <div
+            className="rounded-[32px] p-5 sm:p-6 grid lg:grid-cols-[240px_1fr] gap-4 border min-h-[420px]"
+            style={{ background: "#1a1a16", borderColor: "#2e2e29" }}
+          >
+            <div className="flex flex-col gap-1.5">
+              {navItems.map(({ key, icon: Icon, active }) => (
+                <div
+                  key={key}
+                  className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-semibold ${
+                    active ? "bg-white/8 text-white" : "text-white/65"
+                  }`}
+                >
+                  {active ? (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--primary)]" />
+                  ) : (
+                    <Icon className="h-3.5 w-3.5 opacity-70" />
+                  )}
+                  {t(`public.home.pin_dash_nav_${key}`)}
                 </div>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  {t(`public.home.${labelKey}`)}
-                </p>
+              ))}
+            </div>
+            <div
+              className="rounded-2xl p-5 sm:p-6 flex flex-col gap-4"
+              style={{ background: "#262622" }}
+            >
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  {
+                    k: "status",
+                    val: "pin_dash_kpi_status_value",
+                    meta: "pin_dash_kpi_status_meta",
+                    metaColor: "rgba(255,255,255,0.5)",
+                  },
+                  {
+                    k: "eta",
+                    val: "pin_dash_kpi_eta_value",
+                    meta: "pin_dash_kpi_eta_meta",
+                    metaColor: "#8be0a8",
+                  },
+                  {
+                    k: "docs",
+                    val: "pin_dash_kpi_docs_value",
+                    meta: "pin_dash_kpi_docs_meta",
+                    metaColor: "#8be0a8",
+                  },
+                ].map(({ k, val, meta, metaColor }) => (
+                  <div
+                    key={k}
+                    className="rounded-2xl p-3 sm:p-4 border"
+                    style={{ background: "#1a1a16", borderColor: "#2e2e29" }}
+                  >
+                    <div className="text-[11px] uppercase tracking-[0.1em] font-semibold text-white/55">
+                      {t(`public.home.pin_dash_kpi_${k}`)}
+                    </div>
+                    <div className="font-display text-[20px] sm:text-[24px] font-bold tracking-[-0.02em] mt-1.5">
+                      {t(`public.home.${val}`)}
+                    </div>
+                    <div className="text-[12px] mt-1" style={{ color: metaColor }}>
+                      {t(`public.home.${meta}`)}
+                    </div>
+                  </div>
+                ))}
               </div>
-            </Reveal>
-          ))}
-        </div>
+              <div
+                className="rounded-2xl p-4 sm:p-5 border"
+                style={{ background: "#1a1a16", borderColor: "#2e2e29" }}
+              >
+                <div className="text-[13px] font-bold text-white mb-3.5">
+                  {t("public.home.pin_dash_tl_heading")}
+                </div>
+                <div
+                  className="flex flex-col gap-2.5 relative"
+                  style={{ paddingLeft: 22 }}
+                >
+                  <div
+                    className="absolute top-1.5 bottom-1.5 w-0.5"
+                    style={{ left: 6, background: "#2e2e29" }}
+                  />
+                  {tlSteps.map(({ n, state }) => (
+                    <div key={n} className="relative">
+                      <span
+                        className="absolute top-[5px] w-3.5 h-3.5 rounded-full"
+                        style={{
+                          left: -22,
+                          background:
+                            state === "done"
+                              ? "#22a655"
+                              : state === "now"
+                                ? "var(--primary)"
+                                : "#2e2e29",
+                          border: "3px solid #1a1a16",
+                          boxShadow:
+                            state === "now"
+                              ? "0 0 0 4px rgba(232,69,60,0.25)"
+                              : "none",
+                        }}
+                      />
+                      <div className="text-[13px] text-white font-semibold">
+                        {t(`public.home.pin_dash_tl_${n}`)}
+                      </div>
+                      <div className="text-[11px] text-white/50">
+                        {t(`public.home.pin_dash_tl_${n}_when`)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </Container>
     </section>
-  );
-}
-
-function FinalCtaSection() {
-  const { t } = useTranslation();
-  return (
-    <PublicCta
-      title={t("public.home.cta_title")}
-      subtitle={t("public.home.cta_subtitle")}
-    >
-      <ConsultationDialog>
-        <GradientButton className="w-full sm:w-auto">
-          {t("public.home.cta_final_start")}
-        </GradientButton>
-      </ConsultationDialog>
-    </PublicCta>
   );
 }

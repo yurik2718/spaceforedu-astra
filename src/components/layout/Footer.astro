@@ -1,5 +1,4 @@
 ---
-import { Rocket, ShieldCheck, Lock, Globe, Users } from "lucide-react";
 import { publicRoute, publicPages } from "@/lib/routes";
 import { CONTACT_EMAIL, CONTACT_WHATSAPP } from "@/lib/constants";
 import { formatPhone } from "@/lib/utils";
@@ -14,82 +13,67 @@ const messages = getMessages(locale);
 const t = makeT(messages);
 
 const year = new Date().getFullYear();
-const trust = [
-  { icon: ShieldCheck, label: t("footer.trust_company") },
-  { icon: Users, label: t("footer.trust_payments") },
-  { icon: Lock, label: t("footer.trust_gdpr") },
-  { icon: Globe, label: t("footer.trust_languages") },
-];
 ---
 
-<footer class="border-t bg-zinc-900 text-zinc-400">
-  <div class="relative border-b border-zinc-800 overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-r from-brand-primary/[0.06] via-transparent to-brand-secondary/[0.06] pointer-events-none"></div>
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8 max-w-5xl mx-auto">
-        {
-          trust.map(({ icon: Icon, label }) => (
-            <div class="flex flex-col items-center text-center gap-3">
-              <div class="relative shrink-0 h-11 w-11">
-                <div class="absolute -inset-1 rounded-xl bg-gradient-to-br from-brand-primary/40 to-brand-secondary/40 blur-md opacity-80"></div>
-                <div class="relative h-11 w-11 rounded-xl bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center shadow-lg shadow-brand-secondary/25">
-                  <Icon className="h-5 w-5 text-white" strokeWidth={2.2} />
-                </div>
-              </div>
-              <span class="text-xs sm:text-sm text-zinc-300 font-medium leading-snug max-w-[200px]">
-                {label}
-              </span>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </div>
-
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-      <div class="sm:col-span-2 lg:col-span-1">
-        <div class="flex items-center gap-2 mb-4">
-          <Rocket className="h-6 w-6 text-brand-primary" />
-          <span class="text-lg font-bold text-white">
-            Space for <span class="text-brand-secondary">Edu</span>
+<footer class="bg-white border-t border-[var(--hairline)]">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div>
+        <a href={publicRoute(publicPages.home, locale)} class="inline-flex items-center mb-4">
+          <span class="font-display text-[18px] font-bold tracking-[-0.02em] text-[var(--ink-soft)]">
+            Space for <span class="text-[var(--primary-pressed)]">Edu</span>
           </span>
+        </a>
+        <p class="text-sm text-[var(--mute)] leading-relaxed max-w-[340px] mb-4">
+          {t("footer.tagline")}
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <a
+            href={publicRoute(publicPages.home, "es")}
+            class="inline-flex items-center gap-2 bg-[var(--surface-card)] rounded-full px-4 min-h-[44px] text-sm font-semibold text-[var(--ink)] hover:bg-[var(--secondary-bg)] transition-colors"
+          >
+            <img src="/images/flags/es.svg" alt="" width="18" height="13" class="w-[18px] h-[13px] rounded-[2px] object-cover" />
+            Español
+          </a>
+          <a
+            href={publicRoute(publicPages.home, "en")}
+            class="inline-flex items-center gap-2 bg-[var(--surface-card)] rounded-full px-4 min-h-[44px] text-sm font-semibold text-[var(--ink)] hover:bg-[var(--secondary-bg)] transition-colors"
+          >
+            <img src="/images/flags/gb.svg" alt="" width="18" height="13" class="w-[18px] h-[13px] rounded-[2px] object-cover" />
+            English
+          </a>
+          <a
+            href={publicRoute(publicPages.home, "ru")}
+            class="inline-flex items-center gap-2 bg-[var(--surface-card)] rounded-full px-4 min-h-[44px] text-sm font-semibold text-[var(--ink)] hover:bg-[var(--secondary-bg)] transition-colors"
+          >
+            <img src="/images/flags/ru.svg" alt="" width="18" height="13" class="w-[18px] h-[13px] rounded-[2px] object-cover" />
+            Русский
+          </a>
         </div>
-        <p class="text-sm leading-relaxed">{t("footer.tagline")}</p>
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold text-white mb-4">{t("footer.services")}</h3>
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.08em] text-[var(--ink)] mb-4">
+          {t("footer.services")}
+        </h3>
         <ul class="space-y-2 text-sm">
           <li>
-            <a
-              href={publicRoute(publicPages.homologacion, locale)}
-              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
-            >
+            <a href={publicRoute(publicPages.homologacion, locale)} class="text-[var(--mute)] hover:text-[var(--ink)] transition-colors">
               {t("nav.homologacion")}
             </a>
           </li>
           <li>
-            <a
-              href={publicRoute(publicPages.universidad, locale)}
-              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
-            >
+            <a href={publicRoute(publicPages.universidad, locale)} class="text-[var(--mute)] hover:text-[var(--ink)] transition-colors">
               {t("nav.universidad")}
             </a>
           </li>
           <li>
-            <a
-              href={publicRoute(publicPages.espanol, locale)}
-              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
-            >
+            <a href={publicRoute(publicPages.espanol, locale)} class="text-[var(--mute)] hover:text-[var(--ink)] transition-colors">
               {t("nav.espanol")}
             </a>
           </li>
           <li>
-            <a
-              href={publicRoute(publicPages.precios, locale)}
-              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
-            >
+            <a href={publicRoute(publicPages.precios, locale)} class="text-[var(--mute)] hover:text-[var(--ink)] transition-colors">
               {t("nav.precios")}
             </a>
           </li>
@@ -97,29 +81,22 @@ const trust = [
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold text-white mb-4">{t("footer.company")}</h3>
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.08em] text-[var(--ink)] mb-4">
+          {t("footer.company")}
+        </h3>
         <ul class="space-y-2 text-sm">
           <li>
-            <a
-              href={publicRoute(publicPages.privacyPolicy, locale)}
-              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
-            >
+            <a href={publicRoute(publicPages.privacyPolicy, locale)} class="text-[var(--mute)] hover:text-[var(--ink)] transition-colors">
               {t("footer.privacy")}
             </a>
           </li>
           <li>
-            <a
-              href={publicRoute(publicPages.legalNotice, locale)}
-              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
-            >
+            <a href={publicRoute(publicPages.legalNotice, locale)} class="text-[var(--mute)] hover:text-[var(--ink)] transition-colors">
               {t("footer.legal_notice")}
             </a>
           </li>
           <li>
-            <a
-              href={publicRoute(publicPages.cookies, locale)}
-              class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
-            >
+            <a href={publicRoute(publicPages.cookies, locale)} class="text-[var(--mute)] hover:text-[var(--ink)] transition-colors">
               {t("footer.cookies")}
             </a>
           </li>
@@ -127,15 +104,14 @@ const trust = [
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold text-white mb-4">{t("footer.contact")}</h3>
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.08em] text-[var(--ink)] mb-4">
+          {t("footer.contact")}
+        </h3>
         <ul class="space-y-2 text-sm">
           {
             CONTACT_EMAIL && (
               <li>
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
-                >
+                <a href={`mailto:${CONTACT_EMAIL}`} class="text-[var(--mute)] hover:text-[var(--ink)] transition-colors">
                   {CONTACT_EMAIL}
                 </a>
               </li>
@@ -148,40 +124,21 @@ const trust = [
                   href={`https://wa.me/${CONTACT_WHATSAPP}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-block hover:text-white hover:translate-x-0.5 transition-all duration-200"
+                  aria-label={t("a11y.whatsapp_aria")}
+                  class="text-[var(--mute)] hover:text-[var(--ink)] transition-colors"
                 >
                   {formatPhone(CONTACT_WHATSAPP)}
                 </a>
               </li>
             )
           }
-          <li>{t("footer.address")}</li>
+          <li class="text-[var(--mute)]">{t("footer.address")}</li>
         </ul>
       </div>
     </div>
 
-    <div class="border-t border-zinc-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500">
+    <div class="mt-10 pt-5 border-t border-[var(--hairline-soft)] text-[13px] text-[var(--mute)]">
       <span>© {year} Space for Edu. {t("footer.rights")}</span>
-      <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
-        <a
-          href={publicRoute(publicPages.privacyPolicy, locale)}
-          class="hover:text-white transition-colors"
-        >
-          {t("footer.privacy")}
-        </a>
-        <a
-          href={publicRoute(publicPages.legalNotice, locale)}
-          class="hover:text-white transition-colors"
-        >
-          {t("footer.legal_notice")}
-        </a>
-        <a
-          href={publicRoute(publicPages.cookies, locale)}
-          class="hover:text-white transition-colors"
-        >
-          {t("footer.cookies")}
-        </a>
-      </div>
     </div>
   </div>
 </footer>

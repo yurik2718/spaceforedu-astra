@@ -1,11 +1,10 @@
 ---
-import { Rocket, Phone } from "lucide-react";
 import { publicRoute, publicPages, whatsappLink } from "@/lib/routes";
 import { CONTACT_WHATSAPP } from "@/lib/constants";
-import { formatPhone } from "@/lib/utils";
 import { getMessages, makeT } from "@/lib/i18n";
+import { formatPhone } from "@/lib/utils";
 import MobileNav from "@/components/layout/MobileNav.tsx";
-import { LanguageSwitcher } from "@/components/common/LanguageSwitcher.tsx";
+import LanguageSwitcher from "@/components/common/LanguageSwitcher.astro";
 
 interface Props {
   locale: string;
@@ -24,30 +23,44 @@ const navLinks = [
 ];
 
 const waHref = CONTACT_WHATSAPP ? whatsappLink(CONTACT_WHATSAPP) : "";
+const waFormatted = CONTACT_WHATSAPP ? formatPhone(CONTACT_WHATSAPP) : "";
 const homeHref = publicRoute(publicPages.home, locale);
 ---
 
-<header class="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
-  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-    <a href={homeHref} class="flex items-center gap-2">
-      <Rocket className="h-7 w-7 text-brand-primary" />
-      <span class="text-xl font-bold tracking-tight">
-        Space for <span class="text-brand-secondary">Edu</span>
+<header class="sticky top-0 z-50 w-full border-b border-[var(--hairline-soft)] bg-white/96 backdrop-blur">
+  <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
+    {locale === "es" && (
+      <div
+        aria-hidden="true"
+        class="absolute inset-x-0 bottom-[-4px] h-1 flex pointer-events-none"
+      >
+        <span class="flex-[1] bg-[var(--primary)]"></span>
+        <span class="flex-[2] bg-[#F1BF00]"></span>
+        <span class="flex-[1] bg-[var(--primary)]"></span>
+      </div>
+    )}
+    <a href={homeHref} class="flex items-center shrink-0">
+      <span class="font-display text-[20px] font-bold tracking-[-0.02em] text-[var(--ink-soft)]">
+        Space for <span class="text-[var(--primary-pressed)]">Edu</span>
       </span>
     </a>
 
-    <nav class="hidden lg:flex items-center gap-1">
+    <nav class="hidden lg:flex items-center gap-1 ml-3">
       {
         navLinks.map(({ key, href }) => {
           const isActive = currentPath.startsWith(href);
           const linkClass = [
-            "px-3 py-2 text-sm font-medium rounded-md transition-colors",
+            "px-3.5 py-2 text-sm font-semibold rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2",
             isActive
-              ? "bg-muted text-foreground"
-              : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+              ? "bg-[var(--ink)] text-white"
+              : "text-[var(--body-color)] hover:bg-[var(--surface-card)] hover:text-[var(--ink)]",
           ].join(" ");
           return (
-            <a href={href} class={linkClass}>
+            <a
+              href={href}
+              class={linkClass}
+              aria-current={isActive ? "page" : undefined}
+            >
               {t(`nav.${key}`)}
             </a>
           );
@@ -55,31 +68,24 @@ const homeHref = publicRoute(publicPages.home, locale);
       }
     </nav>
 
-    <div class="hidden lg:flex items-center gap-3">
-      {
-        CONTACT_WHATSAPP && (
-          <a
-            href={`tel:+${CONTACT_WHATSAPP}`}
-            class="inline-flex items-center gap-2 text-sm text-foreground/80 hover:text-foreground transition-colors min-h-[44px] px-2 font-medium"
-          >
-            <Phone className="h-4 w-4 shrink-0 text-brand-secondary" />
-            <span class="hidden lg:inline">{formatPhone(CONTACT_WHATSAPP)}</span>
-          </a>
-        )
-      }
-      <LanguageSwitcher client:load locale={locale} currentPath={currentPath} />
+    <div class="ml-auto hidden lg:flex items-center gap-2">
+      <LanguageSwitcher locale={locale} currentPath={currentPath} />
       {
         waHref && (
-          <a href={waHref} target="_blank" rel="noopener noreferrer" aria-label={t("nav.start_aria")}>
-            <span class="inline-flex items-center justify-center h-[44px] min-h-[44px] rounded-lg px-4 text-sm font-semibold bg-gradient-to-r from-brand-primary to-brand-secondary text-white shadow-md shadow-brand-secondary/20 hover:opacity-90 hover:shadow-lg transition-all duration-200">
-              {t("nav.start")}
-            </span>
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t("nav.start_aria")}
+            class="inline-flex items-center justify-center h-9 px-4 rounded-2xl text-sm font-bold bg-[var(--primary)] text-white hover:bg-[var(--primary-pressed)] transition-colors duration-150"
+          >
+            {t("nav.start")}
           </a>
         )
       }
     </div>
 
-    <div class="flex lg:hidden items-center gap-2">
+    <div class="ml-auto flex lg:hidden items-center gap-2">
       <MobileNav
         client:load
         locale={locale}
@@ -103,7 +109,8 @@ const homeHref = publicRoute(publicPages.home, locale);
         ctaAriaLabel={t("nav.start_aria")}
         waHref={waHref}
         whatsappPhone={CONTACT_WHATSAPP}
-        whatsappFormatted={CONTACT_WHATSAPP ? formatPhone(CONTACT_WHATSAPP) : ""}
+        whatsappFormatted={waFormatted}
+        phoneAriaLabel={t("a11y.phone_aria")}
       />
     </div>
   </div>

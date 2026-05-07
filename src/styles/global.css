@@ -1,104 +1,315 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/inter-tight";
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@fontsource-variable/geist";
 
+/* ==========================================================================
+   Space for Edu × Pin — design tokens
+   Warm-cream chrome + saturated coral. Three radii, no shadows except modal.
+   ========================================================================== */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --radius: 0.625rem;
+  /* Brand & accent */
+  --primary: #E8453C;
+  --primary-pressed: #C9342C;
+  --on-primary: #ffffff;
+  --accent-blue: #2D7FF9;
+  --accent-blue-deep: #1F5FCF;
+
+  /* Surfaces */
+  --canvas: #ffffff;
+  --surface-soft: #fbfbf9;
+  --surface-card: #f6f6f3;
+  --surface-elevated: #ffffff;
+  --surface-dark: #262622;
+  --secondary-bg: #e5e5e0;
+  --secondary-pressed: #c8c8c1;
+
+  /* Hairlines */
+  --hairline: #dadad3;
+  --hairline-soft: #e5e5e0;
+
+  /* Text */
+  --ink: #000000;
+  --ink-soft: #211922;
+  --body-color: #33332e;
+  --charcoal: #262622;
+  --mute: #62625b;
+  --ash: #91918c;
+  --stone: #c8c8c1;
+  --on-dark: #ffffff;
+  --on-dark-mute: rgba(255, 255, 255, 0.7);
+
+  /* Semantic */
+  --success-deep: #103c25;
+  --success-pale: #c7f0da;
+  --error: #9e0a0a;
+  --error-deep: #C9342C;
+  --warn-amber: #b76b00;
+  --warn-pale: #fff8e6;
+  --warn-hairline: #f0d99a;
+
+  /* Focus */
+  --focus-outer: #435ee5;
+  --focus-inner: #ffffff;
+
+  /* Radii (3 in active use) */
+  --r-none: 0;
+  --r-sm: 8px;
+  --r-md: 16px;
+  --r-lg: 32px;
+  --r-full: 9999px;
+
+  /* Shadow (modal-only) */
+  --shadow-modal: 0 16px 32px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.10);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --scrim: rgba(0, 0, 0, 0.50);
+
+  /* shadcn shims — components reference these. Map them to Pin tokens. */
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --secondary: #e5e5e0;
+  --secondary-foreground: #000000;
+  --muted: #f6f6f3;
+  --muted-foreground: #62625b;
+  --accent: #f6f6f3;
+  --accent-foreground: #000000;
+  --destructive: #9e0a0a;
+  --border: #e5e5e0;
+  --input: #dadad3;
+  --ring: #435ee5;
+  --radius: 16px;
 }
 
 @theme inline {
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-}
+  --font-sans: "Inter Variable", "Inter", -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Inter Tight Variable", "Inter Tight", "Inter Variable", "Inter", -apple-system, system-ui, sans-serif;
 
-@theme inline {
-  --font-sans: "Geist Variable", sans-serif;
+  /* Brand */
   --color-brand-primary: #E8453C;
+  --color-brand-primary-pressed: #C9342C;
   --color-brand-secondary: #2D7FF9;
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
+
+  /* Pin surface palette */
+  --color-canvas: #ffffff;
+  --color-surface-soft: #fbfbf9;
+  --color-surface-card: #f6f6f3;
+  --color-surface-dark: #262622;
+  --color-secondary-bg: #e5e5e0;
+
+  /* Pin text ramp */
+  --color-ink: #000000;
+  --color-ink-soft: #211922;
+  --color-body: #33332e;
+  --color-mute: #62625b;
+  --color-ash: #91918c;
+  --color-stone: #c8c8c1;
+
+  /* Hairlines */
+  --color-hairline: #dadad3;
+  --color-hairline-soft: #e5e5e0;
+
+  /* Semantic */
+  --color-success-deep: #103c25;
+  --color-success-pale: #c7f0da;
+
+  /* shadcn-themed colors */
   --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--on-primary);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Three radii, nothing in between */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 16px;
+  --radius-xl: 32px;
+  --radius-2xl: 32px;
+  --radius-3xl: 32px;
+  --radius-4xl: 32px;
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  html {
+    font-family: var(--font-sans);
+    color: var(--body-color);
+    background: var(--canvas);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   body {
-    @apply bg-background text-foreground;
+    background: var(--surface-soft);
+    color: var(--body-color);
   }
-  html {
-    @apply font-sans;
+  * {
+    border-color: var(--hairline-soft);
+  }
+  /* Visible keyboard focus across all interactive elements. Mouse focus stays
+     suppressed via :focus-visible (no ring on click). */
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  /* Honour reduce-motion for any non-React CSS transitions. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-/* Public page animations */
+/* ==========================================================================
+   Pin typography roles
+   ========================================================================== */
+.t-display-xl {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 70px;
+  line-height: 1.1;
+  letter-spacing: -1.2px;
+  color: var(--ink);
+}
+.t-display-lg {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+  color: var(--ink);
+}
+.t-heading-xl {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -1.2px;
+  color: var(--ink);
+}
+.t-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-blue-deep);
+}
+
+/* ==========================================================================
+   Pin component primitives
+   ========================================================================== */
+.pin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: var(--r-md);
+  border: 0;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease, transform 0.12s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.pin-btn-primary {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.pin-btn-primary:hover { background: var(--primary-pressed); }
+.pin-btn-primary:active { background: var(--primary-pressed); transform: translateY(1px); }
+.pin-btn-secondary {
+  background: var(--secondary-bg);
+  color: var(--ink);
+}
+.pin-btn-secondary:hover { background: var(--secondary-pressed); }
+.pin-btn-tertiary {
+  background: transparent;
+  color: var(--ink);
+}
+.pin-btn-tertiary:hover { background: var(--surface-card); }
+.pin-btn-on-red {
+  background: var(--canvas);
+  color: var(--ink);
+}
+.pin-btn-on-red:hover { background: var(--surface-card); }
+.pin-btn-on-red-ghost {
+  background: transparent;
+  color: var(--canvas);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+.pin-btn-on-red-ghost:hover { background: rgba(255, 255, 255, 0.1); }
+
+.pin-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 8px 16px;
+  border-radius: var(--r-full);
+  background: var(--surface-card);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+}
+.pin-chip-active {
+  background: var(--ink);
+  color: var(--on-dark);
+}
+
+.pin-card {
+  background: var(--canvas);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--hairline-soft);
+}
+.pin-card-soft {
+  background: var(--surface-card);
+}
+
+/* ==========================================================================
+   Animations (kept from prior system)
+   ========================================================================== */
 @keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
-
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(5deg);
-  }
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
 }
-
 @keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes pin-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 69, 60, 0.35); }
+  50% { box-shadow: 0 0 0 6px rgba(232, 69, 60, 0); }
 }

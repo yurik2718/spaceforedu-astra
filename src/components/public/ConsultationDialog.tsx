@@ -21,7 +21,6 @@ const CONSULTATION_ITEMS = [
   "consultation_dialog_item_4",
 ] as const;
 
-const SPOTS_THIS_WEEK = 3;
 const SUCCESS_AUTO_CLOSE_MS = 2500;
 
 /**
@@ -55,8 +54,8 @@ export function ConsultationDialog({ children }: { children: React.ReactNode }) 
       <DialogContent className="sm:max-w-md">
         {success ? (
           <div className="py-6 text-center space-y-4">
-            <div className="mx-auto inline-flex rounded-full bg-green-100 p-4">
-              <CheckCircle2 className="h-10 w-10 text-green-600" />
+            <div className="mx-auto inline-flex rounded-full bg-[var(--success-pale)] p-4">
+              <CheckCircle2 className="h-10 w-10 text-[var(--success-deep)]" />
             </div>
             <DialogTitle className="text-xl">
               {t("public.consultation_success.title")}
@@ -86,16 +85,16 @@ export function ConsultationDialog({ children }: { children: React.ReactNode }) 
             <div className="space-y-3">
               {CONSULTATION_ITEMS.map((key) => (
                 <div key={key} className="flex items-start gap-3">
-                  <CheckCircle2 className="h-4 w-4 text-brand-secondary mt-0.5 shrink-0" />
+                  <CheckCircle2 className="h-4 w-4 text-[var(--success-deep)] mt-0.5 shrink-0" />
                   <span className="text-sm">{t(`${prefix}.${key}`)}</span>
                 </div>
               ))}
             </div>
 
-            <div className="flex items-center gap-2 rounded-lg bg-amber-50 border border-amber-200 px-3 py-2">
-              <Flame className="h-4 w-4 text-amber-500 shrink-0" />
-              <span className="text-sm font-medium text-amber-800">
-                {t(`${prefix}.consultation_dialog_spots`, { count: SPOTS_THIS_WEEK })}
+            <div className="flex items-center gap-2 rounded-lg bg-[var(--warn-pale)] border border-[var(--warn-hairline)] px-3 py-2">
+              <Flame className="h-4 w-4 text-[var(--warn-amber)] shrink-0" />
+              <span className="text-sm font-medium text-[var(--warn-amber)]">
+                {t(`${prefix}.consultation_dialog_spots`)}
               </span>
             </div>
 
@@ -108,7 +107,7 @@ export function ConsultationDialog({ children }: { children: React.ReactNode }) 
             >
               <Button
                 size="lg"
-                className="w-full min-h-[44px] text-base bg-green-600 hover:bg-green-700 border-0 shadow-lg shadow-green-600/20 transition-all duration-300"
+                className="w-full min-h-[44px] text-base bg-[#25D366] hover:bg-[#1ebe57] border-0 transition-colors duration-150"
               >
                 <MessageCircle className="mr-2 h-4 w-4" />
                 {t(`${prefix}.consultation_dialog_wa_button`)}

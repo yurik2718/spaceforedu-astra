@@ -1,12 +1,14 @@
 ---
+import { getImage } from "astro:assets";
 import PublicLayout from "@/layouts/PublicLayout.astro";
 import { UniversidadPage } from "@/components/pages/Universidad";
 import JsonLd from "@/components/common/JsonLd.astro";
-import { getMessages } from "@/lib/i18n";
+import { getMessages, makeT } from "@/lib/i18n";
 import { getSeo } from "@/lib/seo";
 import { LOCALES, type Locale } from "@/lib/constants";
 import { publicPages } from "@/lib/routes";
-import { service, faqPage } from "@/lib/structured-data";
+import { service, faqPage, breadcrumbList } from "@/lib/structured-data";
+import heroSrc from "@/assets/images/lifestyle/graduates-celebration-success.webp";
 
 export function getStaticPaths() {
   return LOCALES.map((lang) => ({ params: { lang } }));
@@ -15,6 +17,7 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const locale = lang as Locale;
 const messages = getMessages(locale);
+const t = makeT(messages);
 const seo = getSeo("universidad", locale);
 
 const serviceLd = service({
@@ -26,6 +29,12 @@ const serviceLd = service({
   audience: "International students seeking to enrol in Spanish universities",
 });
 const faqLd = faqPage(messages, "public.universidad", 5);
+const breadcrumbLd = breadcrumbList(locale, t("nav.universidad"), publicPages.universidad);
+
+const widths = [480, 768, 1024, 1280];
+const heroAvif = await getImage({ src: heroSrc, format: "avif", width: 1280, widths, quality: 70 });
+const heroWebp = await getImage({ src: heroSrc, format: "webp", width: 1280, widths, quality: 80 });
+const heroSizes = "(min-width: 1024px) 40vw, 50vw";
 ---
 
 <PublicLayout
@@ -33,8 +42,25 @@ const faqLd = faqPage(messages, "public.universidad", 5);
   description={seo.description}
   locale={locale}
   page={publicPages.universidad}
+  heroImage={heroWebp.src}
+  heroImageType="image/webp"
+  heroImageSrcset={heroWebp.srcSet?.attribute}
+  heroImageAvifSrcset={heroAvif.srcSet?.attribute}
+  heroImageSizes={heroSizes}
 >
   <JsonLd slot="structured-data" data={serviceLd} />
+  <JsonLd slot="structured-data" data={breadcrumbLd} />
   {faqLd && <JsonLd slot="structured-data" data={faqLd} />}
-  <UniversidadPage client:idle locale={locale} messages={messages} />
+  <UniversidadPage
+    client:idle
+    locale={locale}
+    messages={messages}
+    heroMain={{
+      src: heroWebp.src,
+      srcSet: heroWebp.srcSet?.attribute,
+      avifSrcSet: heroAvif.srcSet?.attribute,
+      width: heroSrc.width,
+      height: heroSrc.height,
+    }}
+  />
 </PublicLayout>

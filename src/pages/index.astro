@@ -1,7 +1,25 @@
 ---
-// Astro i18n (redirectToDefaultLocale: true) требует корневой index как якорь
-// для авто-редиректа на /es/. Эмитится meta-refresh index.html — это фолбэк
-// для локального preview и любых нестандартных хостингов.
-// На Cloudflare Pages public/_redirects со 301 обрабатывается раньше статики,
-// так что пользователь мгновенно улетает на /es/, не видя этой страницы.
+// Корневой index — фолбэк для хостингов без 301-редиректа (CF Pages /_redirects
+// перехватывает раньше). Astro по умолчанию эмитит meta-refresh c задержкой 2s;
+// здесь рендерим свой шаблон с delay=0, чтобы не показывать пустой экран.
+import { DEFAULT_LOCALE } from "@/lib/constants";
+import { publicRoute } from "@/lib/routes";
+
+const target = publicRoute("", DEFAULT_LOCALE);
 ---
+<!doctype html>
+<html lang={DEFAULT_LOCALE}>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting to {target}</title>
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="canonical" href={target} />
+    <script is:inline define:vars={{ target }}>
+      window.location.replace(target);
+    </script>
+  </head>
+  <body>
+    <a href={target}>Redirecting to <code>{target}</code></a>
+  </body>
+</html>

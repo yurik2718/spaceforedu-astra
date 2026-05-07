@@ -2,11 +2,11 @@
 import PublicLayout from "@/layouts/PublicLayout.astro";
 import { PreciosPage } from "@/components/pages/Precios";
 import JsonLd from "@/components/common/JsonLd.astro";
-import { getMessages } from "@/lib/i18n";
+import { getMessages, makeT } from "@/lib/i18n";
 import { getSeo } from "@/lib/seo";
 import { LOCALES, type Locale } from "@/lib/constants";
 import { publicPages } from "@/lib/routes";
-import { faqPage } from "@/lib/structured-data";
+import { faqPage, breadcrumbList } from "@/lib/structured-data";
 
 export function getStaticPaths() {
   return LOCALES.map((lang) => ({ params: { lang } }));
@@ -15,9 +15,11 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const locale = lang as Locale;
 const messages = getMessages(locale);
+const t = makeT(messages);
 const seo = getSeo("precios", locale);
 
 const faqLd = faqPage(messages, "public.precios", 7);
+const breadcrumbLd = breadcrumbList(locale, t("nav.precios"), publicPages.precios);
 ---
 
 <PublicLayout
@@ -26,6 +28,7 @@ const faqLd = faqPage(messages, "public.precios", 7);
   locale={locale}
   page={publicPages.precios}
 >
+  <JsonLd slot="structured-data" data={breadcrumbLd} />
   {faqLd && <JsonLd slot="structured-data" data={faqLd} />}
   <PreciosPage client:idle locale={locale} messages={messages} />
 </PublicLayout>

@@ -51,20 +51,14 @@ function useIsOnline(): boolean {
 
 function StickyCtaBarInner() {
   const { t } = useTranslation();
-  const [visible, setVisible] = useState(false);
   const isOnline = useIsOnline();
   const hasWhatsApp = CONTACT_WHATSAPP.length > 0;
   const waHref = hasWhatsApp ? `https://wa.me/${CONTACT_WHATSAPP}` : null;
 
-  useEffect(() => {
-    const id = window.setTimeout(() => setVisible(true), 3000);
-    return () => window.clearTimeout(id);
-  }, []);
-
   return (
     <>
       {/* Mobile: full-width bar */}
-      <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden border-t bg-white/95 backdrop-blur-md shadow-[0_-4px_12px_-2px_rgba(0,0,0,0.08)]">
+      <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden border-t border-[var(--hairline-soft)] bg-white pb-[env(safe-area-inset-bottom)]">
         <div className="flex items-center gap-2 px-4 py-3">
           {waHref && (
             <a
@@ -78,7 +72,7 @@ function StickyCtaBarInner() {
             </a>
           )}
           <ConsultationDialog>
-            <Button className="flex-1 min-h-[44px] bg-gradient-to-r from-brand-primary to-brand-secondary hover:opacity-90 border-0 text-base">
+            <Button className="flex-1 min-h-[44px] bg-[var(--primary)] hover:bg-[var(--primary-pressed)] border-0 text-white text-base font-bold">
               {t("public.sticky_cta.consultation")}
             </Button>
           </ConsultationDialog>
@@ -92,16 +86,12 @@ function StickyCtaBarInner() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={t("public.sticky_cta.whatsapp_aria")}
-          className={`hidden lg:flex fixed bottom-6 right-6 z-40 items-center justify-center h-12 w-12 rounded-full bg-[#25D366] text-white ring-2 ring-white/90 shadow-lg shadow-[#25D366]/30 hover:scale-105 hover:shadow-xl transition-all duration-300 ${
-            visible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-2 pointer-events-none"
-          }`}
+          className="hidden lg:flex fixed bottom-6 right-6 z-40 items-center justify-center h-14 w-14 rounded-full bg-[#25D366] text-white ring-2 ring-white/90 shadow-lg shadow-[#25D366]/30 hover:scale-105 hover:shadow-xl transition-all duration-300"
         >
           <WhatsAppIcon className="h-5 w-5" />
           {isOnline && (
             <span
-              className="absolute top-0.5 right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-white"
+              className="absolute top-0.5 right-0.5 h-2.5 w-2.5 rounded-full bg-[#22a655] ring-2 ring-white"
               aria-hidden="true"
             />
           )}

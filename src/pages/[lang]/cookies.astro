@@ -44,5 +44,21 @@ const sections = ["what", "usage", "thirdparty", "manage"] as const;
         </section>
       ))
     }
+
+    <button
+      type="button"
+      id="cookie-reopen"
+      class="inline-flex items-center min-h-[44px] px-5 rounded-lg text-sm font-semibold border border-[var(--hairline)] text-[var(--ink)] hover:bg-[var(--surface-card)] transition-colors"
+    >
+      {t("public.cookie_banner.manage")}
+    </button>
   </div>
+
+  <script is:inline>
+    document.getElementById("cookie-reopen")?.addEventListener("click", () => {
+      if (typeof window.spaceForEduOpenConsent === "function") {
+        window.spaceForEduOpenConsent();
+      }
+    });
+  </script>
 </PublicLayout>
