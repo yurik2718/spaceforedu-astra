@@ -29,20 +29,13 @@ jobs:
           PUBLIC_SITE_URL: https://spaceforedu.com
         run: npm run build
 
-      - name: Deploy to VPS
+      - name: Deploy to server
         uses: burnett01/rsync-deployments@7.0.1
         with:
-          switches: -avz --delete --checksum
+          switches: -avz --delete --exclude='wp'
           path: dist/
-          remote_path: /var/www/spaceforedu/dist/
+          remote_path: /home/u724402354/domains/spaceforedu.com/public_html/
           remote_host: ${{ secrets.VPS_HOST }}
+          remote_port: ${{ secrets.VPS_PORT }}
           remote_user: ${{ secrets.VPS_USER }}
           remote_key: ${{ secrets.VPS_SSH_KEY }}
-
-      - name: Reload Nginx
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: sudo nginx -s reload
