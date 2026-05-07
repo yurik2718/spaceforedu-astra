@@ -82,8 +82,8 @@ export default function MobileNav({
             onClick={() => setOpen(false)}
             className="flex items-center"
           >
-            <span className="font-display text-[18px] font-bold tracking-[-0.02em] text-[var(--ink)]">
-              Space for Edu
+            <span className="font-display text-[18px] font-bold tracking-[-0.02em] text-[var(--ink-soft)]">
+              Space for <span className="text-[var(--primary-pressed)]">Edu</span>
             </span>
           </a>
           <SheetClose asChild>

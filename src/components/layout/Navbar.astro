@@ -2,8 +2,9 @@
 import { publicRoute, publicPages, whatsappLink } from "@/lib/routes";
 import { CONTACT_WHATSAPP } from "@/lib/constants";
 import { getMessages, makeT } from "@/lib/i18n";
+import { formatPhone } from "@/lib/utils";
 import MobileNav from "@/components/layout/MobileNav.tsx";
-import { LanguageSwitcher } from "@/components/common/LanguageSwitcher.tsx";
+import LanguageSwitcher from "@/components/common/LanguageSwitcher.astro";
 
 interface Props {
   locale: string;
@@ -22,6 +23,7 @@ const navLinks = [
 ];
 
 const waHref = CONTACT_WHATSAPP ? whatsappLink(CONTACT_WHATSAPP) : "";
+const waFormatted = CONTACT_WHATSAPP ? formatPhone(CONTACT_WHATSAPP) : "";
 const homeHref = publicRoute(publicPages.home, locale);
 ---
 
@@ -38,8 +40,8 @@ const homeHref = publicRoute(publicPages.home, locale);
       </div>
     )}
     <a href={homeHref} class="flex items-center shrink-0">
-      <span class="font-display text-[20px] font-bold tracking-[-0.02em] text-[var(--ink)]">
-        Space for Edu
+      <span class="font-display text-[20px] font-bold tracking-[-0.02em] text-[var(--ink-soft)]">
+        Space for <span class="text-[var(--primary-pressed)]">Edu</span>
       </span>
     </a>
 
@@ -48,13 +50,17 @@ const homeHref = publicRoute(publicPages.home, locale);
         navLinks.map(({ key, href }) => {
           const isActive = currentPath.startsWith(href);
           const linkClass = [
-            "px-3.5 py-2 text-sm font-semibold rounded-full transition-colors",
+            "px-3.5 py-2 text-sm font-semibold rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2",
             isActive
               ? "bg-[var(--ink)] text-white"
               : "text-[var(--body-color)] hover:bg-[var(--surface-card)] hover:text-[var(--ink)]",
           ].join(" ");
           return (
-            <a href={href} class={linkClass}>
+            <a
+              href={href}
+              class={linkClass}
+              aria-current={isActive ? "page" : undefined}
+            >
               {t(`nav.${key}`)}
             </a>
           );
@@ -63,7 +69,7 @@ const homeHref = publicRoute(publicPages.home, locale);
     </nav>
 
     <div class="ml-auto hidden lg:flex items-center gap-2">
-      <LanguageSwitcher client:load locale={locale} currentPath={currentPath} />
+      <LanguageSwitcher locale={locale} currentPath={currentPath} />
       {
         waHref && (
           <a
@@ -103,7 +109,7 @@ const homeHref = publicRoute(publicPages.home, locale);
         ctaAriaLabel={t("nav.start_aria")}
         waHref={waHref}
         whatsappPhone={CONTACT_WHATSAPP}
-        whatsappFormatted=""
+        whatsappFormatted={waFormatted}
         phoneAriaLabel={t("a11y.phone_aria")}
       />
     </div>

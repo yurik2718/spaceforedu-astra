@@ -1057,6 +1057,20 @@
       "thirdparty_body": "No integramos servicios de terceros que instalen cookies (ni Google Analytics, ni píxeles publicitarios, ni mapas embebidos). Si en el futuro añadimos alguno, actualizaremos esta política y mostraremos un banner de consentimiento.",
       "manage_title": "Gestión de cookies",
       "manage_body": "Puedes bloquear o eliminar las cookies desde la configuración de tu navegador. Hacerlo no afectará al uso del sitio."
+    },
+    "cookie_banner": {
+      "title": "Cookies y privacidad",
+      "body": "Usamos cookies técnicas necesarias para que el sitio funcione. Con tu permiso podríamos usar cookies de análisis para entender cómo se usa la web. No usamos cookies publicitarias.",
+      "more": "Más información",
+      "accept_all": "Aceptar todas",
+      "reject": "Solo necesarias",
+      "save": "Guardar preferencias",
+      "necessary_label": "Necesarias",
+      "necessary_desc": "Imprescindibles para el funcionamiento del sitio. No se pueden desactivar.",
+      "analytics_label": "Análisis",
+      "analytics_desc": "Nos ayudan a entender cómo se usa el sitio para mejorarlo. Anónimas.",
+      "manage": "Configurar",
+      "close_aria": "Cerrar"
     }
   }
 }

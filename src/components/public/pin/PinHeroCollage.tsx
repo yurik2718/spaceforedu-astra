@@ -7,6 +7,13 @@ import { useTranslation } from "@/lib/i18n/react";
 export interface CollageImage {
   src: string;
   alt: string;
+  width?: number;
+  height?: number;
+  srcSet?: string;
+  /** Optional AVIF srcSet rendered as a <source> for browsers that support AVIF
+   *  (Safari < 16 / older Android Chrome fall through to the WebP <img>). */
+  avifSrcSet?: string;
+  sizes?: string;
   loading?: "eager" | "lazy";
   fetchPriority?: "high" | "low" | "auto";
 }
@@ -99,31 +106,23 @@ export function PinHeroCollage({
           <Reveal direction="up" delay={100}>
             <div className="relative h-[460px] sm:h-[560px] hidden md:block">
               <div className="absolute top-0 right-0 w-[62%] h-[64%] rounded-[32px] overflow-hidden bg-[var(--surface-card)]">
-                <img
-                  src={main.src}
-                  alt={main.alt}
-                  loading={main.loading ?? "eager"}
-                  fetchPriority={main.fetchPriority ?? "high"}
-                  decoding="async"
-                  className="w-full h-full object-cover"
+                <CollagePicture
+                  image={main}
+                  defaultSizes="(min-width: 1024px) 40vw, 50vw"
+                  defaultLoading="eager"
+                  defaultFetchPriority="high"
                 />
               </div>
               <div className="absolute bottom-0 right-[14%] w-[46%] h-[38%] rounded-[32px] overflow-hidden bg-[var(--surface-card)]">
-                <img
-                  src={sideRight.src}
-                  alt={sideRight.alt}
-                  loading={sideRight.loading ?? "lazy"}
-                  decoding="async"
-                  className="w-full h-full object-cover"
+                <CollagePicture
+                  image={sideRight}
+                  defaultSizes="(min-width: 1024px) 24vw, 30vw"
                 />
               </div>
               <div className="absolute bottom-[8%] left-0 w-[38%] h-[42%] rounded-[32px] overflow-hidden bg-[var(--surface-card)]">
-                <img
-                  src={sideLeft.src}
-                  alt={sideLeft.alt}
-                  loading={sideLeft.loading ?? "lazy"}
-                  decoding="async"
-                  className="w-full h-full object-cover"
+                <CollagePicture
+                  image={sideLeft}
+                  defaultSizes="(min-width: 1024px) 20vw, 25vw"
                 />
               </div>
               <div
@@ -162,5 +161,45 @@ export function PinHeroCollage({
         </div>
       </Container>
     </section>
+  );
+}
+
+function CollagePicture({
+  image,
+  defaultSizes,
+  defaultLoading = "lazy",
+  defaultFetchPriority,
+}: {
+  image: CollageImage;
+  defaultSizes: string;
+  defaultLoading?: "eager" | "lazy";
+  defaultFetchPriority?: "high" | "low" | "auto";
+}) {
+  const sizes = image.sizes ?? defaultSizes;
+  const loading = image.loading ?? defaultLoading;
+  const fetchPriority = image.fetchPriority ?? defaultFetchPriority;
+
+  const img = (
+    <img
+      src={image.src}
+      alt={image.alt}
+      width={image.width}
+      height={image.height}
+      srcSet={image.srcSet}
+      sizes={sizes}
+      loading={loading}
+      fetchPriority={fetchPriority}
+      decoding="async"
+      className="w-full h-full object-cover"
+    />
+  );
+
+  if (!image.avifSrcSet) return img;
+
+  return (
+    <picture>
+      <source type="image/avif" srcSet={image.avifSrcSet} sizes={sizes} />
+      {img}
+    </picture>
   );
 }

@@ -28,6 +28,7 @@ import { ConsultationDialog } from "@/components/public/ConsultationDialog";
 import { CrossSellCard } from "@/components/public/CrossSellCard";
 import { FaqSection } from "@/components/public/FaqSection";
 import { TimelineSection } from "@/components/public/TimelineSection";
+import { renderRichText } from "@/lib/i18n/react";
 import { FeatureCardGrid } from "@/components/public/FeatureCardGrid";
 import { publicRoute, publicPages } from "@/lib/routes";
 import { I18nProvider, useTranslation } from "@/lib/i18n/react";
@@ -56,18 +57,34 @@ const ADVANTAGES = [
 export function EspanolPage({
   locale,
   messages,
+  heroMain,
 }: {
   locale: Locale | string;
   messages: Messages;
+  heroMain?: HeroImageProps;
 }) {
   return (
     <I18nProvider locale={locale} messages={messages}>
-      <PageBody locale={locale} />
+      <PageBody locale={locale} heroMain={heroMain} />
     </I18nProvider>
   );
 }
 
-function PageBody({ locale }: { locale: Locale | string }) {
+interface HeroImageProps {
+  src: string;
+  srcSet?: string;
+  avifSrcSet?: string;
+  width: number;
+  height: number;
+}
+
+function PageBody({
+  locale,
+  heroMain,
+}: {
+  locale: Locale | string;
+  heroMain?: HeroImageProps;
+}) {
   const { t } = useTranslation();
   const preciosHref = publicRoute(publicPages.precios, locale);
 
@@ -77,13 +94,7 @@ function PageBody({ locale }: { locale: Locale | string }) {
         fullBleed
         title1={t("public.espanol.hero_title_1")}
         titleAccent={t("public.espanol.hero_title_accent")}
-        subtitle={
-          <span
-            dangerouslySetInnerHTML={{
-              __html: t("public.espanol.hero_subtitle"),
-            }}
-          />
-        }
+        subtitle={<span>{renderRichText(t("public.espanol.hero_subtitle"))}</span>}
         actions={
           <div className="flex flex-col sm:flex-row gap-3">
             <ConsultationDialog>
@@ -122,14 +133,27 @@ function PageBody({ locale }: { locale: Locale | string }) {
         illustration={
           <div className="relative">
             <div className="absolute -inset-4 bg-gradient-to-br from-brand-primary/10 to-brand-secondary/15 rounded-3xl blur-2xl" />
-            <img
-              src="/images/services/espanol/students-spanish-class-focused.webp"
-              alt={t("public.espanol.hero_img_alt")}
-              width={700}
-              height={500}
-              loading="eager"
-              className="relative rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]"
-            />
+            <picture>
+              {heroMain?.avifSrcSet && (
+                <source
+                  type="image/avif"
+                  srcSet={heroMain.avifSrcSet}
+                  sizes="(min-width: 1024px) 40vw, 90vw"
+                />
+              )}
+              <img
+                src={heroMain?.src ?? "/images/services/espanol/students-spanish-class-focused.webp"}
+                srcSet={heroMain?.srcSet}
+                sizes="(min-width: 1024px) 40vw, 90vw"
+                alt={t("public.espanol.hero_img_alt")}
+                width={heroMain?.width ?? 700}
+                height={heroMain?.height ?? 500}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className="relative rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]"
+              />
+            </picture>
           </div>
         }
       />

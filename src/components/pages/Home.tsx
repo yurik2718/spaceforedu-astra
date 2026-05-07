@@ -56,21 +56,37 @@ const REACH_COUNTRIES = [
   "+5 more",
 ] as const;
 
+interface HeroImageProps {
+  src: string;
+  srcSet?: string;
+  avifSrcSet?: string;
+  width: number;
+  height: number;
+}
+
 export function HomePage({
   locale,
   messages,
+  heroMain,
 }: {
   locale: Locale | string;
   messages: Messages;
+  heroMain?: HeroImageProps;
 }) {
   return (
     <I18nProvider locale={locale} messages={messages}>
-      <PageBody locale={locale} />
+      <PageBody locale={locale} heroMain={heroMain} />
     </I18nProvider>
   );
 }
 
-function PageBody({ locale }: { locale: Locale | string }) {
+function PageBody({
+  locale,
+  heroMain,
+}: {
+  locale: Locale | string;
+  heroMain?: HeroImageProps;
+}) {
   const { t } = useTranslation();
   const preciosHref = publicRoute(publicPages.precios, locale);
 
@@ -104,7 +120,11 @@ function PageBody({ locale }: { locale: Locale | string }) {
         prefix={HOME_PREFIX}
         secondaryHref={preciosHref}
         main={{
-          src: "/images/hero/hero-student-salamanca-docs.webp",
+          src: heroMain?.src ?? "/images/hero/hero-student-salamanca-docs.webp",
+          srcSet: heroMain?.srcSet,
+          avifSrcSet: heroMain?.avifSrcSet,
+          width: heroMain?.width,
+          height: heroMain?.height,
           alt: t(`${HOME_PREFIX}.hero_img_alt`),
         }}
         sideRight={{

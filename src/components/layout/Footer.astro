@@ -20,8 +20,8 @@ const year = new Date().getFullYear();
     <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
       <div>
         <a href={publicRoute(publicPages.home, locale)} class="inline-flex items-center mb-4">
-          <span class="font-display text-[18px] font-bold tracking-[-0.02em] text-[var(--ink)]">
-            Space for Edu
+          <span class="font-display text-[18px] font-bold tracking-[-0.02em] text-[var(--ink-soft)]">
+            Space for <span class="text-[var(--primary-pressed)]">Edu</span>
           </span>
         </a>
         <p class="text-sm text-[var(--mute)] leading-relaxed max-w-[340px] mb-4">
@@ -137,19 +137,8 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="mt-10 pt-5 border-t border-[var(--hairline-soft)] flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] text-[var(--mute)]">
+    <div class="mt-10 pt-5 border-t border-[var(--hairline-soft)] text-[13px] text-[var(--mute)]">
       <span>© {year} Space for Edu. {t("footer.rights")}</span>
-      <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
-        <a href={publicRoute(publicPages.privacyPolicy, locale)} class="hover:text-[var(--ink)] transition-colors">
-          {t("footer.privacy")}
-        </a>
-        <a href={publicRoute(publicPages.legalNotice, locale)} class="hover:text-[var(--ink)] transition-colors">
-          {t("footer.legal_notice")}
-        </a>
-        <a href={publicRoute(publicPages.cookies, locale)} class="hover:text-[var(--ink)] transition-colors">
-          {t("footer.cookies")}
-        </a>
-      </div>
     </div>
   </div>
 </footer>

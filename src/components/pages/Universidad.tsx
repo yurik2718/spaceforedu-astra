@@ -55,21 +55,37 @@ const RISK_ITEMS = [
   { icon: CreditCard, n: 3 },
 ] as const;
 
+interface HeroImageProps {
+  src: string;
+  srcSet?: string;
+  avifSrcSet?: string;
+  width: number;
+  height: number;
+}
+
 export function UniversidadPage({
   locale,
   messages,
+  heroMain,
 }: {
   locale: Locale | string;
   messages: Messages;
+  heroMain?: HeroImageProps;
 }) {
   return (
     <I18nProvider locale={locale} messages={messages}>
-      <PageBody locale={locale} />
+      <PageBody locale={locale} heroMain={heroMain} />
     </I18nProvider>
   );
 }
 
-function PageBody({ locale }: { locale: Locale | string }) {
+function PageBody({
+  locale,
+  heroMain,
+}: {
+  locale: Locale | string;
+  heroMain?: HeroImageProps;
+}) {
   const { t } = useTranslation();
   const preciosHref = publicRoute(publicPages.precios, locale);
 
@@ -79,7 +95,11 @@ function PageBody({ locale }: { locale: Locale | string }) {
         prefix={PREFIX}
         secondaryHref={preciosHref}
         main={{
-          src: "/images/lifestyle/graduates-celebration-success.webp",
+          src: heroMain?.src ?? "/images/lifestyle/graduates-celebration-success.webp",
+          srcSet: heroMain?.srcSet,
+          avifSrcSet: heroMain?.avifSrcSet,
+          width: heroMain?.width,
+          height: heroMain?.height,
           alt: t(`${PREFIX}.hero_img_alt`),
         }}
         sideRight={{

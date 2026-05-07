@@ -168,7 +168,7 @@ function PricingHero() {
           </Reveal>
           <Reveal direction="up" delay={200}>
             <div className="mt-12 grid grid-cols-3 gap-3 sm:gap-4 max-w-2xl mx-auto">
-              {HERO_STRIP_IMAGES.map(({ src, alt }) => (
+              {HERO_STRIP_IMAGES.map(({ src, alt }, idx) => (
                 <div
                   key={src}
                   className="rounded-2xl overflow-hidden bg-[var(--surface-card)] aspect-[4/3]"
@@ -176,7 +176,9 @@ function PricingHero() {
                   <img
                     src={src}
                     alt={alt}
-                    loading="eager"
+                    width={600}
+                    height={450}
+                    loading={idx === 0 ? "eager" : "lazy"}
                     decoding="async"
                     className="w-full h-full object-cover"
                   />
@@ -353,7 +355,7 @@ function ComparisonMobile() {
                 className={`flex items-center gap-1.5 text-[12px] px-2.5 py-1 rounded-full border ${
                   row[j]
                     ? "bg-[var(--success-pale)] text-[var(--success-deep)] border-[var(--success-pale)]"
-                    : "bg-[var(--surface-card)] text-[var(--ash)] border-[var(--hairline-soft)]"
+                    : "bg-[var(--surface-card)] text-[var(--mute)] border-[var(--hairline-soft)]"
                 }`}
                 aria-label={`${t(`${PREFIX}.plan_${planKey}_title`)}: ${
                   row[j] ? includedLabel : notIncludedLabel

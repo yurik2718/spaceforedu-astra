@@ -202,7 +202,7 @@ A: The first session is a real class, not a test. The certified teacher evaluate
 
 Space for Edu publishes the following Schema.org structured data on all pages:
 - `Organization` — company identity, contact, service area
-- `WebSite` — site-wide schema with SearchAction
+- `WebSite` — site-wide schema
 - `Service` — per-service pages (homologation, university admission, Spanish courses)
 - `FAQPage` — on service and pricing pages
 - `ItemList` — on the home page listing all three services

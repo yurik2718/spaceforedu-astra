@@ -1057,6 +1057,20 @@
       "thirdparty_body": "We do not embed third-party services that set cookies (no Google Analytics, no advertising pixels, no embedded maps). If we add any in the future we will update this policy and display a consent banner.",
       "manage_title": "Managing cookies",
       "manage_body": "You can block or delete cookies through your browser settings. Doing so will not affect your use of the site."
+    },
+    "cookie_banner": {
+      "title": "Cookies and privacy",
+      "body": "We use technical cookies necessary for the site to function. With your permission we may also use analytics cookies to understand how the site is used. We do not use advertising cookies.",
+      "more": "More information",
+      "accept_all": "Accept all",
+      "reject": "Only necessary",
+      "save": "Save preferences",
+      "necessary_label": "Necessary",
+      "necessary_desc": "Essential for the site to function. They cannot be disabled.",
+      "analytics_label": "Analytics",
+      "analytics_desc": "Help us understand how the site is used so we can improve it. Anonymous.",
+      "manage": "Configure",
+      "close_aria": "Close"
     }
   }
 }

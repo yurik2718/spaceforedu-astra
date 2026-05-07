@@ -161,6 +161,24 @@
   * {
     border-color: var(--hairline-soft);
   }
+  /* Visible keyboard focus across all interactive elements. Mouse focus stays
+     suppressed via :focus-visible (no ring on click). */
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  /* Honour reduce-motion for any non-React CSS transitions. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 /* ==========================================================================

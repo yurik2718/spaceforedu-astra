@@ -1,14 +1,16 @@
 ---
 import "@/styles/global.css";
-import { ClientRouter } from "astro:transitions";
 import Navbar from "@/components/layout/Navbar.astro";
 import Footer from "@/components/layout/Footer.astro";
 import JsonLd from "@/components/common/JsonLd.astro";
 import { StickyCtaBar } from "@/components/public/StickyCtaBar.tsx";
+import CookieBanner from "@/components/common/CookieBanner.astro";
 import { SITE_URL, LOCALES, DEFAULT_LOCALE, type Locale } from "@/lib/constants";
 import { publicRoute } from "@/lib/routes";
 import { getMessages, makeT } from "@/lib/i18n";
 import { organization } from "@/lib/structured-data";
+import interTightLatin from "@fontsource-variable/inter-tight/files/inter-tight-latin-wght-normal.woff2?url";
+import interLatin from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 
 interface Props {
   title: string;
@@ -19,10 +21,21 @@ interface Props {
   ogImage?: string;
   /** Hide the sticky WhatsApp bubble + mobile CTA bar (for thank-you / privacy pages). */
   hideStickyCta?: boolean;
-  /** LCP image — preloaded with high priority. Path under /public. */
+  /** LCP image — preloaded with high priority. Path under /public. Used only if heroImageSrcset not provided. */
   heroImage?: string;
   /** MIME type of heroImage (default image/webp). */
   heroImageType?: string;
+  /** Responsive srcset string for the LCP image. When set, preload uses imagesrcset/imagesizes so the browser picks the right size. */
+  heroImageSrcset?: string;
+  /** Optional AVIF srcset preloaded alongside heroImageSrcset for browsers that support image/avif.
+   *  Browsers that don't (Safari < 16, older Android Chrome) fall through to heroImageSrcset. */
+  heroImageAvifSrcset?: string;
+  /** sizes attribute paired with heroImageSrcset (e.g. "(min-width: 1024px) 40vw, 50vw"). */
+  heroImageSizes?: string;
+  /** Optional media query to scope the preload (e.g. desktop-only hero). */
+  heroPreloadMedia?: string;
+  /** Mark the page as non-indexable (404 etc.) — emits noindex and skips canonical/hreflang. */
+  noindex?: boolean;
 }
 
 const {
@@ -34,6 +47,11 @@ const {
   hideStickyCta = false,
   heroImage,
   heroImageType = "image/webp",
+  heroImageSrcset,
+  heroImageAvifSrcset,
+  heroImageSizes,
+  heroPreloadMedia = "(min-width: 768px)",
+  noindex = false,
 } = Astro.props;
 const currentPath = Astro.url.pathname;
 const stickyMessages = getMessages(locale);
@@ -50,6 +68,17 @@ const xDefault = defaultAlt?.url ?? alternates[0].url;
 const absoluteOgImage = ogImage.startsWith("http")
   ? ogImage
   : SITE_URL + ogImage;
+
+// Canonical OG locale codes (Facebook spec requires xx_XX form).
+const OG_LOCALE: Record<string, string> = {
+  es: "es_ES",
+  en: "en_US",
+  ru: "ru_RU",
+};
+const ogLocale = OG_LOCALE[locale] ?? `${locale}_${locale.toUpperCase()}`;
+const ogLocaleAlternates = LOCALES
+  .filter((l) => l !== locale)
+  .map((l) => OG_LOCALE[l] ?? `${l}_${l.toUpperCase()}`);
 ---
 
 <!doctype html>
@@ -60,33 +89,85 @@ const absoluteOgImage = ogImage.startsWith("http")
     <meta name="description" content={description} />
     <title>{title}</title>
 
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    <meta name="author" content="Space for Edu" />
+    <meta name="publisher" content="Space for Edu" />
+
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
+    {!noindex && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:image" content={absoluteOgImage} />
-    <meta property="og:locale" content={locale} />
+    <meta property="og:site_name" content="Space for Edu" />
+    <meta property="og:locale" content={ogLocale} />
+    {ogLocaleAlternates.map((l) => (
+      <meta property="og:locale:alternate" content={l} />
+    ))}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={absoluteOgImage} />
 
-    {heroImage && (
-      <link
-        rel="preload"
-        as="image"
-        href={heroImage}
-        type={heroImageType}
-        fetchpriority="high"
-        media="(min-width: 768px)"
-      />
+    <link
+      rel="preload"
+      as="font"
+      href={interTightLatin}
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href={interLatin}
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    {heroImage && !noindex && (
+      heroImageSrcset && heroImageSizes ? (
+        <>
+          {heroImageAvifSrcset && (
+            <link
+              rel="preload"
+              as="image"
+              imagesrcset={heroImageAvifSrcset}
+              imagesizes={heroImageSizes}
+              type="image/avif"
+              fetchpriority="high"
+              media={heroPreloadMedia}
+            />
+          )}
+          <link
+            rel="preload"
+            as="image"
+            imagesrcset={heroImageSrcset}
+            imagesizes={heroImageSizes}
+            type={heroImageType}
+            fetchpriority="high"
+            media={heroPreloadMedia}
+          />
+        </>
+      ) : (
+        <link
+          rel="preload"
+          as="image"
+          href={heroImage}
+          type={heroImageType}
+          fetchpriority="high"
+          media={heroPreloadMedia}
+        />
+      )
     )}
 
-    <link rel="canonical" href={canonicalUrl} />
-    {alternates.map(({ locale: l, url }) => (
-      <link rel="alternate" hreflang={l} href={url} />
-    ))}
-    <link rel="alternate" hreflang="x-default" href={xDefault} />
+    {!noindex && (
+      <>
+        <link rel="canonical" href={canonicalUrl} />
+        {alternates.map(({ locale: l, url }) => (
+          <link rel="alternate" hreflang={l} href={url} />
+        ))}
+        <link rel="alternate" hreflang="x-default" href={xDefault} />
+      </>
+    )}
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
@@ -94,9 +175,8 @@ const absoluteOgImage = ogImage.startsWith("http")
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#E8453C" />
 
-    <JsonLd data={organization()} />
+    {!noindex && <JsonLd data={organization()} />}
     <slot name="structured-data" />
-    <ClientRouter />
   </head>
   <body class="min-h-screen bg-background text-foreground antialiased">
     <a
@@ -115,5 +195,6 @@ const absoluteOgImage = ogImage.startsWith("http")
     {!hideStickyCta && (
       <StickyCtaBar client:load locale={locale as Locale} messages={stickyMessages} />
     )}
+    <CookieBanner locale={locale} />
   </body>
 </html>

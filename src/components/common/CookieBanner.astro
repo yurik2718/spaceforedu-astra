@@ -1,0 +1,198 @@
+---
+import { getMessages, makeT } from "@/lib/i18n";
+import { publicRoute, publicPages } from "@/lib/routes";
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+const messages = getMessages(locale);
+const t = makeT(messages);
+const cookiesHref = publicRoute(publicPages.cookies, locale);
+---
+
+<div
+  id="cookie-banner"
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="cookie-banner-title"
+  aria-describedby="cookie-banner-body"
+  hidden
+  class="fixed inset-x-0 bottom-0 z-[70] sm:bottom-4 sm:inset-x-auto sm:right-4 sm:left-4 sm:max-w-md sm:mx-auto sm:left-auto bg-white border border-[var(--hairline)] sm:rounded-2xl shadow-2xl"
+>
+  <div class="p-5 sm:p-6">
+    <h2
+      id="cookie-banner-title"
+      class="font-display text-[16px] font-semibold text-[var(--ink)]"
+    >
+      {t("public.cookie_banner.title")}
+    </h2>
+    <p
+      id="cookie-banner-body"
+      class="mt-2 text-[13px] leading-relaxed text-[var(--mute)]"
+    >
+      {t("public.cookie_banner.body")}{" "}
+      <a
+        href={cookiesHref}
+        class="text-[var(--ink)] underline underline-offset-2 hover:text-[var(--primary)]"
+      >
+        {t("public.cookie_banner.more")}
+      </a>
+    </p>
+
+    <div
+      id="cookie-banner-options"
+      hidden
+      class="mt-4 space-y-3 border-t border-[var(--hairline-soft)] pt-4"
+    >
+      <label class="flex items-start gap-3 text-[13px] cursor-not-allowed opacity-70">
+        <input
+          type="checkbox"
+          checked
+          disabled
+          class="mt-0.5 h-4 w-4 accent-[var(--primary)]"
+        />
+        <span>
+          <span class="block font-semibold text-[var(--ink)]">
+            {t("public.cookie_banner.necessary_label")}
+          </span>
+          <span class="block text-[var(--mute)]">
+            {t("public.cookie_banner.necessary_desc")}
+          </span>
+        </span>
+      </label>
+      <label class="flex items-start gap-3 text-[13px] cursor-pointer">
+        <input
+          type="checkbox"
+          id="cookie-consent-analytics"
+          class="mt-0.5 h-4 w-4 accent-[var(--primary)]"
+        />
+        <span>
+          <span class="block font-semibold text-[var(--ink)]">
+            {t("public.cookie_banner.analytics_label")}
+          </span>
+          <span class="block text-[var(--mute)]">
+            {t("public.cookie_banner.analytics_desc")}
+          </span>
+        </span>
+      </label>
+    </div>
+
+    <div class="mt-4 flex flex-col-reverse sm:flex-row sm:flex-wrap gap-2">
+      <button
+        type="button"
+        id="cookie-manage"
+        class="inline-flex items-center justify-center min-h-[44px] px-4 rounded-lg text-sm font-semibold text-[var(--ink)] hover:bg-[var(--surface-card)] transition-colors"
+      >
+        {t("public.cookie_banner.manage")}
+      </button>
+      <button
+        type="button"
+        id="cookie-reject"
+        class="inline-flex items-center justify-center min-h-[44px] px-4 rounded-lg text-sm font-semibold border border-[var(--hairline)] text-[var(--ink)] hover:bg-[var(--surface-card)] transition-colors"
+      >
+        {t("public.cookie_banner.reject")}
+      </button>
+      <button
+        type="button"
+        id="cookie-accept-all"
+        class="inline-flex items-center justify-center min-h-[44px] px-4 rounded-lg text-sm font-bold bg-[var(--primary)] text-white hover:bg-[var(--primary-pressed)] transition-colors flex-1 sm:flex-none"
+      >
+        {t("public.cookie_banner.accept_all")}
+      </button>
+      <button
+        type="button"
+        id="cookie-save"
+        hidden
+        class="inline-flex items-center justify-center min-h-[44px] px-4 rounded-lg text-sm font-bold bg-[var(--primary)] text-white hover:bg-[var(--primary-pressed)] transition-colors flex-1 sm:flex-none"
+      >
+        {t("public.cookie_banner.save")}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const STORAGE_KEY = "sfe-consent-v1";
+    const banner = document.getElementById("cookie-banner");
+    if (!banner) return;
+    const options = document.getElementById("cookie-banner-options");
+    const analyticsToggle = /** @type {HTMLInputElement | null} */ (
+      document.getElementById("cookie-consent-analytics")
+    );
+    const acceptAll = document.getElementById("cookie-accept-all");
+    const reject = document.getElementById("cookie-reject");
+    const manage = document.getElementById("cookie-manage");
+    const save = document.getElementById("cookie-save");
+
+    function readConsent() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function writeConsent(value) {
+      try {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ ...value, ts: Date.now() }),
+        );
+      } catch (_) {
+        /* localStorage unavailable */
+      }
+      window.spaceForEduConsent = value;
+      window.dispatchEvent(
+        new CustomEvent("sfe:consent", { detail: value }),
+      );
+    }
+
+    function dismiss() {
+      banner.hidden = true;
+    }
+
+    const existing = readConsent();
+    if (existing) {
+      window.spaceForEduConsent = existing;
+    } else {
+      banner.hidden = false;
+    }
+
+    acceptAll?.addEventListener("click", () => {
+      writeConsent({ analytics: true, marketing: false });
+      dismiss();
+    });
+
+    reject?.addEventListener("click", () => {
+      writeConsent({ analytics: false, marketing: false });
+      dismiss();
+    });
+
+    manage?.addEventListener("click", () => {
+      if (!options) return;
+      const isOpen = !options.hidden;
+      options.hidden = isOpen;
+      if (save) save.hidden = isOpen;
+      if (acceptAll) acceptAll.hidden = !isOpen;
+      if (reject) reject.hidden = !isOpen;
+    });
+
+    save?.addEventListener("click", () => {
+      writeConsent({
+        analytics: !!analyticsToggle?.checked,
+        marketing: false,
+      });
+      dismiss();
+    });
+
+    // Public API for re-opening preferences from /cookies page
+    window.spaceForEduOpenConsent = () => {
+      banner.hidden = false;
+    };
+  })();
+</script>
