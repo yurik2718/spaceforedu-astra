@@ -6,6 +6,7 @@ import {
   Monitor,
   MessageCircle,
   BarChart3,
+  Languages,
   type LucideIcon,
 } from "lucide-react";
 import { Reveal } from "@/components/public/animations";
@@ -270,18 +271,34 @@ function PricingPlansSection() {
           })}
         </div>
         <Reveal direction="up" delay={100}>
-          <div className="mt-8 max-w-6xl mx-auto rounded-2xl border border-[var(--hairline-soft)] bg-white px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-3">
-            <div className="flex-1">
-              <p className="text-[14px] font-semibold text-[var(--ink)] m-0">
-                {t(`${PREFIX}.spanish_courses_title`)}
-              </p>
-              <p className="text-[13px] text-[var(--mute)] mt-1 m-0">
-                {t(`${PREFIX}.spanish_courses_desc`)}
-              </p>
+          <div className="mt-8 max-w-6xl mx-auto rounded-2xl border border-[var(--hairline-soft)] bg-white px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-5">
+            <div className="flex items-start gap-4 flex-1">
+              <div className="w-10 h-10 rounded-full bg-[var(--primary)]/10 flex items-center justify-center shrink-0 mt-0.5">
+                <Languages className="h-5 w-5 text-[var(--primary)]" />
+              </div>
+              <div>
+                <p className="text-[15px] font-semibold text-[var(--ink)] m-0">
+                  {t(`${PREFIX}.spanish_courses_title`)}
+                </p>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {(["badge_1", "badge_2", "badge_3"] as const).map((k) => (
+                    <span
+                      key={k}
+                      className="inline-flex items-center gap-1.5 text-[12px] font-medium text-[var(--ink)] bg-[var(--surface-soft)] rounded-full px-3 py-1"
+                    >
+                      <Check className="h-3 w-3 text-[var(--primary)] shrink-0" strokeWidth={2.5} />
+                      {t(`${PREFIX}.spanish_courses_${k}`)}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-[13px] text-[var(--mute)] mt-2.5 m-0">
+                  {t(`${PREFIX}.spanish_courses_desc`)}
+                </p>
+              </div>
             </div>
             <ConsultationDialog>
               <button className="pin-btn pin-btn-secondary h-10 px-5 text-[13px] shrink-0">
-                {t(`${PREFIX}.choose_plan`)}
+                {t(`${PREFIX}.cta_consult`)}
               </button>
             </ConsultationDialog>
           </div>

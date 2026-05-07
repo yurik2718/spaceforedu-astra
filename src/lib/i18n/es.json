@@ -1013,7 +1013,10 @@
       "pin_final_side_5": "Siguientes pasos en 24 h",
       "plan_basico_footnote": "* Las traducciones juradas no están incluidas en el precio.",
       "spanish_courses_title": "Clases de español",
-      "spanish_courses_desc": "Cursos de español y preparación para cualquier programa académico, desde 25 horas. El precio exacto se determina según el nivel del profesor.",
+      "spanish_courses_badge_1": "Profesores certificados",
+      "spanish_courses_badge_2": "A1–C2",
+      "spanish_courses_badge_3": "Online y presencial",
+      "spanish_courses_desc": "Individual o en grupos reducidos. Preparación para DELE y programas académicos en España.",
       "plan_premium_badge": "Garantía de resultado"
     },
     "consultation_success": {

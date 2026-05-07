@@ -1013,7 +1013,10 @@
       "pin_final_side_5": "Next-step plan within 24h",
       "plan_basico_footnote": "* Sworn translations are not included in the price.",
       "spanish_courses_title": "Spanish classes",
-      "spanish_courses_desc": "Spanish language courses and preparation for any academic programme, from 25 hours. Exact pricing depends on the teacher's level.",
+      "spanish_courses_badge_1": "Certified teachers",
+      "spanish_courses_badge_2": "A1–C2",
+      "spanish_courses_badge_3": "Online & in-person",
+      "spanish_courses_desc": "Individual or small-group sessions. DELE exam and academic programme preparation.",
       "plan_premium_badge": "Results guaranteed"
     },
     "consultation_success": {
