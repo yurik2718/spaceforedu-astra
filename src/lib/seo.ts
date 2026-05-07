@@ -88,12 +88,12 @@ const SEO: Record<PageKey, Record<Locale, { title: string; description: string }
     en: {
       title: "Pricing — Space for Edu",
       description:
-        "No surprises: we review your documents before charging. Choose from Homologation, Integral and VIP.",
+        "Transparent pricing: we review your documents before charging. Choose from Homologation, Integral and VIP.",
     },
     ru: {
       title: "Цены — Space for Edu",
       description:
-        "Без сюрпризов: сначала проверяем документы, потом берём оплату. Тарифы Омологация, Интеграл и VIP.",
+        "Прозрачные цены: сначала проверяем документы, потом берём оплату. Тарифы Омологация, Интеграл и VIP.",
     },
   },
   privacy: {

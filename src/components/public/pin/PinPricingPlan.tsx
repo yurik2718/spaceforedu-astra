@@ -10,6 +10,7 @@ export function PinPricingPlan({
   features,
   cta,
   ctaVariant,
+  ctaHref,
   featured = false,
   popLabel,
   footnote,
@@ -21,6 +22,7 @@ export function PinPricingPlan({
   features: string[];
   cta: string;
   ctaVariant: "primary" | "secondary";
+  ctaHref?: string;
   featured?: boolean;
   popLabel?: string;
   footnote?: string;
@@ -32,16 +34,24 @@ export function PinPricingPlan({
   const featTextColor = featured ? "text-white" : "text-[var(--body-color)]";
   const priceUnitColor = featured ? "text-[var(--on-dark-mute)]" : "text-[var(--mute)]";
 
-  const ctaBtn =
-    ctaVariant === "primary" ? (
-      <ConsultationDialog>
-        <button className="pin-btn pin-btn-primary h-11 w-full">{cta}</button>
-      </ConsultationDialog>
-    ) : (
-      <ConsultationDialog>
-        <button className="pin-btn pin-btn-secondary h-11 w-full">{cta}</button>
-      </ConsultationDialog>
-    );
+  const btnClass =
+    ctaVariant === "primary"
+      ? "pin-btn pin-btn-primary h-11 w-full"
+      : "pin-btn pin-btn-secondary h-11 w-full";
+
+  const ctaBtn = ctaHref ? (
+    <a href={ctaHref} target="_blank" rel="noopener noreferrer" className="block">
+      <button className={btnClass}>{cta}</button>
+    </a>
+  ) : ctaVariant === "primary" ? (
+    <ConsultationDialog>
+      <button className={btnClass}>{cta}</button>
+    </ConsultationDialog>
+  ) : (
+    <ConsultationDialog>
+      <button className={btnClass}>{cta}</button>
+    </ConsultationDialog>
+  );
 
   return (
     <Reveal direction="up">

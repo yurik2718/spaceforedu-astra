@@ -1,0 +1,53 @@
+---
+const id = import.meta.env.PUBLIC_GTM_ID ?? '';
+---
+{id && (
+  <script is:inline define:vars={{ id }}>
+    // Consent Mode v2: deny everything by default before GTM loads
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500,
+    });
+
+    // Restore stored consent for returning visitors before GTM fires
+    (function () {
+      try {
+        var c = JSON.parse(localStorage.getItem('sfe-consent-v1') || 'null');
+        if (!c) return;
+        gtag('consent', 'update', {
+          analytics_storage: c.analytics ? 'granted' : 'denied',
+          ad_storage: c.marketing ? 'granted' : 'denied',
+          ad_user_data: c.marketing ? 'granted' : 'denied',
+          ad_personalization: c.marketing ? 'granted' : 'denied',
+        });
+      } catch (_) {}
+    })();
+
+    // Listen for live consent changes from the cookie banner
+    window.addEventListener('sfe:consent', function (e) {
+      var c = e.detail;
+      gtag('consent', 'update', {
+        analytics_storage: c.analytics ? 'granted' : 'denied',
+        ad_storage: c.marketing ? 'granted' : 'denied',
+        ad_user_data: c.marketing ? 'granted' : 'denied',
+        ad_personalization: c.marketing ? 'granted' : 'denied',
+      });
+    });
+
+    // Load GTM asynchronously
+    (function (w, d, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName('script')[0],
+        j = d.createElement('script');
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'dataLayer', id);
+  </script>
+)}

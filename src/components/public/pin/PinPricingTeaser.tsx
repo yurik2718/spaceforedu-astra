@@ -2,6 +2,8 @@ import { Container } from "@/components/public/shared";
 import { PinSectionHead } from "@/components/public/pin/PinSectionHead";
 import { PinPricingPlan } from "@/components/public/pin/PinPricingPlan";
 import { useTranslation } from "@/lib/i18n/react";
+import { CONTACT_WHATSAPP } from "@/lib/constants";
+import { whatsappLink } from "@/lib/routes";
 
 export function PinPricingTeaser({
   prefix,
@@ -13,6 +15,10 @@ export function PinPricingTeaser({
   const { t } = useTranslation();
   const sectionBg =
     background === "white" ? "bg-white" : "bg-[var(--surface-soft)]";
+  const reviewWaMsg = t(`${prefix}.pin_plan_review_wa_message`);
+  const reviewHref = CONTACT_WHATSAPP
+    ? whatsappLink(CONTACT_WHATSAPP, reviewWaMsg)
+    : undefined;
 
   return (
     <section className={`py-16 sm:py-20 ${sectionBg}`}>
@@ -33,6 +39,7 @@ export function PinPricingTeaser({
             )}
             cta={t(`${prefix}.pin_plan_review_cta`)}
             ctaVariant="secondary"
+            ctaHref={reviewHref}
           />
           <PinPricingPlan
             title={t(`${prefix}.pin_plan_full_title`)}

@@ -5,6 +5,8 @@ import Footer from "@/components/layout/Footer.astro";
 import JsonLd from "@/components/common/JsonLd.astro";
 import { StickyCtaBar } from "@/components/public/StickyCtaBar.tsx";
 import CookieBanner from "@/components/common/CookieBanner.astro";
+import GtmHead from "@/components/common/GtmHead.astro";
+import GtmBody from "@/components/common/GtmBody.astro";
 import { SITE_URL, LOCALES, DEFAULT_LOCALE, type Locale } from "@/lib/constants";
 import { publicRoute } from "@/lib/routes";
 import { getMessages, makeT } from "@/lib/i18n";
@@ -177,8 +179,10 @@ const ogLocaleAlternates = LOCALES
 
     {!noindex && <JsonLd data={organization()} />}
     <slot name="structured-data" />
+    <GtmHead />
   </head>
   <body class="min-h-screen bg-background text-foreground antialiased">
+    <GtmBody />
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-md focus:bg-foreground focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-background"
