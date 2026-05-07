@@ -6,7 +6,6 @@ import {
   Clock,
   Shield,
   ShieldCheck,
-  CreditCard,
 } from "lucide-react";
 import { Container } from "@/components/public/shared";
 import { CrossSellCard } from "@/components/public/CrossSellCard";
@@ -50,7 +49,6 @@ const WHAT_ITEMS = [
 const RISK_ITEMS = [
   { icon: Shield, n: 1 },
   { icon: ShieldCheck, n: 2 },
-  { icon: CreditCard, n: 3 },
 ] as const;
 
 interface HeroImageProps {

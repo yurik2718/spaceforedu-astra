@@ -1,7 +1,6 @@
 import {
   ShieldCheck,
   Shield,
-  CreditCard,
   Check,
   Minus,
   Monitor,
@@ -80,7 +79,6 @@ const HERO_STRIP_IMAGES = [
 const RISK_ITEMS = [
   { icon: Shield, n: 1 },
   { icon: ShieldCheck, n: 2 },
-  { icon: CreditCard, n: 3 },
 ] as const;
 
 export function PreciosPage({
@@ -479,7 +477,7 @@ function FaqBlock() {
           sub={t(`${PREFIX}.pin_faq_sub`)}
           align="center"
         />
-        <FaqSection translationPrefix={PREFIX} count={7} />
+        <FaqSection translationPrefix={PREFIX} count={6} />
       </Container>
     </section>
   );

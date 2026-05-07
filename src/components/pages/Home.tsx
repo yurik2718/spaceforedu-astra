@@ -33,7 +33,6 @@ const HOME_PREFIX = "public.home";
 const RISK_ITEMS = [
   { icon: Shield, n: 1 },
   { icon: ShieldCheck, n: 2 },
-  { icon: CreditCard, n: 3 },
 ] as const;
 
 const REACH_COUNTRIES = [
