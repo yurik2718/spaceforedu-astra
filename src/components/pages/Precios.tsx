@@ -37,8 +37,8 @@ interface Plan {
 
 const PLANS: readonly Plan[] = [
   { key: "basico",   features: 4, highlighted: false },
-  { key: "completo", features: 7, highlighted: true,  badgeKey: "popular" },
-  { key: "premium",  features: 7, highlighted: false, badgeKey: "plan_premium_badge" },
+  { key: "completo", features: 8, highlighted: true,  badgeKey: "popular" },
+  { key: "premium",  features: 8, highlighted: false, badgeKey: "plan_premium_badge" },
 ];
 
 const INCLUDED_ICONS: readonly LucideIcon[] = [
@@ -56,10 +56,11 @@ const COMPARISON_MATRIX: readonly (readonly [boolean, boolean, boolean])[] = [
   [false, true,  true ],  // 5. personal coordinator
   [false, true,  true ],  // 6. university selection
   [false, true,  true ],  // 7. priority support
-  [false, false, true ],  // 8. public & private admission (VIP)
+  [false, true,  true ],  // 8. public & private admission
   [false, false, true ],  // 9. bureaucratic acceleration (VIP)
   [false, false, true ],  // 10. 24/7 WhatsApp
   [false, false, true ],  // 11. visa guidance
+  [false, false, true ],  // 12. strategy session
 ] as const;
 
 const HERO_STRIP_IMAGES = [
@@ -277,7 +278,7 @@ function PricingPlansSection() {
                 <Languages className="h-5 w-5 text-[var(--primary)]" />
               </div>
               <div>
-                <p className="text-[15px] font-semibold text-[var(--ink)] m-0">
+                <p className="text-[18px] font-semibold text-[var(--ink)] m-0">
                   {t(`${PREFIX}.spanish_courses_title`)}
                 </p>
                 <div className="flex flex-wrap gap-2 mt-2">

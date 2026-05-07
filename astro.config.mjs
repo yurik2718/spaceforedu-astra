@@ -50,5 +50,13 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      // @resvg/resvg-js and satori are Node.js-only (used in OG image endpoints).
+      // Excluding them from Vite's SSR bundle prevents ".node binary" errors in dev.
+      external: ["@resvg/resvg-js", "@resvg/resvg-js-linux-x64-gnu", "@resvg/resvg-js-linux-x64-musl"],
+    },
+    optimizeDeps: {
+      exclude: ["@resvg/resvg-js"],
+    },
   },
 });

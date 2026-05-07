@@ -83,7 +83,7 @@ function PageBody({
   heroMain?: HeroImageProps;
 }) {
   const { t } = useTranslation();
-  const preciosHref = publicRoute(publicPages.precios, locale);
+  const preciosHref = publicRoute(publicPages.precios, locale) + "#plans";
 
   return (
     <>

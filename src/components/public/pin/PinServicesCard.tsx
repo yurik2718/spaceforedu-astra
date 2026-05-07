@@ -39,7 +39,7 @@ export function PinServicesCard({
         {t(descKey)}
       </p>
       <div className="flex items-center justify-between text-[13px] font-bold text-[var(--ink)]">
-        <span className="text-[var(--mute)] font-medium">{t(metaKey)}</span>
+        {t(metaKey) && <span className="text-[var(--mute)] font-medium">{t(metaKey)}</span>}
         {href && (
           <span className="inline-flex items-center gap-1.5 text-[var(--ink-soft)]">
             {arrow}

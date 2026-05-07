@@ -1,6 +1,7 @@
 import { Reveal } from "@/components/public/animations";
 import { Container } from "@/components/public/shared";
 import { useTranslation } from "@/lib/i18n/react";
+import { WorldMapArcs } from "@/components/public/WorldMapArcs";
 
 export function PinReachSection({
   prefix,
@@ -52,7 +53,7 @@ export function PinReachSection({
           </Reveal>
           <Reveal direction="up" delay={100}>
             <div className="bg-white rounded-[32px] overflow-hidden border border-[var(--hairline-soft)] p-8">
-              <img src={illustrationSrc} alt={illustrationAlt} className="w-full block" />
+              <WorldMapArcs src={illustrationSrc} />
             </div>
           </Reveal>
         </div>

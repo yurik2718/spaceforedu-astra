@@ -1,5 +1,6 @@
 ---
 import "@/styles/global.css";
+import ClientRouter from "astro/components/ClientRouter.astro";
 import Navbar from "@/components/layout/Navbar.astro";
 import Footer from "@/components/layout/Footer.astro";
 import JsonLd from "@/components/common/JsonLd.astro";
@@ -45,7 +46,7 @@ const {
   description = "",
   locale,
   page,
-  ogImage = "/og.jpg",
+  ogImage: ogImageProp,
   hideStickyCta = false,
   heroImage,
   heroImageType = "image/webp",
@@ -67,9 +68,20 @@ const alternates = LOCALES.map((l) => ({
 }));
 const defaultAlt = alternates.find((a) => a.locale === DEFAULT_LOCALE);
 const xDefault = defaultAlt?.url ?? alternates[0].url;
-const absoluteOgImage = ogImage.startsWith("http")
-  ? ogImage
-  : SITE_URL + ogImage;
+// Per-page generated OG images for main content pages.
+// Maps the `page` prop value (publicPages slug) to the SEO key used in the endpoint.
+const PAGE_OG_KEY: Record<string, string> = {
+  "": "home",
+  homologation: "homologacion",
+  university: "universidad",
+  spanish: "espanol",
+  pricing: "precios",
+};
+const ogImage =
+  ogImageProp ??
+  (PAGE_OG_KEY[page] != null ? `/og/${locale}/${PAGE_OG_KEY[page]}.png` : "/og.jpg");
+const absoluteOgImage = ogImage.startsWith("http") ? ogImage : SITE_URL + ogImage;
+const isGeneratedOg = !ogImageProp && PAGE_OG_KEY[page] != null;
 
 // Canonical OG locale codes (Facebook spec requires xx_XX form).
 const OG_LOCALE: Record<string, string> = {
@@ -90,6 +102,7 @@ const ogLocaleAlternates = LOCALES
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <ClientRouter />
 
     {noindex && <meta name="robots" content="noindex,nofollow" />}
     <meta name="author" content="Space for Edu" />
@@ -100,6 +113,9 @@ const ogLocaleAlternates = LOCALES
     <meta property="og:type" content="website" />
     {!noindex && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:image" content={absoluteOgImage} />
+    {isGeneratedOg && <meta property="og:image:width" content="1200" />}
+    {isGeneratedOg && <meta property="og:image:height" content="630" />}
+    {isGeneratedOg && <meta property="og:image:type" content="image/png" />}
     <meta property="og:site_name" content="Space for Edu" />
     <meta property="og:locale" content={ogLocale} />
     {ogLocaleAlternates.map((l) => (
@@ -200,5 +216,30 @@ const ogLocaleAlternates = LOCALES
       <StickyCtaBar client:load locale={locale as Locale} messages={stickyMessages} />
     )}
     <CookieBanner locale={locale} />
+
+    <script>
+      import Lenis from "lenis";
+
+      let lenis: Lenis | null = null;
+
+      function initLenis() {
+        lenis?.destroy();
+
+        // Only enable on non-touch devices — mobile already has native momentum scroll.
+        if (window.matchMedia("(hover: none)").matches) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        lenis = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 4) });
+
+        function raf(time: number) {
+          lenis!.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      }
+
+      // astro:page-load fires on first load and after every View Transition.
+      document.addEventListener("astro:page-load", initLenis);
+    </script>
   </body>
 </html>

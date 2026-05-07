@@ -15,7 +15,8 @@
       "Bash(curl -s http://localhost:4321/ru/homologation/)",
       "Bash(curl -s http://localhost:4321/ru/pricing/)",
       "Bash(node *)",
-      "Bash(python3 *)"
+      "Bash(python3 *)",
+      "Bash(npx astro *)"
     ]
   }
 }

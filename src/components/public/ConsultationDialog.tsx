@@ -21,7 +21,6 @@ const CONSULTATION_ITEMS = [
   "consultation_dialog_item_4",
 ] as const;
 
-const SPOTS_THIS_WEEK = 3;
 const SUCCESS_AUTO_CLOSE_MS = 2500;
 
 /**
@@ -95,7 +94,7 @@ export function ConsultationDialog({ children }: { children: React.ReactNode }) 
             <div className="flex items-center gap-2 rounded-lg bg-[var(--warn-pale)] border border-[var(--warn-hairline)] px-3 py-2">
               <Flame className="h-4 w-4 text-[var(--warn-amber)] shrink-0" />
               <span className="text-sm font-medium text-[var(--warn-amber)]">
-                {t(`${prefix}.consultation_dialog_spots`, { count: SPOTS_THIS_WEEK })}
+                {t(`${prefix}.consultation_dialog_spots`)}
               </span>
             </div>
 
