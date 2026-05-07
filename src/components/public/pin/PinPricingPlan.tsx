@@ -12,6 +12,7 @@ export function PinPricingPlan({
   ctaVariant,
   featured = false,
   popLabel,
+  footnote,
 }: {
   title: string;
   desc: string;
@@ -22,6 +23,7 @@ export function PinPricingPlan({
   ctaVariant: "primary" | "secondary";
   featured?: boolean;
   popLabel?: string;
+  footnote?: string;
 }) {
   const cardBg = featured ? "bg-[var(--ink)]" : "bg-white";
   const titleColor = featured ? "text-white" : "text-[var(--ink)]";

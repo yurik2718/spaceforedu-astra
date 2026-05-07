@@ -233,3 +233,18 @@ These numbers tell you what is working and where to double down.
 | Search Console setup | — | ✅ Developer |
 | Blog articles (publishing) | — | ✅ Developer |
 | Structured data updates | — | ✅ Developer |
+
+
+
+
+# Что нужно заполнить перед запуском
+
+## Блокирует запуск
+- **WhatsApp** — реальный номер в `.env` → `PUBLIC_CONTACT_WHATSAPP=34XXXXXXXXX`
+- **Aviso Legal** — CIF/NIF, юридическое название, адрес, email компании
+
+## Добавить позже
+- **Отзывы** — 3 штуки на каждую страницу: имя, страна, текст 2–4 предложения (клиенты из разных стран)
+- **Логотип** — SVG с прозрачным фоном (разработчик сгенерирует все размеры)
+- **OG-картинки** — 1200×630px для каждой страницы (Canva/Figma, логотип + слоган)
+- **Список стран** — актуальный перечень стран клиентов для главной страницы

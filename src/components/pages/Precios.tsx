@@ -17,7 +17,6 @@ import { FaqSection } from "@/components/public/FaqSection";
 import { PinSectionHead } from "@/components/public/pin/PinSectionHead";
 import { PinPricingPlan } from "@/components/public/pin/PinPricingPlan";
 import { PinRiskReversal } from "@/components/public/pin/PinRiskReversal";
-import { PinTestimonials } from "@/components/public/pin/PinTestimonials";
 import { PinFinalCta } from "@/components/public/pin/PinFinalCta";
 import { I18nProvider, useTranslation } from "@/lib/i18n/react";
 import type { Messages } from "@/lib/i18n";
@@ -98,7 +97,6 @@ export function PreciosPage({
       <UniversityLogoBar titleKey="public.precios.trust_bar_title" noBorderTop />
       <HowItWorksSection />
       <PricingPlansSection />
-      <PinTestimonials prefix={PREFIX} count={3} />
       {FEATURE_DASHBOARD && <IncludedFeaturesSection />}
       <ComparisonTableSection />
       <PinRiskReversal prefix={PREFIX} items={RISK_ITEMS} background="white" />

@@ -19,7 +19,6 @@ import { PinServicesCard } from "@/components/public/pin/PinServicesCard";
 import { PinComparison } from "@/components/public/pin/PinComparison";
 import { PinPricingTeaser } from "@/components/public/pin/PinPricingTeaser";
 import { PinRiskReversal } from "@/components/public/pin/PinRiskReversal";
-import { PinTestimonials } from "@/components/public/pin/PinTestimonials";
 import { PinFinalCta } from "@/components/public/pin/PinFinalCta";
 import { publicRoute, publicPages } from "@/lib/routes";
 import { I18nProvider, useTranslation } from "@/lib/i18n/react";
@@ -151,7 +150,6 @@ function PageBody({
 
       <PinPricingTeaser prefix={PREFIX} background="white" />
 
-      <PinTestimonials prefix={PREFIX} count={3} />
 
       <PinRiskReversal prefix={PREFIX} items={RISK_ITEMS} background="white" />
 

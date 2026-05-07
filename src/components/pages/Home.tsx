@@ -21,7 +21,6 @@ import { PinComparison } from "@/components/public/pin/PinComparison";
 import { PinPricingTeaser } from "@/components/public/pin/PinPricingTeaser";
 import { PinRiskReversal } from "@/components/public/pin/PinRiskReversal";
 import { PinReachSection } from "@/components/public/pin/PinReachSection";
-import { PinTestimonials } from "@/components/public/pin/PinTestimonials";
 import { PinFinalCta } from "@/components/public/pin/PinFinalCta";
 import { publicRoute, publicPages } from "@/lib/routes";
 import { FEATURE_DASHBOARD } from "@/lib/constants";
@@ -147,7 +146,6 @@ function PageBody({
       <PinRiskReversal prefix={HOME_PREFIX} items={RISK_ITEMS} />
       {FEATURE_DASHBOARD && <DashboardPreviewSection />}
       <PinReachSection prefix={HOME_PREFIX} countries={REACH_COUNTRIES} />
-      <PinTestimonials prefix={HOME_PREFIX} count={3} />
       <PinFinalCta prefix={HOME_PREFIX} sideItemCount={5} />
     </>
   );

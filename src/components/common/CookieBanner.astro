@@ -19,7 +19,7 @@ const cookiesHref = publicRoute(publicPages.cookies, locale);
   aria-labelledby="cookie-banner-title"
   aria-describedby="cookie-banner-body"
   hidden
-  class="fixed inset-x-0 bottom-0 z-[70] sm:bottom-4 sm:inset-x-auto sm:right-4 sm:left-4 sm:max-w-md sm:mx-auto sm:left-auto bg-white border border-[var(--hairline)] sm:rounded-2xl shadow-2xl"
+  class="fixed inset-x-0 z-[70] sm:inset-x-auto sm:right-4 sm:left-auto sm:max-w-md bg-white border border-[var(--hairline)] sm:rounded-2xl shadow-2xl"
 >
   <div class="p-5 sm:p-6">
     <h2
@@ -83,6 +83,8 @@ const cookiesHref = publicRoute(publicPages.cookies, locale);
       <button
         type="button"
         id="cookie-manage"
+        data-label-closed={t("public.cookie_banner.manage")}
+        data-label-open={t("public.cookie_banner.close_aria")}
         class="inline-flex items-center justify-center min-h-[44px] px-4 rounded-lg text-sm font-semibold text-[var(--ink)] hover:bg-[var(--surface-card)] transition-colors"
       >
         {t("public.cookie_banner.manage")}
@@ -112,6 +114,19 @@ const cookiesHref = publicRoute(publicPages.cookies, locale);
     </div>
   </div>
 </div>
+
+<style>
+  /* Mobile: float above the StickyCtaBar (72 px bar + device safe-area).
+     sm+: position as a floating card at bottom-right. */
+  #cookie-banner {
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  }
+  @media (min-width: 640px) {
+    #cookie-banner {
+      bottom: 1rem;
+    }
+  }
+</style>
 
 <script is:inline>
   (function () {
@@ -180,6 +195,11 @@ const cookiesHref = publicRoute(publicPages.cookies, locale);
       if (save) save.hidden = isOpen;
       if (acceptAll) acceptAll.hidden = !isOpen;
       if (reject) reject.hidden = !isOpen;
+      if (manage) {
+        const labelKey = isOpen ? "labelClosed" : "labelOpen";
+        const next = manage.dataset[labelKey] ?? manage.textContent;
+        manage.textContent = next;
+      }
     });
 
     save?.addEventListener("click", () => {
